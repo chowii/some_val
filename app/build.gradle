@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.sentia.android.base.androidbase"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //Test
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.assertj:assertj-core:$assertJcore_version"
+    testCompile "org.robolectric:robolectric:$robolectric_version"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlin_version"
+    androidTestImplementation "com.android.support.test:runner:$testRunner_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoCore_version"
+
+    //Support
+    implementation "com.android.support:appcompat-v7:$supportLib_version"
+    implementation "com.android.support:recyclerview-v7:$supportLib_version"
+    implementation "com.android.support:cardview-v7:$supportLib_version"
+    implementation "com.android.support:design:$supportLib_version"
+    implementation "com.android.support:appcompat-v7:$supportLib_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
+
+    //Dependency injection framework
+    implementation "com.github.salomonbrys.kodein:kodein:$kodein_version"
+    implementation "com.github.salomonbrys.kodein:kodein-conf:$kodein_version"
+
+    //Type-safe HTTP client
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
+    //optional
+    //implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rx2bindings_version"
+    //implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rx2bindings_version"
+
+    //Anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+}
