@@ -8,4 +8,5 @@ import com.github.salomonbrys.kodein.LazyKodein
  */
 abstract class BaseActivity : AppCompatActivity(){
     val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
+
 }
