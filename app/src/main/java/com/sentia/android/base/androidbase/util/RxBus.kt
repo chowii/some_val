@@ -1,4 +1,4 @@
-package com.sentia.android.base.androidbase.api
+package com.sentia.android.base.androidbase.util
 
 /**
  * Created by mariolopez on 27/12/17.

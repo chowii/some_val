@@ -9,7 +9,7 @@ import com.github.salomonbrys.kodein.KodeinAware
 import com.github.salomonbrys.kodein.conf.ConfigurableKodein
 import com.sentia.android.base.androidbase.di.MainComponent.BaseAppComponent
 
-open class App : Application(),KodeinAware{
+open class App : Application(), KodeinAware {
     override val kodein = ConfigurableKodein()
 
     override fun onCreate() {

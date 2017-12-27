@@ -1,12 +1,11 @@
 package com.sentia.android.base.androidbase
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.androidbase.api.RestAdapter
-import com.sentia.android.base.androidbase.api.RxBus
-import com.sentia.android.base.androidbase.api.model.SampleBindingModel
-import com.sentia.android.base.androidbase.databinding.ActivityMainBinding
+import com.sentia.android.base.androidbase.base.BaseActivity
+import com.sentia.android.base.androidbase.feature1.Feature1Fragment
+import com.sentia.android.base.androidbase.util.RxBus
 
 class MainActivity : BaseActivity() {
 
@@ -15,12 +14,13 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+//        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        //example for Di we retrieve the instance just the first time we use it
-        rxBus.post("")
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, Feature1Fragment())
+                .commit()
 
-        val sample = SampleBindingModel("Mario", 31)
-        binding.setVariable(BR.sampleModel, sample)
     }
 }

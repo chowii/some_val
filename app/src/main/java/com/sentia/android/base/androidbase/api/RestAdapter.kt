@@ -41,4 +41,9 @@ class RestAdapter {
                 .create()
         return GsonConverterFactory.create(gson)
     }
+
+    fun getSampleList() {
+
+        projectApi.getSample(mapOf());
+    }
 }
