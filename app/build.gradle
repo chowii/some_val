@@ -44,10 +44,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLib_version"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
-    //dataBinding
-    // notice that the compiler version must be the same than our gradle version
-    kapt 'com.android.databinding:compiler:3.0.1'
-    kapt 'com.android.databinding:compiler:3.0.1'
+    //DataBinding
+    kapt "com.android.databinding:compiler:$androidBuildTool_version" // notice that the compiler version must be the same than our gradle version
 
     //Dependency injection framework
     implementation "com.github.salomonbrys.kodein:kodein:$kodein_version"
