@@ -4,8 +4,9 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.androidbase.api.RestAdapter
-import com.sentia.android.base.androidbase.api.RxBus
+import com.sentia.android.base.androidbase.util.RxBus
 import com.sentia.android.base.androidbase.api.model.SampleBindingModel
+import com.sentia.android.base.androidbase.base.BaseActivity
 import com.sentia.android.base.androidbase.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
