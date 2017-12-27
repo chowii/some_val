@@ -44,6 +44,11 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLib_version"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
+    //Arch components
+    implementation "android.arch.lifecycle:runtime:$archLifecycle_version"
+    implementation "android.arch.lifecycle:extensions:$archLifecycle_extension_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycle_extension_version"
+
     //DataBinding
     kapt "com.android.databinding:compiler:$androidBuildTool_version" // notice that the compiler version must be the same than our gradle version
 
