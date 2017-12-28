@@ -5,11 +5,9 @@ package com.sentia.android.base.androidbase.feature1
  */
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.util.Log
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.androidbase.base.BaseViewModel
 import com.sentia.android.base.androidbase.data.SampleRepository
-import com.sentia.android.base.androidbase.data.repository.Repository
 import com.sentia.android.base.androidbase.data.room.entity.SampleModel
 import com.sentia.android.base.androidbase.util.Resource
 import io.reactivex.Completable
@@ -43,10 +41,9 @@ class Feature1ViewModel : BaseViewModel(), AnkoLogger {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (isRoomEmpty(it)) {
-                        populate()
-                    } else {
-                        Log.i(Repository::class.java.simpleName, "DataSource has been already Populated")
-                    }
+                        populate() //mocked version for data we could switch map and fetch for remote repository
+                    } else info("DataSource has been already Populated")
+
                 }
     }
 

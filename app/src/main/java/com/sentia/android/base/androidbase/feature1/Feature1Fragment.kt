@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.sentia.android.base.androidbase.R
 import com.sentia.android.base.androidbase.base.BaseFragment
+import com.sentia.android.base.androidbase.util.Resource.Status
 
 /**
  * Created by mariolopez on 27/12/17.
@@ -32,6 +33,11 @@ class Feature1Fragment : BaseFragment() {
         //todo init recycler view
         feature1ViewModel?.loadSampleList()?.observe(this, Observer {
             val size = it?.data?.size
+            when (it?.status){
+                Status.SUCCESS -> TODO()
+                Status.ERROR -> TODO()
+                Status.LOADING -> TODO()
+            }
             //todo-init recycler view
         })
     }
