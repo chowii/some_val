@@ -45,6 +45,7 @@ allprojects {
         //Arch components
         archLifecycle_version = "1.0.3"
         archLifecycle_extension_version = "1.0.0"
+        archPaging_version = "1.0.0-alpha4-1"
         //Kodein
         kodein_version = "4.1.0"
 

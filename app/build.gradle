@@ -50,6 +50,9 @@ dependencies {
     implementation "android.arch.lifecycle:reactivestreams:$archLifecycle_extension_version"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycle_extension_version"
 
+    // Paging
+    implementation "android.arch.paging:runtime:$archPaging_version"
+
     //DataBinding
     kapt "com.android.databinding:compiler:$androidBuildTool_version"
     // notice that the compiler version must be the same than our gradle version
