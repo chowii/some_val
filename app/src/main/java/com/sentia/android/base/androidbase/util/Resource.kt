@@ -25,3 +25,14 @@ class Resource<T> private constructor(val status: Resource.Status, val data: T?,
         }
     }
 }
+//Alternative implementation
+sealed class  ResourceResult<out T>(val status: Resource.Status, val data: T? = null, val exception: AppException? = null)
+
+data class Success<T>(val dataSuccess: T? = null, val exceptionSucc: AppException? = null)
+    : ResourceResult<T>(SUCCESS, dataSuccess,exceptionSucc)
+
+data class Error<T>( val exceptionError: AppException? = null)
+    : ResourceResult<T>(SUCCESS, null,exceptionError)
+
+data class Loading<T>(val statusLoading:Resource.Status= LOADING)
+    : ResourceResult<T>(LOADING, null,null)
