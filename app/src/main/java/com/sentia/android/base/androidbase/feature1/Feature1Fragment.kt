@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.sentia.android.base.androidbase.R
 import com.sentia.android.base.androidbase.base.BaseFragment
-import com.sentia.android.base.androidbase.util.Resource.Status
+import com.sentia.android.base.androidbase.util.Resource.Resource.*
 
 /**
  * Created by mariolopez on 27/12/17.

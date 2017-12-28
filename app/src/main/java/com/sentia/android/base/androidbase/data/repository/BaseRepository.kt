@@ -26,3 +26,5 @@ interface Repository {
 
     fun getTotalSamples(): Flowable<Int>
 }
+
+data class SampleModel(val s1: String = "")
