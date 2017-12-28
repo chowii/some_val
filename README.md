@@ -26,6 +26,7 @@ The project highly relies on:
 -[Rx Android](https://github.com/ReactiveX/RxAndroid) 
 -[Rx Java](https://github.com/ReactiveX/RxJava)
 -[Rx Kotlin](https://github.com/ReactiveX/RxKotlin)
+-[LiveData stream conversion](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
 -Rx Bindings: optional see commented code in build.gradle
 
 ### Favourite inhouse Libraries for common problems

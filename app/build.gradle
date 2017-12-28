@@ -47,6 +47,7 @@ dependencies {
     //Arch components
     implementation "android.arch.lifecycle:runtime:$archLifecycle_version"
     implementation "android.arch.lifecycle:extensions:$archLifecycle_extension_version"
+    implementation "android.arch.lifecycle:reactivestreams:$archLifecycle_extension_version"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycle_extension_version"
 
     //DataBinding
