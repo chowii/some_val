@@ -6,7 +6,7 @@ import com.sentia.android.base.androidbase.util.exception.AppException
 /**
  * Created by mariolopez on 27/12/17.
  */
-class Resource<T> private constructor(val status: Resource.Status, val data: T?, val exception: AppException?) {
+class Resource<T> internal constructor(val status: Resource.Status, val data: T? = null, val exception: AppException? = null) {
     enum class Status {
         SUCCESS, ERROR, LOADING
     }

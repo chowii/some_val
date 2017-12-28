@@ -6,6 +6,8 @@ package com.sentia.android.base.androidbase.api
 
 import com.google.gson.*
 import com.sentia.android.base.androidbase.api.model.DataResult
+import com.sentia.android.base.androidbase.data.room.entity.SampleModel
+import io.reactivex.Observable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,8 +44,5 @@ class RestAdapter {
         return GsonConverterFactory.create(gson)
     }
 
-    fun getSampleList() {
-
-        projectApi.getSample(mapOf());
-    }
+    fun getSampleList(): Observable<SampleModel> = projectApi.getSample(mapOf())
 }

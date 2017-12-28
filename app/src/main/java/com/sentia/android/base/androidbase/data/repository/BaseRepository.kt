@@ -3,7 +3,8 @@ package com.sentia.android.base.androidbase.data.repository
 import android.arch.lifecycle.LiveData
 import com.github.salomonbrys.kodein.LazyKodein
 import com.sentia.android.base.androidbase.App
-import com.sentia.android.base.androidbase.api.model.SampleModel
+import com.sentia.android.base.androidbase.data.room.entity.SampleModel
+import com.sentia.android.base.androidbase.util.Resource
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 
@@ -19,7 +20,9 @@ interface Repository {
 
     fun getSpecialSamples(): Flowable<Int>
 
-    fun addSample()
+    fun addSamples()
 
-    fun getSampleList(): LiveData<List<SampleModel>>
+    fun getSampleList(): LiveData<Resource<List<SampleModel>>>
+
+    fun getTotalSamples(): Flowable<Int>
 }

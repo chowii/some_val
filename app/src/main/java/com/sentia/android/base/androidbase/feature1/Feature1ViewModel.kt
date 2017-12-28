@@ -6,85 +6,70 @@ package com.sentia.android.base.androidbase.feature1
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
-import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
-import com.sentia.android.base.androidbase.App
-import com.sentia.android.base.androidbase.api.model.SampleModel
 import com.sentia.android.base.androidbase.base.BaseViewModel
 import com.sentia.android.base.androidbase.data.SampleRepository
+import com.sentia.android.base.androidbase.data.repository.Repository
+import com.sentia.android.base.androidbase.data.room.entity.SampleModel
+import com.sentia.android.base.androidbase.util.Resource
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.error
+import org.jetbrains.anko.info
 
-class Feature1ViewModel : BaseViewModel() {
+class Feature1ViewModel : BaseViewModel(), AnkoLogger {
 
     override val repository by kodein.instance<SampleRepository>()
-
-    private var liveSampleData: LiveData<List<SampleModel>>? = null
-
+    private var liveSampleData: LiveData<Resource<List<SampleModel>>>? = null
 
 
-    fun loadSampleList(): LiveData<List<SampleModel>>? {
+    fun loadSampleList(): LiveData<Resource<List<SampleModel>>>? {
         if (liveSampleData == null) {
-            liveSampleData = MutableLiveData<List<SampleModel>>()
+            liveSampleData = MutableLiveData<Resource<List<SampleModel>>>()
             liveSampleData = repository.getSampleList()
         }
         return liveSampleData
     }
 
-    fun initLocalCurrencies() {
-        val disposable = currencyRepository.getTotalCurrencies()
+    fun initLocalSamples() {
+        compositeDisposable += repository.getTotalSamples()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (isRoomEmpty(it)) {
                         populate()
                     } else {
-                        Log.i(CurrencyRepository::class.java.simpleName, "DataSource has been already Populated")
+                        Log.i(Repository::class.java.simpleName, "DataSource has been already Populated")
                     }
                 }
-        compositeDisposable.add(disposable)
     }
 
-    private fun isRoomEmpty(currenciesTotal: Int) = currenciesTotal == 0
+    private fun isRoomEmpty(storedSamplesTotal: Int) = storedSamplesTotal == 0
 
     private fun populate() {
-        Completable.fromAction { currencyRepository.addCurrencies() }
+        Completable.fromAction { repository.addSamples() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : CompletableObserver {
                     override fun onSubscribe(@NonNull d: Disposable) {
-                        compositeDisposable.add(d)
+                        compositeDisposable += d
                     }
 
                     override fun onComplete() {
-                        Log.i(CurrencyRepository::class.java.simpleName, "DataSource has been Populated")
-
+                        info("DataSource has been Populated")
                     }
 
                     override fun onError(@NonNull e: Throwable) {
-                        e.printStackTrace()
-                        Log.e(CurrencyRepository::class.java.simpleName, "DataSource hasn't been Populated")
+                        error("DataSource hasn't been Populated")
                     }
                 })
     }
-
-    override fun onCleared() {
-        unSubscribeViewModel()
-        super.onCleared()
-    }
-
-//    fun getAvailableExchange(currencies: String): LiveData<AvailableExchange>? {
-//        liveAvailableExchange = null
-//        liveAvailableExchange = MutableLiveData<AvailableExchange>()
-//        liveAvailableExchange = currencyRepository.getAvailableExchange(currencies)
-//        return liveAvailableExchange
-//    }
-
-
 }
 
 

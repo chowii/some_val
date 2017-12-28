@@ -15,13 +15,17 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     protected val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
-    private val compositeDisposable = CompositeDisposable()
+    protected val compositeDisposable = CompositeDisposable()
     abstract val repository: BaseRepository
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private fun unSubscribeViewModel() {
         repository.compositeDisposable.clear()
         compositeDisposable.clear()
+    }
+    override fun onCleared() {
+        unSubscribeViewModel()
+        super.onCleared()
     }
 
 }
