@@ -24,6 +24,7 @@ android {
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -56,9 +57,14 @@ dependencies {
     //Arch components
     implementation "android.arch.lifecycle:runtime:$archLifecycle_version"
     implementation "android.arch.lifecycle:extensions:$archLifecycle_extension_version"
-    implementation "android.arch.lifecycle:reactivestreams:$archLifecycle_extension_version" // ReactiveStreams support for LiveData
-    implementation "android.arch.lifecycle:common-java8:$archLifecycle_java8support_version"    // Java8 support for Lifecycle
-//    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycle_extension_version"
+    implementation "android.arch.lifecycle:reactivestreams:$archLifecycle_extension_version"
+
+    // ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:common-java8:$archLifecycle_java8support_version"
+
+    // Java8 support for Lifecycle
+
+    //    annotationProcessor "android.arch.lifecycle:compiler:$archLifecycle_extension_version"
 
     // Paging
     implementation "android.arch.paging:runtime:$archPaging_version"
@@ -80,7 +86,9 @@ dependencies {
     //Persistence
     kapt "android.arch.persistence.room:compiler:$room_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
-    implementation "android.arch.persistence.room:rxjava2:$room_version" // RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:$room_version"
+
+    // RxJava support for Room
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
@@ -88,7 +96,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
 
     //optional
+
     //implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rx2bindings_version"
+
     //implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rx2bindings_version"
 
     //Anko
