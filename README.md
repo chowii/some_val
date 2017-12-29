@@ -9,6 +9,7 @@ The project highly relies on:
    Of which I recommend the reading, furthemore this project has a brance\h `sample` to show the basic functionality of the architecture.
   In simple words, the guideline is: every UI event should reside in the UI controller (Fragment, Activity)
   The view Model is lifecycle aware and is cached until UI destruction
+  For common problems solution (as in Paging and lifecycle aware) rely on the android architecture solutions
   Repository is an abstraction on the source of the data
   Dependency injection use Kodein and allows us to have mocks in the unit Tests
   To test the Ui instead, we have to use Espresso or Robolectric.
