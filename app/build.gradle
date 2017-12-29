@@ -88,9 +88,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
 
     //optional
-
     //implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rx2bindings_version"
-
     //implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rx2bindings_version"
 
     //Anko
