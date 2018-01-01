@@ -24,12 +24,12 @@ The project highly relies on:
   -  Rx
   
 ## Rx features
--[Rx Android](https://github.com/ReactiveX/RxAndroid) 
--[Rx Java](https://github.com/ReactiveX/RxJava)
--[Rx Kotlin](https://github.com/ReactiveX/RxKotlin)
--[LiveData stream conversion](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
--Rx Bindings: optional see commented code in build.gradle
+  -[Rx Android](https://github.com/ReactiveX/RxAndroid) 
+  -[Rx Java](https://github.com/ReactiveX/RxJava)
+  -[Rx Kotlin](https://github.com/ReactiveX/RxKotlin)
+  -[LiveData stream conversion](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
+  -Rx Bindings: optional see commented code in build.gradle
 
 ### Favourite inhouse Libraries for common problems
--[RxGallery](com.github.marchinram:RxGallery) Photo Picker
--[Glide](https://github.com/bumptech/glide) Image Loading
+  -[RxGallery](com.github.marchinram:RxGallery) Photo Picker
+  -[Glide](https://github.com/bumptech/glide) Image Loading
