@@ -1,3 +1,59 @@
 <resources>
-    <string name="app_name">AndroidBase</string>
+
+    <string name="app_name">Vis inspection</string>
+    <!--MAIN-->
+    <!--Main Top bar-->
+    <string name="tv_tb_main_finish">Finish</string>
+    <string name="tv_tb_main_vehicle_details">Vehicle Details</string>
+    <string name="tab_main_inspection">Inspection</string>
+    <string name="tab_main_photos">Photos</string>
+    <string name="tab_main_damages">Damages</string>
+    <!--*****************************************************************************************-->
+
+    <!--INSPECTION-->
+    <!--Inspection tabs-->
+    <string name="tab_vehicle">Vehicle</string>
+    <string name="tab_tyres">Tyres</string>
+    <string name="tab_servicing">Servicing</string>
+    <string name="tab_accessories">Accessories</string>
+    <string name="tab_others">Others</string>
+
+    <!--Inspection Vehicle-->
+    <string name="hint_make">Make</string>
+    <string name="hint_registration">Registration</string>
+    <string name="hint_registration_state">Registration state</string>
+    <string name="hint_vin">VIN</string>
+    <string name="master_key">Master Key</string>
+    <string name="spare_key">Spare Key</string>
+    <string name="hint_derivative">Derivative</string>
+    <string name="hint_reg_exp_date">Registration expiry date</string>
+    <string name="hint_odometer">Odometer</string>
+
+    <!--Inspection Tyres-->
+    <string name="label_tyre_lsf">LSF</string>
+    <string name="label_tyre_rsf">RSF</string>
+    <string name="label_tyre_rsr">RSR</string>
+    <string name="label_tyre_lsr">LSR</string>
+    <string name="label_tyre_spare">Spare</string>
+    <string name="locking_wheel_nut">Locking Wheel Nut</string>
+
+    <!--Inspection Servicing-->
+    <string name="sw_label_service_book">Service Book</string>
+    <string name="sw_label_service_require">Service Require</string>
+    <string name="hint_service_history">Service History</string>
+    <string name="hint_last_service_odometer">Last Service Odometer</string>
+    <string name="hint_last_service_date">Last Service Date</string>
+    <string name="sw_label_owners_manual">Owners Manual</string>
+    <string name="sw_label_e_tag">e-Tag</string>
+    <string name="sw_label_fuel_tag">Fuel Tag</string>
+    <string name="sw_label_sat_nav">Satellite Navigation</string>
+    <string name="sw_label_reverse_camera">Reverse Camera</string>
+    <string name="sw_label_front_park_sens">Front Parking Sensors</string>
+    <string name="sw_label_rear_parking_sens">Rear Parking Sensors</string>
+    <string name="sw_label_auto_park">Auto Park</string>
+    <string name="sw_label_tow_bar">Towbar</string>
+
+    <!--Inspection Accessories-->
+
+    <!--*****************************************************************************************-->
 </resources>

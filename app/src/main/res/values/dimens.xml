@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="btn_min_height">50dp</dimen>
+    <dimen name="padding_horizontal_inset_screen">48dp</dimen>
+</resources>

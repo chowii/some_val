@@ -1,11 +1,33 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="switchStyle">@style/AppSwitch</item>
+
+    </style>
+    <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
+    <!--<item name="tabSelectedTextColor">@color/range</item>-->
+    <!--<item name="tabIndicatorColor">?attr/colorAccent</item>-->
+    <style name="MainTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabBackground">@drawable/bg_main_tab_selector</item>
+        <item name="tabTextAppearance">@style/MainAppTabTextAppearance</item>
+    </style>
+
+    <!-- for text -->
+    <!--<item name="android:textSize">12sp</item>-->
+    <style name="MainAppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/text_color_tab_main</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="AppSwitch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:background">@drawable/bg_switch</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

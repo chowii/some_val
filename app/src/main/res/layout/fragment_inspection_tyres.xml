@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_tyre_lsf"
+            android:layout_width="158dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start|center"
+            android:text="@string/label_tyre_lsf"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_lsf"
+            app:layout_constraintEnd_toStartOf="@+id/spinner2"
+            app:layout_constraintStart_toEndOf="@+id/tv_tyre_lsf"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsf">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_lsf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsf" />
+
+        <TextView
+            android:id="@+id/tv_tyre_rsf"
+            android:layout_width="158dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start|center"
+            android:text="@string/label_tyre_rsf"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout1"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/tv_tyre_lsf"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tyre_lsf" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_rsf"
+            app:layout_constraintEnd_toStartOf="@+id/spinner21"
+            app:layout_constraintStart_toEndOf="@+id/tv_tyre_rsf"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsf">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner21"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_rsf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout1"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsf" />
+
+        <TextView
+            android:id="@+id/tv_tyre_rsr"
+            android:layout_width="158dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start|center"
+            android:text="@string/label_tyre_rsr"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/tv_tyre_rsf"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tyre_rsf" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_rsr"
+            app:layout_constraintEnd_toStartOf="@+id/spinner22"
+            app:layout_constraintStart_toEndOf="@+id/tv_tyre_rsr"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsr">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner22"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_rsr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsr" />
+
+        <TextView
+            android:id="@+id/tv_tyre_lsr"
+            android:layout_width="158dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start|center"
+            android:text="@string/label_tyre_lsr"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/tv_tyre_rsr"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tyre_rsr" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="0dp"
+
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_lsr"
+            app:layout_constraintEnd_toStartOf="@+id/spinner23"
+            app:layout_constraintStart_toEndOf="@+id/tv_tyre_lsr"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsr">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner23"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_lsr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsr" />
+
+        <TextView
+            android:id="@+id/tv_tyre_spare"
+            android:layout_width="158dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="start|center"
+            android:text="@string/label_tyre_spare"
+            app:layout_constraintEnd_toStartOf="@+id/textInputLayout4"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/tv_tyre_lsr"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tyre_lsr" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_spare"
+            app:layout_constraintEnd_toStartOf="@+id/spinner24"
+            app:layout_constraintStart_toEndOf="@+id/tv_tyre_spare"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_spare">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="hint" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner24"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tyre_spare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toTopOf="@+id/tv_tyre_spare" />
+
+        <Switch
+            android:id="@+id/sw_locking_wheel_nut"
+            style="@style/AppSwitch"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_min_height"
+            android:layout_marginTop="32dp"
+            android:text="@string/locking_wheel_nut"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintStart_toStartOf="@+id/tv_tyre_spare"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tyre_spare" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

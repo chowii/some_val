@@ -1,7 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.73"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <!--todo remove hardcoded text-->
+    <TextView
+        android:id="@+id/tv_main_plate"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="BTD75K"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintEnd_toStartOf="@+id/tv_main_vehicle_details"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BTD75K" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.design.widget.TabLayout
+        style="@style/MainTabLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_main_inspection" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_main_photos" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_main_damages" />
+    </android.support.design.widget.TabLayout>
+
+    <TextView
+        android:id="@+id/tv_main_finish"
+        android:layout_width="101dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/tv_tb_main_finish"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintEnd_toEndOf="@+id/tb_main"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_main_vehicle_details"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="@string/tv_tb_main_vehicle_details"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_main"
+        tools:background="@android:color/holo_green_dark">
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
