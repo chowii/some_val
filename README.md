@@ -12,10 +12,10 @@ The project highly relies on:
   - [Data binding](https://developer.android.com/topic/libraries/data-binding/index.html)
   - [KodeIn for DI](https://github.com/SalomonBrys/Kodein) 
   - [Retrofit](http://square.github.io/retrofit/)
-  -[Rx Android](https://github.com/ReactiveX/RxAndroid) 
-  -[Rx Java](https://github.com/ReactiveX/RxJava)
-  -[Rx Kotlin](https://github.com/ReactiveX/RxKotlin)
-  -[LiveData stream conversion](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
-  -Rx Bindings: optional see commented code in build.gradle
-  -[RxGallery](com.github.marchinram:RxGallery) Photo Picker
-  -[Glide](https://github.com/bumptech/glide) Image Loading
+  - [Rx Android](https://github.com/ReactiveX/RxAndroid) 
+  - [Rx Java](https://github.com/ReactiveX/RxJava)
+  - [Rx Kotlin](https://github.com/ReactiveX/RxKotlin)
+  - [LiveData stream conversion](https://developer.android.com/reference/android/arch/lifecycle/LiveDataReactiveStreams.html)
+  - Rx Bindings: optional see commented code in build.gradle
+  - [RxGallery](com.github.marchinram:RxGallery) Photo Picker
+  - [Glide](https://github.com/bumptech/glide) Image Loading
