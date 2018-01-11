@@ -1,6 +1,6 @@
-# AndroidBase
-[![N|Solid](https://media.licdn.com/media/p/2/000/1b0/027/2459ef1.png)](https://nodesource.com/products/nsolid)
 # VIS car inspection app
+[![N|Solid](https://media.licdn.com/media/p/2/000/1b0/027/2459ef1.png)](https://nodesource.com/products/nsolid)
+
 
 The project highly relies on:
   - [Android Architecture components](https://developer.android.com/topic/libraries/architecture/guide.html)
