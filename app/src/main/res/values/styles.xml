@@ -7,12 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="switchStyle">@style/AppSwitch</item>
+        <!-- The style for the widgets on the ActionBar. -->
+        <!--<item name="actionBarWidgetTheme">@style/WidgetStyle</item>-->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 
+    <style name="WidgetStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
     </style>
     <!--<item name="tabMaxWidth">@dimen/tab_max_width</item>-->
     <!--<item name="tabSelectedTextColor">@color/range</item>-->
     <!--<item name="tabIndicatorColor">?attr/colorAccent</item>-->
-    <style name="MainTabLayout" parent="Widget.Design.TabLayout">
+    <style name="EvaluationTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@android:color/transparent</item>
         <item name="tabBackground">@drawable/bg_main_tab_selector</item>
         <item name="tabTextAppearance">@style/MainAppTabTextAppearance</item>
@@ -27,7 +33,24 @@
 
     <style name="AppSwitch" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="android:background">@drawable/bg_switch</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="AppTextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="DisabledAppTextInputLayout" parent="AppTextInputEditText">
+        <item name="android:enabled">false</item>
+    </style>
+
+    <style name="AppBadge">
+        <item name="android:background">@drawable/bg_badge</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">@dimen/badge_diameter</item>
+        <item name="android:layout_height">@dimen/badge_diameter</item>
     </style>
 
 </resources>

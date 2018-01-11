@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -26,6 +26,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_odometer"
+                style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_odometer" />
@@ -36,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/til_model">
@@ -44,6 +45,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_derivative"
+                style="@style/DisabledAppTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_derivative" />
@@ -54,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -62,6 +64,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_reg_exp_date"
+                style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_reg_exp_date" />
@@ -78,15 +81,16 @@
             android:id="@+id/til_model"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/guideline_margin_inspection"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/top_margin_vertical_inset_inspection_screens"
             app:layout_constraintEnd_toEndOf="@id/guideline"
             app:layout_constraintStart_toEndOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_model"
+                style="@style/DisabledAppTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_make"
@@ -107,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/top_margin_vertical_inset_inspection_screens"
             app:layout_constraintBottom_toBottomOf="@+id/til_model"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +119,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_make"
+                style="@style/DisabledAppTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_make"
@@ -133,6 +138,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_registration"
+                style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:hint="@string/hint_registration"
@@ -150,6 +156,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_reg_state"
+                style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_registration_state"
@@ -167,6 +174,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_vin"
+                style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_vin" />

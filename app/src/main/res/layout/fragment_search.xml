@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:background="#ffffff"
         android:padding="6dp"
-        tools:context="com.sentia.android.base.vis.MainActivity">
+        tools:context="com.sentia.android.base.vis.evaluation.EvaluationActivity">
 
         <EditText
             android:id="@+id/et_search"
@@ -43,6 +43,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+        <Button
+            android:id="@+id/bt_go_to_evaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="0dp" />
 
 
     </android.support.constraint.ConstraintLayout>

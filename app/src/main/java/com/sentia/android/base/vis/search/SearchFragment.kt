@@ -11,7 +11,10 @@ import com.jakewharton.rxbinding2.widget.textChanges
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.databinding.FragmentSearchBinding
+import com.sentia.android.base.vis.evaluation.EvaluationActivity
+import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 import com.sentia.android.base.vis.util.Resource.Status.*
+import com.sentia.android.base.vis.util.intentFor
 import kotlinx.android.synthetic.main.fragment_search.*
 
 /**
@@ -36,6 +39,9 @@ class SearchFragment : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi(savedInstanceState)
+
+        //todo remove
+        bt_go_to_evaluation.setOnClickListener { startActivity(intentFor<EvaluationActivity>(KEY_VEHICLE_ID to 123)) }
     }
 
 

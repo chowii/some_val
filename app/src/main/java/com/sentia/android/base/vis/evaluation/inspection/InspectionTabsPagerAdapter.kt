@@ -14,7 +14,7 @@ import com.sentia.android.base.vis.evaluation.inspection.vehicle.VehicleInspFrag
 /**
  * Created by mariolopez on 8/1/18.
  */
-class InspectionTabsPagerAdapter(fm: FragmentManager, val resources: Resources) : FragmentPagerAdapter(fm) {
+class InspectionTabsPagerAdapter(fm: FragmentManager, private val resources: Resources) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = when (position) {
         TAB_VEHICLE -> VehicleInspFragment()
@@ -32,7 +32,6 @@ class InspectionTabsPagerAdapter(fm: FragmentManager, val resources: Resources) 
         TAB_ACCESSORIES -> resources.getString(R.string.tab_accessories)
         TAB_OTHERS -> resources.getString(R.string.tab_others)
         else -> ""
-
     }
 
     override fun getCount(): Int = TABS_INSPECTION

@@ -5,9 +5,9 @@
     <!--Main Top bar-->
     <string name="tv_tb_main_finish">Finish</string>
     <string name="tv_tb_main_vehicle_details">Vehicle Details</string>
-    <string name="tab_main_inspection">Inspection</string>
+    <string name="tab_evaluation_inspection">Inspection</string>
     <string name="tab_main_photos">Photos</string>
-    <string name="tab_main_damages">Damages</string>
+    <string name="tab_evaluation_damages">Damages</string>
     <!--*****************************************************************************************-->
 
     <!--INSPECTION-->
@@ -52,6 +52,11 @@
     <string name="sw_label_rear_parking_sens">Rear Parking Sensors</string>
     <string name="sw_label_auto_park">Auto Park</string>
     <string name="sw_label_tow_bar">Towbar</string>
+    <string name="label_exterior">Exterior</string>
+    <string name="label_interior">Interior</string>
+    <string name="btn_label_cancel">Cancel</string>
+    <string name="btn_label_save">Save</string>
+    <string name="damage_check_switch_text">I have inspected the interior of the vehicle and \n recorded any damage present</string>
 
     <!--Inspection Accessories-->
 

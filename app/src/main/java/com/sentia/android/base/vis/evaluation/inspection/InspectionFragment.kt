@@ -14,7 +14,7 @@ import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.databinding.FragmentInspectionBinding
 import com.sentia.android.base.vis.evaluation.inspection.InspectionTabsPagerAdapter
 import com.sentia.android.base.vis.evaluation.inspection.InspectionViewModel
-import com.sentia.android.base.vis.util.BUNDLE_VEHICLE_ID
+import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 import com.sentia.android.base.vis.util.Resource
 import kotlinx.android.synthetic.main.fragment_inspection.*
 import org.jetbrains.anko.info
@@ -25,15 +25,13 @@ import org.jetbrains.anko.info
 class InspectionFragment : BaseFragment() {
 
     private var inspectionViewModel: InspectionViewModel? = null
-    private val vehicleId: Long by lazy { arguments?.getLong(BUNDLE_VEHICLE_ID, 0) ?: 0 }
-
+    private val vehicleId: Long by lazy { arguments?.getLong(KEY_VEHICLE_ID, 0) ?: 0 }
+    private lateinit var binding: FragmentInspectionBinding
     override fun initViewModel() {
         inspectionViewModel = ViewModelProviders.of(activity).get(InspectionViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
         inspectionViewModel?.initLocalVehicles()
     }
-
-    private lateinit var binding: FragmentInspectionBinding
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -91,7 +89,7 @@ class InspectionFragment : BaseFragment() {
         fun newInstance(vehicleId: Long) = InspectionFragment().apply {
             arguments = Bundle().apply {
 
-                putLong(BUNDLE_VEHICLE_ID, vehicleId)
+                putLong(KEY_VEHICLE_ID, vehicleId)
             }
         }
     }

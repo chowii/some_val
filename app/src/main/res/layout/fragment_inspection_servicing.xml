@@ -28,8 +28,8 @@
             style="@style/AppSwitch"
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/guideline_margin_inspection"
+            android:layout_marginTop="@dimen/top_margin_vertical_inset_inspection_screens"
             android:text="@string/sw_label_service_book"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -38,9 +38,10 @@
 
         <Switch
             android:id="@+id/sw_service_require"
+            style="@style/AppSwitch"
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="@dimen/guideline_margin_inspection"
             android:layout_marginTop="32dp"
             android:text="@string/sw_label_service_require"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -68,7 +69,7 @@
             android:id="@+id/til_last_service_odometer"
             android:layout_width="0dp"
             android:layout_height="53dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="@dimen/guideline_margin_inspection"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +86,7 @@
             android:id="@+id/til_last_service_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="@dimen/guideline_margin_inspection"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,9 +100,10 @@
 
         <Switch
             android:id="@+id/sw_owners_manual"
+            style="@style/AppSwitch"
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             android:layout_marginTop="32dp"
             android:text="@string/sw_label_owners_manual"
             android:textAppearance="@style/TextAppearance.AppCompat"
@@ -112,9 +114,10 @@
 
         <Switch
             android:id="@+id/sw_e_tag"
+            style="@style/AppSwitch"
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             android:text="@string/sw_label_e_tag"
             app:layout_constraintBottom_toBottomOf="@+id/sw_service_require"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,9 +126,10 @@
 
         <Switch
             android:id="@+id/sw_fuel_tag"
+            style="@style/AppSwitch"
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="@dimen/guideline_margin_inspection"
             android:text="@string/sw_label_fuel_tag"
             app:layout_constraintBottom_toBottomOf="@+id/til_service_history"
             app:layout_constraintEnd_toEndOf="parent"

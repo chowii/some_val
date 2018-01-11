@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_main"
+        android:id="@+id/toolbar_evaluation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -24,7 +24,7 @@
 
     <!--todo remove hardcoded text-->
     <TextView
-        android:id="@+id/tv_main_plate"
+        android:id="@+id/tv_evaluation_plate"
         android:layout_width="130dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -35,8 +35,8 @@
         android:text="BTD75K"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
-        app:layout_constraintEnd_toStartOf="@+id/tv_main_vehicle_details"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_evaluation"
+        app:layout_constraintEnd_toStartOf="@+id/tv_evaluation_vehicle_details"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="BTD75K" />
 
@@ -50,12 +50,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.TabLayout
-        style="@style/MainTabLayout"
+        android:id="@+id/tl_evaluation"
+        style="@style/EvaluationTabLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_evaluation"
         app:layout_constraintEnd_toEndOf="@id/guideline3"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent">
@@ -63,7 +64,7 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_main_inspection" />
+            android:text="@string/tab_evaluation_inspection" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
@@ -73,11 +74,11 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_main_damages" />
+            android:text="@string/tab_evaluation_damages" />
     </android.support.design.widget.TabLayout>
 
     <TextView
-        android:id="@+id/tv_main_finish"
+        android:id="@+id/tv_evaluation_finish"
         android:layout_width="101dp"
         android:layout_height="52dp"
         android:layout_marginBottom="8dp"
@@ -88,12 +89,12 @@
         android:text="@string/tv_tb_main_finish"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
-        app:layout_constraintEnd_toEndOf="@+id/tb_main"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_evaluation"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_evaluation"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_main_vehicle_details"
+        android:id="@+id/tv_evaluation_vehicle_details"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -105,20 +106,19 @@
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tb_main"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_evaluation"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_tabs_evaluation"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_main"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_evaluation"
         tools:background="@android:color/holo_green_dark">
 
-    </FrameLayout>
-
+    </android.support.v4.view.ViewPager>
 </android.support.constraint.ConstraintLayout>
