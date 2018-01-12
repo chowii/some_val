@@ -2,7 +2,7 @@ package com.sentia.android.base.vis.evaluation.inspection
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
+import android.arch.lifecycle.Transformations.switchMap
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.base.BaseViewModel
 import com.sentia.android.base.vis.data.VehicleRepository
@@ -21,14 +21,20 @@ import org.jetbrains.anko.info
 /**
  * Created by mariolopez on 9/1/18.
  */
-class InspectionViewModel : BaseViewModel() {
-    override val repository by kodein.instance<VehicleRepository>()
-    private var liveVehicleData: LiveData<Resource<Vehicle>>? = null
-    private val vehicle: MutableLiveData<Long> = MutableLiveData()
+class EvaluationViewModel : BaseViewModel() {
 
-    val vehicleResult = Transformations.switchMap(vehicle) {
+    override val repository by kodein.instance<VehicleRepository>()
+
+    private val vehicle: MutableLiveData<Long> = MutableLiveData()
+    private var mutableVehicle: Vehicle? = null //todo check .isInitialised bug updates?!
+    private val mutationVehicleLiveData = MutableLiveData<Resource<Vehicle>>()
+    val vehicleUnderEvaluation: LiveData<Resource<Vehicle>> = switchMap(vehicle) {
         //this is lazy load so it caches the result on rotation
-        repository.findVehicle(it)
+        if (mutableVehicle == null) {
+            repository.findVehicle(it)
+        } else {
+            mutationVehicleLiveData
+        }
     }
 
     fun findVehicle(id: Long) {
@@ -47,6 +53,7 @@ class InspectionViewModel : BaseViewModel() {
 
                 }
     }
+
 
     private fun isRoomEmpty(storedSamplesTotal: Int) = storedSamplesTotal == 0
 
@@ -67,6 +74,14 @@ class InspectionViewModel : BaseViewModel() {
                         error("DataSource hasn't been Populated yet")
                     }
                 })
+    }
+
+    fun saveTempChanges(vehicleFromDb: Vehicle, mutation: (Vehicle) -> Unit) {
+        if (mutableVehicle == null) {
+            mutableVehicle = vehicleFromDb
+        }
+        mutation(mutableVehicle!!)
+        mutationVehicleLiveData .value = Resource(Resource.Status.SUCCESS, mutableVehicle!!)
     }
 
 }

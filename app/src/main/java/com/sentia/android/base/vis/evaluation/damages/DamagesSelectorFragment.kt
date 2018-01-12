@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
-import com.sentia.android.base.vis.evaluation.inspection.InspectionViewModel
+import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
 import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 
 /**
  * Created by mariolopez on 10/1/18.
  */
 class DamagesSelectorFragment : BaseFragment() {
-    private var inspectionViewModel: InspectionViewModel? = null
+    private var inspectionViewModel: EvaluationViewModel? = null
     private val vehicleId: Long by lazy { arguments?.getLong(KEY_VEHICLE_ID, 0) ?: 0 }
 
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(activity).get(InspectionViewModel::class.java)
+        inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
     }
 

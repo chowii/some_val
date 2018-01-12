@@ -9,19 +9,20 @@ import com.sentia.android.base.vis.evaluation.inspection.accessories.Accessories
 import com.sentia.android.base.vis.evaluation.inspection.others.OthersInspectFragment
 import com.sentia.android.base.vis.evaluation.inspection.servicing.ServicingInspectFragment
 import com.sentia.android.base.vis.evaluation.inspection.tyres.TyresInspectFragment
-import com.sentia.android.base.vis.evaluation.inspection.vehicle.VehicleInspFragment
+import com.sentia.android.base.vis.evaluation.inspection.vehicle.VehicleInspectFragment
 
 /**
  * Created by mariolopez on 8/1/18.
  */
-class InspectionTabsPagerAdapter(fm: FragmentManager, private val resources: Resources) : FragmentPagerAdapter(fm) {
+class InspectionTabsPagerAdapter(fm: FragmentManager, private val resources: Resources,
+                                 private val vehicleId: Long) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = when (position) {
-        TAB_VEHICLE -> VehicleInspFragment()
-        TAB_TYRES -> TyresInspectFragment()
-        TAB_SERVICING -> ServicingInspectFragment()
-        TAB_ACCESSORIES -> AccessoriesInspectFragment()
-        TAB_OTHERS -> OthersInspectFragment()
+        TAB_VEHICLE -> VehicleInspectFragment.newInstance(vehicleId)
+        TAB_TYRES -> TyresInspectFragment.newInstance(vehicleId)
+        TAB_SERVICING -> ServicingInspectFragment.newInstance(vehicleId)
+        TAB_ACCESSORIES -> AccessoriesInspectFragment.newInstance(vehicleId)
+        TAB_OTHERS -> OthersInspectFragment.newInstance(vehicleId)
         else -> Fragment()
     }
 
@@ -34,11 +35,11 @@ class InspectionTabsPagerAdapter(fm: FragmentManager, private val resources: Res
         else -> ""
     }
 
-    override fun getCount(): Int = TABS_INSPECTION
+    override fun getCount(): Int = TABS_INSPECTION_COUNT
 
     companion object {
-        private const val TABS_INSPECTION = 5
-        private const val TAB_VEHICLE = 0
+        internal val TABS_INSPECTION_COUNT = 5
+        internal const val TAB_VEHICLE = 0
         private const val TAB_TYRES = 1
         private const val TAB_SERVICING = 2
         private const val TAB_ACCESSORIES = 3

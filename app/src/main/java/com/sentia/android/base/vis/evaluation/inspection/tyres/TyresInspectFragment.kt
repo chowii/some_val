@@ -10,11 +10,12 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.databinding.FragmentInspectionTyresBinding
 import com.sentia.android.base.vis.search.SearchViewModel
+import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 
 /**
  * Created by mariolopez on 9/1/18.
  */
-class TyresInspectFragment : BaseFragment(){
+class TyresInspectFragment : BaseFragment() {
     private var tyresViewModel: SearchViewModel? = null
 
     override fun initViewModel() {
@@ -35,5 +36,13 @@ class TyresInspectFragment : BaseFragment(){
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    companion object {
+        fun newInstance(vehicleId: Long) = TyresInspectFragment().apply {
+            arguments = Bundle().apply {
+                putLong(KEY_VEHICLE_ID, vehicleId)
+            }
+        }
     }
 }

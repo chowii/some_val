@@ -15,24 +15,21 @@ data class Vehicle(
         @SerializedName("some_key") val id: Long,
         @SerializedName("some_key") val make: String,
         @SerializedName("some_key") val model: String,
-        @SerializedName("some_key") val derivative: String,
-        @SerializedName("some_key") val registration: String,
-        @SerializedName("some_key") val registrationState: String,
-        @SerializedName("some_key") val vin: String,
-        @SerializedName("some_key") val odometer: String,
-        @SerializedName("some_key") val masterKey: Boolean,
-        @SerializedName("some_key") val remote: Boolean,
-        @SerializedName("some_key") val spareRemote: Boolean,
-        @SerializedName("some_key") val spareKey: Boolean,
-        @SerializedName("some_key") val lockingWheelNut: Boolean,
+        @SerializedName("some_key") var derivative: String,
+        @SerializedName("some_key") var registration: String,
+        @SerializedName("some_key") var registrationState: String,
+        @SerializedName("some_key") var vin: String,
+        @SerializedName("some_key") var odometer: String,
+        @SerializedName("some_key") var masterKeyAndRemote: Boolean,
+        @SerializedName("some_key") var spareKeyAndRemote: Boolean,
+        @SerializedName("some_key") var lockingWheelNut: Boolean,
+        @SerializedName("some_key") var lsfTyreId: Int,
+        @SerializedName("some_key") var rsfTyreId: Int,
         //tyres
-        @SerializedName("some_key") val lsfTyreId: Int, //left side front
-        @SerializedName("some_key") val rsfTyreId: Int, //right side front
-        @SerializedName("some_key") val rfrTyreId: Int, //right side rear
-        @SerializedName("some_key") val lfrTyreId: Int, //left side rear
-        @SerializedName("some_key") val spareTyreId: Int,
-        //service
-        @SerializedName("some_key") val servicingId: Int)
+        @SerializedName("some_key") var rfrTyreId: Int, //left side front
+        @SerializedName("some_key") var lfrTyreId: Int, //right side front
+        @SerializedName("some_key") var spareTyreId: Int, //right side rear
+        @SerializedName("some_key") var servicingId: Int)
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_TYRES,
         foreignKeys = [(ForeignKey(entity = Vehicle::class,

@@ -7,7 +7,7 @@ package com.sentia.android.base.vis.evaluation
 import android.content.res.Resources
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.evaluation.damages.DamagesFragment
 import com.sentia.android.base.vis.evaluation.inspection.inspection.InspectionFragment
@@ -16,7 +16,7 @@ import com.sentia.android.base.vis.evaluation.photos.PhotosFragment
 /**
  * Created by mariolopez on 8/1/18.
  */
-class EvaluationTabsPagerAdapter(fm: FragmentManager, private val resources: Resources) : FragmentPagerAdapter(fm) {
+class EvaluationTabsPagerAdapter(fm: FragmentManager, private val resources: Resources) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = when (position) {
 

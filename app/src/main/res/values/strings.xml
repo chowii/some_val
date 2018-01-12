@@ -23,8 +23,8 @@
     <string name="hint_registration">Registration</string>
     <string name="hint_registration_state">Registration state</string>
     <string name="hint_vin">VIN</string>
-    <string name="master_key">Master Key</string>
-    <string name="spare_key">Spare Key</string>
+    <string name="master_key_and_remote">Master Key &amp; Remote</string>
+    <string name="spare_key_and_remote">Spare Key &amp; Remote</string>
     <string name="hint_derivative">Derivative</string>
     <string name="hint_reg_exp_date">Registration expiry date</string>
     <string name="hint_odometer">Odometer</string>

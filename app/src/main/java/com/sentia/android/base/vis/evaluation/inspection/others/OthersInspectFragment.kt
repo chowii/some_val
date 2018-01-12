@@ -10,11 +10,12 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.databinding.FragmentInspectionsOthersBinding
 import com.sentia.android.base.vis.search.SearchViewModel
+import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 
 /**
  * Created by mariolopez on 9/1/18.
  */
-class OthersInspectFragment : BaseFragment(){
+class OthersInspectFragment : BaseFragment() {
     private var othersViewModel: SearchViewModel? = null
 
     override fun initViewModel() {
@@ -30,5 +31,14 @@ class OthersInspectFragment : BaseFragment(){
 //        initUi(savedInstanceState)
 
         return binding.root
+    }
+
+    companion object {
+        fun newInstance(vehicleId: Long) = OthersInspectFragment().apply {
+            arguments = Bundle().apply {
+
+                putLong(KEY_VEHICLE_ID, vehicleId)
+            }
+        }
     }
 }

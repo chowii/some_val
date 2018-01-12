@@ -12,8 +12,8 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.databinding.FragmentInspectionBinding
+import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
 import com.sentia.android.base.vis.evaluation.inspection.InspectionTabsPagerAdapter
-import com.sentia.android.base.vis.evaluation.inspection.InspectionViewModel
 import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
 import com.sentia.android.base.vis.util.Resource
 import kotlinx.android.synthetic.main.fragment_inspection.*
@@ -24,11 +24,12 @@ import org.jetbrains.anko.info
  */
 class InspectionFragment : BaseFragment() {
 
-    private var inspectionViewModel: InspectionViewModel? = null
+    private var inspectionViewModel: EvaluationViewModel? = null
     private val vehicleId: Long by lazy { arguments?.getLong(KEY_VEHICLE_ID, 0) ?: 0 }
     private lateinit var binding: FragmentInspectionBinding
+
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(activity).get(InspectionViewModel::class.java)
+        inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
         inspectionViewModel?.initLocalVehicles()
     }
@@ -58,34 +59,18 @@ class InspectionFragment : BaseFragment() {
             }
         })
         tl_inspection.setupWithViewPager(vp_tabs_inspection)
-        vp_tabs_inspection.adapter = InspectionTabsPagerAdapter(activity.supportFragmentManager, resources)
+        vp_tabs_inspection.offscreenPageLimit = InspectionTabsPagerAdapter.TABS_INSPECTION_COUNT
+        vp_tabs_inspection.adapter = InspectionTabsPagerAdapter(childFragmentManager, resources, vehicleId)
+        vp_tabs_inspection.currentItem = InspectionTabsPagerAdapter.TAB_VEHICLE
 
         inspectionViewModel?.findVehicle(vehicleId)
-        inspectionViewModel?.vehicleResult
+        inspectionViewModel?.vehicleUnderEvaluation
                 ?.observe(this, Observer<Resource<Vehicle>?> {
                     info { it?.data?.id }
                 })
-        //todo init recycler view
-//        searchViewModel?.loadVehicles()?.observe(this, Observer {
-//            val size = it?.data?.size
-//            when (it?.status) {
-//                Resource.Status.SUCCESS -> TODO()
-//                Resource.Status.ERROR -> TODO()
-//                Resource.Status.LOADING -> TODO()
-//            }
-//            todo-init recycler view
-//        })
-//        searchViewModel?.vehicleResult?.observe(this, Observer {
-//            todo
-//        })
-//        searchViewModel?.search()
-//        restore simple Ui
-//        val keywords = savedInstanceState?.getString(SearchFragment.KEY_SEARCH_KEY_WORD).orEmpty()
-//        binding.searchKeyWord = keywords
     }
 
     companion object {
-        //        val tagFrag = this::class.java.simpleName
         fun newInstance(vehicleId: Long) = InspectionFragment().apply {
             arguments = Bundle().apply {
 
