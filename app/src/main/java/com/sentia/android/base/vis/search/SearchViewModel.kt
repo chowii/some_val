@@ -8,8 +8,8 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations.switchMap
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.base.BaseViewModel
-import com.sentia.android.base.vis.data.VehicleRepository
-import com.sentia.android.base.vis.data.room.entity.Vehicle
+import com.sentia.android.base.vis.data.InspectionRepository
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.util.Resource
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -23,24 +23,24 @@ import org.jetbrains.anko.info
 
 class SearchViewModel : BaseViewModel() {
 
-    override val repository by kodein.instance<VehicleRepository>()
-    private var liveVehicleData: LiveData<Resource<List<Vehicle>>>? = null
+    override val repository by kodein.instance<InspectionRepository>()
+    private var liveInspectionData: LiveData<Resource<List<Inspection>>>? = null
     private val searchInput: MutableLiveData<String> = MutableLiveData()
 
     internal val searchResult = switchMap(searchInput) { //this is lazy load so it caches the result on rotation
         repository.doSearch(it)
     }
 
-    fun loadVehicles(): LiveData<Resource<List<Vehicle>>>? {
-        if (liveVehicleData == null) {
-            liveVehicleData = MutableLiveData()
-            liveVehicleData = repository.getVehicles()
+    fun loadVehicles(): LiveData<Resource<List<Inspection>>>? {
+        if (liveInspectionData == null) {
+            liveInspectionData = MutableLiveData()
+            liveInspectionData = repository.getInspections()
         }
-        return liveVehicleData
+        return liveInspectionData
     }
 
     fun initLocalVehicles() {
-        compositeDisposable += repository.getTotalVehicles()
+        compositeDisposable += repository.getTotalInspections()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

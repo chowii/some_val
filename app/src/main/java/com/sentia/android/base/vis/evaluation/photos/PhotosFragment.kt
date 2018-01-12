@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
-import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
+import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 
 /**
  * Created by mariolopez on 10/1/18.
  */
 class PhotosFragment : BaseFragment() {
     private var inspectionViewModel: EvaluationViewModel? = null
-    private val vehicleId: Long by lazy { arguments?.getLong(KEY_VEHICLE_ID, 0) ?: 0 }
+    private val vehicleId: Long by lazy { arguments?.getLong(KEY_INSPECTION_ID, 0) ?: 0 }
 
     override fun initViewModel() {
         inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
@@ -31,7 +31,7 @@ class PhotosFragment : BaseFragment() {
         fun newInstance(vehicleId: Long) = PhotosFragment().apply {
             arguments = Bundle().apply {
 
-                putLong(KEY_VEHICLE_ID, vehicleId)
+                putLong(KEY_INSPECTION_ID, vehicleId)
             }
         }
     }

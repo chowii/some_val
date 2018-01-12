@@ -7,12 +7,12 @@ import android.arch.lifecycle.Transformations
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.repository.BaseRepository
-import com.sentia.android.base.vis.data.room.RoomVehicleDataSource
+import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
-import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
@@ -21,58 +21,54 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by mariolopez on 27/12/17.
  */
-class VehicleRepository : BaseRepository() {
+class InspectionRepository : BaseRepository() {
 
     private val remoteDataSource by kodein.instance<RemoteDataSource>()
-    private val roomVehicleDataSource by kodein.instance<RoomVehicleDataSource>()
-
-    override fun getSpecialSamples(): Flowable<Int> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private val roomVehicleDataSource by kodein.instance<RoomInspectionDataSource>()
 
     override fun addMockedVehicles() {
-        val vehicles = RoomVehicleDataSource.getAllVehicle()
-        roomVehicleDataSource.vehiclesDao().insertAll(vehicles)
+        val inspections = RoomInspectionDataSource.getAllInspections()
+        roomVehicleDataSource.inspectionDao().insertAll(inspections)
     }
 
-    private fun addVehicles(vehicles: List<Vehicle>) {
-        roomVehicleDataSource.vehiclesDao().insertAll(vehicles)
+    private fun addInspection(inspections: List<Inspection>) {
+        roomVehicleDataSource.inspectionDao().insertAll(inspections)
 
     }
 
-    override fun findVehicle(id: Long): LiveData<Resource<Vehicle>> {
-        return Transformations.map(roomVehicleDataSource.vehiclesDao().getVehicle(id),
-                { vehicle: Vehicle? -> Resource(SUCCESS, vehicle) })
+    override fun findInspection(id: Long): LiveData<Resource<Inspection>> {
+        return Transformations.map(roomVehicleDataSource.inspectionDao().getInspection(id),
+                { inspection: Inspection? -> Resource(SUCCESS, inspection) })
     }
 
-    override fun getVehicles(): LiveData<Resource<List<Vehicle>>> {
-        val result = MediatorLiveData<Vehicle>()
-        val liveResult = MutableLiveData<Resource<List<Vehicle>>>()
-        val resultLiveAndRoom = MutableLiveData<Resource<List<Vehicle>>>()
+    override fun getInspections(): LiveData<Resource<List<Inspection>>> {
+        val result = MediatorLiveData<Inspection>()
+        val liveResult = MutableLiveData<Resource<List<Inspection>>>()
+        val resultLiveAndRoom = MutableLiveData<Resource<List<Inspection>>>()
 
         liveResult.value = Resource(LOADING)
 
         //todo this logic needs to be refactored once we know how the api will work
         //todo at the current moment we just add both sources so the loading feeding won't be effective 100%
 
-        result.addSource(roomVehicleDataSource.vehiclesDao().getAllVehicles(),
-                { vehicles: List<Vehicle>? -> resultLiveAndRoom.value = Resource(SUCCESS, vehicles) })
+        result.addSource(roomVehicleDataSource.inspectionDao().getAllInspecions(),
+                { inspection: List<Inspection>? -> resultLiveAndRoom.value = Resource(SUCCESS, inspection) })
         result.addSource(liveResult,
-                { vehiclesResult: Resource<List<Vehicle>>? -> resultLiveAndRoom.value = vehiclesResult })
+                { inspectionResult: Resource<List<Inspection>>? -> resultLiveAndRoom.value = inspectionResult })
 
-        compositeDisposable += remoteDataSource.getVehicleList()
+        compositeDisposable += remoteDataSource.getInspectionList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         {
-                            addVehicles(it)
+                            addInspection(it)
                             liveResult.value = Resource(SUCCESS, it)
                         },
                         { liveResult.value = Resource(ERROR, null, AppException(it)) })
         return resultLiveAndRoom
     }
 
-    override fun getTotalVehicles() = roomVehicleDataSource.vehiclesDao().getTotalVehicles()
+    override fun getTotalInspections() = roomVehicleDataSource.inspectionDao().getTotalInspections()
 
     fun doSearch(search: String?): LiveData<Resource<List<Vehicle>>> {
         // todo have logic here to get data from db or/and online then filter the list

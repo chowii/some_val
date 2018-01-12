@@ -10,7 +10,7 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.databinding.FragmentInspectionAccessoriesBinding
 import com.sentia.android.base.vis.search.SearchViewModel
-import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
+import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 
 /**
  * Created by mariolopez on 9/1/18.
@@ -36,7 +36,7 @@ class AccessoriesInspectFragment : BaseFragment() {
     companion object {
         fun newInstance(vehicleId: Long) = AccessoriesInspectFragment().apply {
             arguments = Bundle().apply {
-                putLong(KEY_VEHICLE_ID, vehicleId)
+                putLong(KEY_INSPECTION_ID, vehicleId)
             }
         }
     }

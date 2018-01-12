@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
 import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
-import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
+import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 
 /**
  * Created by mariolopez on 10/1/18.
@@ -29,7 +29,7 @@ class DamagesFragment : BaseFragment() {
         //        val tagFrag = this::class.java.simpleName
         fun newInstance(vehicleId: Long) = DamagesFragment().apply {
             arguments = Bundle().apply {
-                putLong(KEY_VEHICLE_ID, vehicleId)
+                putLong(KEY_INSPECTION_ID, vehicleId)
             }
         }
     }

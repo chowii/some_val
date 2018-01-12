@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="vehicle"
-            type="com.sentia.android.base.vis.data.room.entity.Vehicle" />
+            name="inspection"
+            type="com.sentia.android.base.vis.data.room.entity.Inspection" />
 
     </data>
 
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_make"
-                android:text="@{vehicle.model}"
+                android:text="@{inspection.eTag}"
                 tools:text="Ford" />
         </android.support.design.widget.TextInputLayout>
 
@@ -201,7 +201,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
             android:layout_marginTop="24dp"
-            android:checked="@{vehicle.spareKeyAndRemote}"
+            android:checked="@{inspection.spareKeyAndRemote}"
             android:text="@string/spare_key_and_remote"
             app:layout_constraintEnd_toEndOf="@+id/swi_master_key"
             app:layout_constraintStart_toStartOf="@+id/swi_master_key"

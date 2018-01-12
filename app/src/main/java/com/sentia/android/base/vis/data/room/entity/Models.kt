@@ -1,103 +1,130 @@
 package com.sentia.android.base.vis.data.room.entity
 
-import android.arch.persistence.room.*
-import android.graphics.Bitmap
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.Index
+import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.sentia.android.base.vis.data.room.RoomContract
 
 /**
  * Created by mariolopez on 27/12/17.
  */
-@Entity(tableName = RoomContract.TABLE_VEHICLES,
-        indices = [(Index(value = ["id", "model"], unique = true)), (Index(value = ["model", "make"], unique = true))])
-data class Vehicle(
+@Entity(tableName = RoomContract.TABLE_INSPECTIONS,
+        indices = [(Index(value = ["id"], unique = true))])
+data class Inspection(
         @PrimaryKey
-        @SerializedName("some_key") val id: Long,
-        @SerializedName("some_key") val make: String,
-        @SerializedName("some_key") val model: String,
-        @SerializedName("some_key") var derivative: String,
-        @SerializedName("some_key") var registration: String,
-        @SerializedName("some_key") var registrationState: String,
-        @SerializedName("some_key") var vin: String,
-        @SerializedName("some_key") var odometer: String,
-        @SerializedName("some_key") var masterKeyAndRemote: Boolean,
-        @SerializedName("some_key") var spareKeyAndRemote: Boolean,
-        @SerializedName("some_key") var lockingWheelNut: Boolean,
-        @SerializedName("some_key") var lsfTyreId: Int,
-        @SerializedName("some_key") var rsfTyreId: Int,
-        //tyres
-        @SerializedName("some_key") var rfrTyreId: Int, //left side front
-        @SerializedName("some_key") var lfrTyreId: Int, //right side front
-        @SerializedName("some_key") var spareTyreId: Int, //right side rear
-        @SerializedName("some_key") var servicingId: Int)
+        @SerializedName("id") val id: Long,
+        @SerializedName("state") val state: String,
+        @SerializedName("master_key_and_remote") var masterKeyAndRemote: Boolean,
+        @SerializedName("spare_key_and_remote") var spareKeyAndRemote: Boolean,
+        @SerializedName("locking_wheel_nut") var lockingWheelNut: Boolean,
+        @SerializedName("service_book") var serviceBook: Boolean,
+        @SerializedName("service_required") var serviceRequired: Boolean,
+        @SerializedName("owners_manual") var ownersManual: Boolean,
+        @SerializedName("e_tag") var eTag: String,
+        @SerializedName("fuel_tag") var fuelTag: String,
+        @SerializedName("service_history") var serviceHistory: String,
+        @SerializedName("last_service_odometer") var odometer: String,
+        @SerializedName("last_service_date") var lastServiceDate: String,
+        @SerializedName("inspection_type") var inspectionType: String,
+        @SerializedName("condition") var condition: String,
+        @SerializedName("vehicle_condition") var vehicleCondition: String)
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_TYRES,
-        foreignKeys = [(ForeignKey(entity = Vehicle::class,
-                parentColumns = ["id"], childColumns = ["vehicleId"]))])
-data class Tyre(
-        @SerializedName("some_key") val depth: String,
-        @SerializedName("some_key") val model: String,
-        @SerializedName("some_key") val vehicleId: Long,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+//uncomment and remove at will
+//        see image for example
+//        @Ignore @SerializedName("images") var images: List<Image>
+//        @Embedded
+//        @SerializedName("vehicle") var vehicle: Vehicle
+//        @SerializedName("depot") var rsfTyreId: Depot,
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_SERVICING,
-        foreignKeys = [(ForeignKey(entity = Vehicle::class,
-                parentColumns = ["id"], childColumns = ["vehicleId"]))])
-data class Servicing(
-        @SerializedName("some_key") val vehicleId: Long,
-        @SerializedName("some_key") val serviceBook: Boolean,
-        @SerializedName("some_key") val ownersManual: Boolean,
-        @SerializedName("some_key") val serviceRequire: Boolean,
-        @SerializedName("some_key") val eTag: Boolean,
-        @SerializedName("some_key") val fuelTag: Boolean,
-        @SerializedName("some_key") val serviceHistory: String,
-        @SerializedName("some_key") val lastServiceOdometer: String,
-        @SerializedName("some_key") val lastServiceDate: String,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+//        @SerializedName("exterior_damage_report") var extDamageReport: DamageReport,
+//        @SerializedName("interior_damage_report") var intDamageReport: DamageReport,
+//        @SerializedName("tyres") var tyres: List<Tyre>,
+//        @SerializedName("accessories") var tyres: List<Accessory>,
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_ADD_ONS,
-        foreignKeys = [(ForeignKey(entity = Vehicle::class,
-                parentColumns = ["id"], childColumns = ["vehicleId"]))])
-data class AddOns(
-        @SerializedName("some_key") val vehicleId: Long,
-        @SerializedName("some_key") val satelliteNavigation: Boolean,
-        @SerializedName("some_key") val reverseCamera: Boolean,
-        @SerializedName("some_key") val frontParkingSensors: Boolean,
-        @SerializedName("some_key") val rearParkingSensors: Boolean,
-        @SerializedName("some_key") val autoPark: Boolean,
-        @SerializedName("some_key") val towBar: Boolean,
-        @SerializedName("some_key") val bullBar: Boolean,
-        @SerializedName("some_key") val sunRoof: Boolean,
-        @SerializedName("some_key") val roofRack: Boolean,
-        @SerializedName("some_key") val leather: Boolean,
-        @SerializedName("some_key") val serviceBody: Boolean,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+//)
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_OTHERS,
-        foreignKeys = [(ForeignKey(entity = Vehicle::class,
-                parentColumns = ["id"], childColumns = ["vehicleId"]))])
-data class Others(
-        @SerializedName("some_key") val vehicleId: Long,
-        @SerializedName("some_key") val location: String,
-        @SerializedName("some_key") val address: String,
-//        @ForeignKey() //todo
-        @SerializedName("some_key") val inspectionTypeId: Int,
-//        @ForeignKey()//todo
-        @SerializedName("some_key") val vehicleConditionId: Int,
-//        @ForeignKey()//todo
-        @SerializedName("some_key") val inspectionConditionId: Int,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+@Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class Depot(
+        @PrimaryKey
+        @SerializedName("name") val model: String,
+        @SerializedName("inspection_id") val inspectionId: Long
+//        @Embedded
+//        @SerializedName("location") val location: Location,)
+)
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_PHOTOS,
-        foreignKeys = [(ForeignKey(entity = Vehicle::class,
-                parentColumns = ["id"], childColumns = ["vehicleId"]))])
-data class Photos(
-        @SerializedName("some_key") val vehicleId: Long,
-        @SerializedName("some_key") val url: String,
-        @SerializedName("some_key") val base64: String,
-        @PrimaryKey(autoGenerate = true) val id: Long
-        /*@Ignore val bitmap: Bitmap */) {
-    @Ignore
-    val bitmap: Bitmap? = null
+@Entity(tableName = RoomContract.TABLE_PHOTOS, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class Image(
+        @PrimaryKey
+        @SerializedName("id") val id: Long,
+        val inspectionId: Long,
+        @SerializedName("name") val url: String,
+        @SerializedName("attachment") val attachmentB64: String,
+        @SerializedName("overlay") val overlayB64: String) {
+//    @Ignore
+//    val bitmap: Bitmap? = null
 //    @Ignore constructor(vehicleId: Long = 0, url: String = "", base64: String= "",bitmap: Bitmap?=null) : this()
 }
+
+@Entity(tableName = RoomContract.TABLE_VEHICLES_DAMAGE_REPORT, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class DamageReport(
+        @SerializedName("inspection_id") val inspectionId: Long,
+        @SerializedName("vehicle_template_id") val vehicle_template_id: String,
+        @SerializedName("is_inspected") val isInspected: Boolean,
+        //todo uncomment at will
+//        @SerializedName("items") val damageItems: List<DamageItem>,
+        @PrimaryKey(autoGenerate = true) val id: Long)
+
+@Entity(tableName = RoomContract.TABLE_VEHICLES_DAMAGE_ITEM, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class DamageItem(
+        @PrimaryKey(autoGenerate = true) val id: Long,
+        val inspectionId: Long,
+        @SerializedName("component") val component: String,
+        @SerializedName("fault") val fault: String,
+        @SerializedName("repair_action") val repairAction: String,
+        @SerializedName("comment") val comment: String,
+        @SerializedName("coord_x") val x: Double,
+        @SerializedName("coord_y") val y: Double,
+        @SerializedName("is_inspected") val isInspected: Boolean
+        //todo uncomment at will
+//        @SerializedName("items") val damageComponents: List<DamageItem>,
+)
+
+@Entity(tableName = RoomContract.TABLE_VEHICLES_TYRES, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class Tyre(
+        val inspectionId: Long,
+        @SerializedName("name") val model: String,
+        @SerializedName("brand") val brand: String,
+        @SerializedName("depth") val depth: Double,
+        @PrimaryKey(autoGenerate = true) val id: Long)
+
+@Entity(tableName = RoomContract.TABLE_VEHICLES_ACCESSORIES, foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+data class Accessory(
+        @SerializedName("name") val model: String,
+        @SerializedName("inspection_id") val inspectionId: Long,
+        @SerializedName("value") val isChecked: Boolean,
+        @PrimaryKey(autoGenerate = true) val id: Long)
+
+
+//@Entity(tableName = RoomContract.TABLE_VEHICLES_LOCATION_JSON, foreignKeys = [
+//    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
+//data class Location(
+//        @PrimaryKey(autoGenerate = true) val id: Long ,
+//        val inspectionId: Long,
+//        @SerializedName("address_1") val address1: String,
+//        @SerializedName("address_2") val address2: String,
+//        @SerializedName("address_3") val address3: String,
+//        @SerializedName("address_4") val address4: String,
+//        @SerializedName("postcode") val postCode: String,
+//        @SerializedName("suburb") val suburb: String,
+//        @SerializedName("state") val state: String,
+//        @SerializedName("country") val country: String,
+//        @SerializedName("lat") val lat: Double,
+//        @SerializedName("long") val long: Double)

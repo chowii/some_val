@@ -3,7 +3,7 @@ package com.sentia.android.base.vis.data.repository
 import android.arch.lifecycle.LiveData
 import com.github.salomonbrys.kodein.LazyKodein
 import com.sentia.android.base.vis.App
-import com.sentia.android.base.vis.data.room.entity.Vehicle
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.util.Resource
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
@@ -18,15 +18,11 @@ abstract class BaseRepository : Repository {
 
 interface Repository {
 
-    fun getSpecialSamples(): Flowable<Int>
-
     fun addMockedVehicles()
 
-    fun getVehicles(): LiveData<Resource<List<Vehicle>>>
+    fun getInspections(): LiveData<Resource<List<Inspection>>>
 
-    fun findVehicle(id: Long): LiveData<Resource<Vehicle>>
+    fun findInspection(id: Long): LiveData<Resource<Inspection>>
 
-    fun getTotalVehicles(): Flowable<Int>
+    fun getTotalInspections(): Flowable<Int>
 }
-
-data class SampleModel(val s1: String = "")

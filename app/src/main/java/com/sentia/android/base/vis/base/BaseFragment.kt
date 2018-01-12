@@ -10,11 +10,12 @@ import org.jetbrains.anko.AnkoLogger
  * Created by mariolopez on 27/12/17.
  */
 abstract class BaseFragment : Fragment(), AnkoLogger {
+
     val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()
-        getTag()
     }
 
     abstract fun initViewModel()

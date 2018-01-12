@@ -2,7 +2,6 @@ package com.sentia.android.base.vis.evaluation.inspection.vehicle
 
 import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.widget.checkedChanges
 import com.sentia.android.base.vis.R
-import com.sentia.android.base.vis.base.BaseFragment
-import com.sentia.android.base.vis.data.room.entity.Vehicle
+import com.sentia.android.base.vis.base.EvaluationBaseFragment
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.databinding.FragmentInspectionVehicleBinding
-import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
-import com.sentia.android.base.vis.util.KEY_VEHICLE_ID
+import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -25,14 +23,7 @@ import org.reactivestreams.Publisher
 /**
  * Created by mariolopez on 9/1/18.
  */
-class VehicleInspectFragment : BaseFragment() {
-    private var inspectionViewModel: EvaluationViewModel? = null
-    private val vehicleId: Long by lazy { arguments?.getLong(KEY_VEHICLE_ID, 0) ?: 0 }
-
-    override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(this.activity).get(EvaluationViewModel::class.java)
-        inspectionViewModel?.let { lifecycle.addObserver(it) }
-    }
+class VehicleInspectFragment : EvaluationBaseFragment() {
 
     private lateinit var binding: FragmentInspectionVehicleBinding
 
@@ -51,30 +42,28 @@ class VehicleInspectFragment : BaseFragment() {
 
     private fun initUi(savedInstanceState: Bundle?) {
 
-        inspectionViewModel?.findVehicle(vehicleId)
+        inspectionViewModel?.findInspection(inspectionId)
 
-        inspectionViewModel?.vehicleUnderEvaluation
-                ?.observe(this, Observer<Resource<Vehicle>?> {
-                    info { it?.data?.id }
-                    binding.vehicle = it?.data
+        inspectionViewModel?.currentInspection
+                ?.observe(this, Observer<Resource<Inspection>?> {
+                    binding.inspection = it?.data
                     binding.executePendingBindings()
                 })
 
-
-        val toPublisher: Publisher<Resource<Vehicle>> = LiveDataReactiveStreams.toPublisher(this, inspectionViewModel?.vehicleUnderEvaluation)
-        val obsFromPublisher: Observable<Vehicle> = Observable.fromPublisher(toPublisher).map { it.data!! }.firstOrError().toObservable()
+        val toPublisher: Publisher<Resource<Inspection>>? = LiveDataReactiveStreams.toPublisher(this, inspectionViewModel?.currentInspection)
+        val obsFromPublisher: Observable<Inspection> = Observable.fromPublisher(toPublisher).map { it.data!! }.firstOrError().toObservable()
 
         Observable.combineLatest(
                 swi_spare_key.checkedChanges(),
                 obsFromPublisher,
-                BiFunction { spareKeyAndRemote: Boolean, vehicle: Vehicle ->
-                    Pair(vehicle, vehicle.copy().apply {
+                BiFunction { spareKeyAndRemote: Boolean, inspection: Inspection ->
+                    Pair(inspection, inspection.copy().apply {
                         this.spareKeyAndRemote = spareKeyAndRemote
                     })
 
                 })
                 .subscribe { (old, new) ->
-                    info { old.spareKeyAndRemote.toString() + "cazzo" + new.spareKeyAndRemote }
+                    info { old.spareKeyAndRemote.toString() + " - " + new.spareKeyAndRemote }
                     inspectionViewModel?.saveTempChanges(old) {
                         it.spareKeyAndRemote = new.spareKeyAndRemote
                     }
@@ -85,7 +74,7 @@ class VehicleInspectFragment : BaseFragment() {
         fun newInstance(vehicleId: Long) = VehicleInspectFragment().apply {
             arguments = Bundle().apply {
 
-                putLong(KEY_VEHICLE_ID, vehicleId)
+                putLong(KEY_INSPECTION_ID, vehicleId)
             }
         }
     }
