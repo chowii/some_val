@@ -14,9 +14,9 @@ class RoomContract {
         const val TABLE_VEHICLES_TYRES = "Tyres_Model_Table"
         const val TABLE_VEHICLES_ACCESSORIES = "Accessories_model_Table"
         const val TABLE_INSPECTION_DEPOT = "Depots_Model_Table"
-        const val TABLE_VEHICLES_DAMAGE_REPORT = "Damage_report_Table"
-        const val TABLE_VEHICLES_DAMAGE_ITEM = "Damage_items_Table"
-        const val TABLE_VEHICLES_LOCATION_JSON = "Location_Model_Table"
+        const val TABLE_DAMAGE_REPORT = "Damage_report_Table"
+        const val TABLE_DAMAGE_ITEM = "Damage_items_Table"
+        const val TABLE_LOCATION_JSON = "Location_Model_Table"
         const val TABLE_PHOTOS = "Photos_Model_Table"
 
         private const val SELECT_COUNT = "SELECT COUNT(*) FROM "

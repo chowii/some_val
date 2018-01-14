@@ -19,14 +19,14 @@ data class Inspection(
         @SerializedName("service_book") var serviceBook: Boolean,
         @SerializedName("service_required") var serviceRequired: Boolean,
         @SerializedName("owners_manual") var ownersManual: Boolean,
-        @SerializedName("e_tag") var eTag: String,
-        @SerializedName("fuel_tag") var fuelTag: String,
-        @SerializedName("service_history") var serviceHistory: String,
-        @SerializedName("last_service_odometer") var odometer: String,
-        @SerializedName("last_service_date") var lastServiceDate: String,
-        @SerializedName("inspection_type") var inspectionType: String,
-        @SerializedName("condition") var condition: String,
-        @SerializedName("vehicle_condition") var vehicleCondition: String) {
+        @SerializedName("e_tag") var eTag: Boolean,
+        @SerializedName("fuel_tag") var fuelTag: Boolean,
+        @SerializedName("service_history") var serviceHistory: String?,
+        @SerializedName("last_service_odometer") var odometer: String?,
+        @SerializedName("last_service_date") var lastServiceDate: String?,
+        @SerializedName("inspection_type") var inspectionType: String?,
+        @SerializedName("condition") var condition: String?,
+        @SerializedName("vehicle_condition") var vehicleCondition: String?) {
     @Ignore
     @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
@@ -53,11 +53,11 @@ data class Inspection(
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class Depot(
         @PrimaryKey
+        @SerializedName("id") val id: Long,
         @SerializedName("name") val model: String,
-        @SerializedName("inspection_id") val inspectionId: Long
-//        @Embedded
-//        @SerializedName("location") val location: Location,)
-)
+        @SerializedName("inspection_id") val inspectionId: Long,
+        @Embedded
+        val locationDepot: LocationDepot)
 
 @Entity(tableName = RoomContract.TABLE_PHOTOS, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
@@ -73,7 +73,7 @@ data class Image(
 //    @Ignore constructor(vehicleId: Long = 0, url: String = "", base64: String= "",bitmap: Bitmap?=null) : this()
 }
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_DAMAGE_REPORT, foreignKeys = [
+@Entity(tableName = RoomContract.TABLE_DAMAGE_REPORT, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class DamageReport(
         @SerializedName("inspection_id") val inspectionId: Long,
@@ -83,7 +83,7 @@ data class DamageReport(
 //        @SerializedName("items") val damageItems: List<DamageItem>,
         @PrimaryKey(autoGenerate = true) val id: Long)
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_DAMAGE_ITEM, foreignKeys = [
+@Entity(tableName = RoomContract.TABLE_DAMAGE_ITEM, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class DamageItem(
         @PrimaryKey(autoGenerate = true) val id: Long,
@@ -104,31 +104,28 @@ data class DamageItem(
 data class Tyre(
         val inspectionId: Long,
         @SerializedName("name") val model: String,
-        @SerializedName("brand") val brand: String,
-        @SerializedName("depth") val depth: Double,
+        @SerializedName("brand") val brand: String?,
+        @SerializedName("depth") val depth: Double?,
         @PrimaryKey(autoGenerate = true) val id: Long)
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_ACCESSORIES, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class Accessory(
         @SerializedName("name") val model: String,
-        @SerializedName("inspection_id") val inspectionId: Long,
         @SerializedName("value") val isChecked: Boolean,
+        @SerializedName("inspection_id") val inspectionId: Long,
         @PrimaryKey(autoGenerate = true) val id: Long)
 
 
-//@Entity(tableName = RoomContract.TABLE_VEHICLES_LOCATION_JSON, foreignKeys = [
-//    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
-//data class Location(
-//        @PrimaryKey(autoGenerate = true) val id: Long ,
-//        val inspectionId: Long,
-//        @SerializedName("address_1") val address1: String,
-//        @SerializedName("address_2") val address2: String,
-//        @SerializedName("address_3") val address3: String,
-//        @SerializedName("address_4") val address4: String,
-//        @SerializedName("postcode") val postCode: String,
-//        @SerializedName("suburb") val suburb: String,
-//        @SerializedName("state") val state: String,
-//        @SerializedName("country") val country: String,
-//        @SerializedName("lat") val lat: Double,
-//        @SerializedName("long") val long: Double)
+data class LocationDepot(
+        @SerializedName("address_1") val address1: String,
+        @SerializedName("address_2") val address2: String,
+        @SerializedName("address_3") val address3: String,
+        @SerializedName("address_4") val address4: String,
+        @SerializedName("postcode") val postCode: String,
+        @SerializedName("suburb") val suburb: String,
+        @SerializedName("state") val state: String,
+        @SerializedName("country") val country: String,
+        @SerializedName("lat") val latitude: Double,
+        @SerializedName("long") val longitude: Double) {
+}
