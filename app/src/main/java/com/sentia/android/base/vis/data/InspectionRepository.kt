@@ -1,19 +1,23 @@
 package com.sentia.android.base.vis.data
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.repository.BaseRepository
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
+import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 
@@ -26,7 +30,7 @@ class InspectionRepository : BaseRepository() {
     private val remoteDataSource by kodein.instance<RemoteDataSource>()
     private val roomVehicleDataSource by kodein.instance<RoomInspectionDataSource>()
 
-    override fun addMockedVehicles() {
+    override fun addMockedInspections() {
         val inspections = RoomInspectionDataSource.getAllInspections()
         roomVehicleDataSource.inspectionDao().insertAll(inspections)
     }
@@ -36,10 +40,22 @@ class InspectionRepository : BaseRepository() {
 
     }
 
-    override fun findInspection(id: Long): LiveData<Resource<Inspection>> {
-        return Transformations.map(roomVehicleDataSource.inspectionDao().getInspection(id),
-                { inspection: Inspection? -> Resource(SUCCESS, inspection) })
+    override fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>> {
+        val dao = roomVehicleDataSource.inspectionDao()
+        return LiveDataReactiveStreams.fromPublisher<Resource<Inspection>> {
+            Observable.combineLatest(
+                    dao.getInspectionF(inspectionId).toObservable(),
+                    dao.getInspectionPhotos(inspectionId).toObservable(),
+
+                    BiFunction { inspection: Inspection, photos: List<Image> ->
+                        inspection.images.addAll(photos)
+                    })
+
+                    .map { Resource(SUCCESS, it) }
+                    .toFlowable(BackpressureStrategy.DROP)
+        }
     }
+
 
     override fun getInspections(): LiveData<Resource<List<Inspection>>> {
         val result = MediatorLiveData<Inspection>()

@@ -42,9 +42,9 @@ interface RoomInspectionDao {
     fun getInspection(inspectionId: Long): LiveData<Inspection>
 
     @Query(SELECT_FROM + TABLE_INSPECTIONS + " WHERE id IN (:inspectionId)")
-    fun getInspectionFlowable(inspectionId: Long): Flowable<Inspection>
+    fun getInspectionF(inspectionId: Long): Flowable<Inspection>
 
     @Query(SELECT_FROM + TABLE_PHOTOS +" WHERE inspectionId IS (:inspectionId)")
-    fun getInspectionPhotos(inspectionId: Long): Flowable<Image>
+    fun getInspectionPhotos(inspectionId: Long): Flowable<List<Image>>
 }
 //note https://developer.android.com/training/data-storage/room/index.html

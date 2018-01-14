@@ -4,8 +4,11 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.support.annotation.ColorRes
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBar
+import android.support.v7.app.AppCompatActivity
 import com.sentia.android.base.vis.R
 import org.jetbrains.anko.internals.AnkoInternals
 
@@ -32,4 +35,16 @@ fun ActionBar?.tintBackArrow(@ColorRes color: Int) {
     upArrow.setColorFilter(ContextCompat.getColor(this?.themedContext, color), PorterDuff.Mode.SRC_ATOP)
     this?.setHomeAsUpIndicator(upArrow)
 
+}
+
+inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+    beginTransaction().func().commit()
+}
+fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int){
+    supportFragmentManager.inTransaction { add(frameId, fragment) }
+}
+
+
+fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
+    supportFragmentManager.inTransaction{replace(frameId, fragment)}
 }

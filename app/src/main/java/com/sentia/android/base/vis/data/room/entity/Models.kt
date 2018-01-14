@@ -1,9 +1,6 @@
 package com.sentia.android.base.vis.data.room.entity
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.Index
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 import com.google.gson.annotations.SerializedName
 import com.sentia.android.base.vis.data.room.RoomContract
 
@@ -29,11 +26,18 @@ data class Inspection(
         @SerializedName("last_service_date") var lastServiceDate: String,
         @SerializedName("inspection_type") var inspectionType: String,
         @SerializedName("condition") var condition: String,
-        @SerializedName("vehicle_condition") var vehicleCondition: String)
+        @SerializedName("vehicle_condition") var vehicleCondition: String) {
+    @Ignore
+    @SerializedName("images")
+    val images: MutableList<Image> = mutableListOf()
+//    constructor(0,"",false,fase,false,false,false,falase,false,"","","","","","","","","")
+//    @Ignore constructor(vehicleId: Long = 0, url: String = "", base64: String= "",bitmap: Bitmap?=null) : this()
+}
 
 //uncomment and remove at will
 //        see image for example
-//        @Ignore @SerializedName("images") var images: List<Image>
+
+
 //        @Embedded
 //        @SerializedName("vehicle") var vehicle: Vehicle
 //        @SerializedName("depot") var rsfTyreId: Depot,

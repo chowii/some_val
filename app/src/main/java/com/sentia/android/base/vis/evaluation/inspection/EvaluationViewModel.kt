@@ -59,7 +59,7 @@ class EvaluationViewModel : BaseViewModel() {
     private fun isRoomEmpty(storedSamplesTotal: Int) = storedSamplesTotal == 0
 
     private fun populate() {
-        Completable.fromAction { repository.addMockedVehicles() }
+        Completable.fromAction { repository.addMockedInspections() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : CompletableObserver {
