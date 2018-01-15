@@ -20,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.error
 
 
 /**
@@ -42,18 +43,20 @@ class InspectionRepository : BaseRepository() {
 
     override fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>> {
         val dao = roomVehicleDataSource.inspectionDao()
-        return LiveDataReactiveStreams.fromPublisher<Resource<Inspection>> {
-            Observable.combineLatest(
-                    dao.getInspectionF(inspectionId).toObservable(),
-                    dao.getInspectionPhotos(inspectionId).toObservable(),
+        val inspectionFlowable = Observable.combineLatest(
+                dao.getInspectionF(inspectionId).toObservable(),
+                dao.getInspectionPhotos(inspectionId).toObservable().startWith(emptyList<Image>()),
 
-                    BiFunction { inspection: Inspection, photos: List<Image> ->
-                        inspection.images.addAll(photos)
-                    })
+                BiFunction { inspection: Inspection, photos: List<Image> ->
+                    inspection.images.addAll(photos)
+                    inspection
+                })
 
-                    .map { Resource(SUCCESS, it) }
-                    .toFlowable(BackpressureStrategy.DROP)
-        }
+                .map { Resource(SUCCESS, it) }
+                .toFlowable(BackpressureStrategy.ERROR)
+
+        return LiveDataReactiveStreams.fromPublisher<Resource<Inspection>>(inspectionFlowable)
+
     }
 
 
@@ -67,8 +70,10 @@ class InspectionRepository : BaseRepository() {
         //todo this logic needs to be refactored once we know how the api will work
         //todo at the current moment we just add both sources so the loading feeding won't be effective 100%
 
-        result.addSource(roomVehicleDataSource.inspectionDao().getAllInspecions(),
-                { inspection: List<Inspection>? -> resultLiveAndRoom.value = Resource(SUCCESS, inspection) })
+        result.addSource(roomVehicleDataSource.inspectionDao().getAllInspections(),
+                { inspection: List<Inspection>? ->
+                    resultLiveAndRoom.value = Resource(SUCCESS, inspection)
+                })
         result.addSource(liveResult,
                 { inspectionResult: Resource<List<Inspection>>? -> resultLiveAndRoom.value = inspectionResult })
 
@@ -80,7 +85,10 @@ class InspectionRepository : BaseRepository() {
                             addInspection(it)
                             liveResult.value = Resource(SUCCESS, it)
                         },
-                        { liveResult.value = Resource(ERROR, null, AppException(it)) })
+                        {
+                            error { it }
+                            liveResult.value = Resource(ERROR, null, AppException(it))
+                        })
         return resultLiveAndRoom
     }
 

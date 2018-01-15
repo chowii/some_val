@@ -31,7 +31,7 @@ class SearchViewModel : BaseViewModel() {
         repository.doSearch(it)
     }
 
-    fun loadVehicles(): LiveData<Resource<List<Inspection>>>? {
+    fun loadInspections(): LiveData<Resource<List<Inspection>>>? {
         if (liveInspectionData == null) {
             liveInspectionData = MutableLiveData()
             liveInspectionData = repository.getInspections()
@@ -39,7 +39,7 @@ class SearchViewModel : BaseViewModel() {
         return liveInspectionData
     }
 
-    fun initLocalVehicles() {
+    fun initLocalInspections() {
         compositeDisposable += repository.getTotalInspections()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

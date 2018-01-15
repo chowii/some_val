@@ -26,7 +26,9 @@ data class Inspection(
         @SerializedName("last_service_date") var lastServiceDate: String?,
         @SerializedName("inspection_type") var inspectionType: String?,
         @SerializedName("condition") var condition: String?,
-        @SerializedName("vehicle_condition") var vehicleCondition: String?) {
+        @SerializedName("vehicle_condition") var vehicleCondition: String?,
+        @Embedded
+        @SerializedName("vehicle") var vehicle: Vehicle) {
     @Ignore
     @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
@@ -36,8 +38,6 @@ data class Inspection(
 //        see image for example
 
 
-//        @Embedded
-//        @SerializedName("vehicle") var vehicle: Vehicle
 //        @SerializedName("depot") var rsfTyreId: Depot,
 
 //        @SerializedName("exterior_damage_report") var extDamageReport: DamageReport,

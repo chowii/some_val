@@ -26,7 +26,7 @@ class InspectionFragment : EvaluationBaseFragment() {
 
     override fun initViewModel() {
         super.initViewModel()
-        inspectionViewModel?.initLocalVehicles()
+        inspectionViewModel?.initLocalInspections()
 
     }
 

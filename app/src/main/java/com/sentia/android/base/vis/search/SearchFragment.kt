@@ -16,6 +16,7 @@ import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.intentFor
 import kotlinx.android.synthetic.main.fragment_search.*
+import org.jetbrains.anko.error
 
 /**
  * Created by mariolopez on 27/12/17.
@@ -26,7 +27,7 @@ class SearchFragment : BaseFragment() {
     override fun initViewModel() {
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
         searchViewModel?.let { lifecycle.addObserver(it) }
-        searchViewModel?.initLocalVehicles()
+        searchViewModel?.initLocalInspections()
     }
 
     private lateinit var binding: FragmentSearchBinding
@@ -49,12 +50,12 @@ class SearchFragment : BaseFragment() {
         et_search.textChanges().subscribe { searchViewModel?.search(it.toString()) }
 
         //todo init recycler view
-        searchViewModel?.loadVehicles()?.observe(this, Observer {
+        searchViewModel?.loadInspections()?.observe(this, Observer {
             val size = it?.data?.size
             when (it?.status) {
                 SUCCESS -> TODO()
                 ERROR -> TODO()
-                LOADING -> TODO()
+                LOADING -> error { it.exception }
             }
             //todo-init recycler view
         })

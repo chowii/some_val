@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_make"
-                android:text="@{inspection.serviceHistory}"
+                android:text="@{inspection.vehicle.model}"
                 tools:text="Ford" />
         </android.support.design.widget.TextInputLayout>
 
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_make"
-                tools:text="Ford" />
+                tools:text="@{inspection.vehicle.make}" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -180,6 +180,7 @@
                 style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@{inspection.vehicle.vin}"
                 android:hint="@string/hint_vin" />
         </android.support.design.widget.TextInputLayout>
 
@@ -189,8 +190,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
             android:layout_marginTop="24dp"
-            android:checkMark="@android:drawable/checkbox_off_background"
             android:text="@string/master_key_and_remote"
+            android:checked="@{inspection.masterKeyAndRemote}"
             app:layout_constraintEnd_toEndOf="@+id/til_vin"
             app:layout_constraintStart_toStartOf="@+id/til_vin"
             app:layout_constraintTop_toBottomOf="@+id/til_vin" />

@@ -23,7 +23,7 @@ interface Repository {
 
     fun getInspections(): LiveData<Resource<List<Inspection>>>
 
-    fun findInspection(id: Long): LiveData<Resource<Inspection>>
+    fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>>
 
     fun getTotalInspections(): Flowable<Int>
 }

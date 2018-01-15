@@ -13,7 +13,6 @@ import com.sentia.android.base.vis.data.room.RoomContract.Companion.TABLE_INSPEC
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.TABLE_PHOTOS
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
-import com.sentia.android.base.vis.data.room.entity.Vehicle
 import io.reactivex.Flowable
 
 /**
@@ -23,7 +22,7 @@ import io.reactivex.Flowable
 interface RoomInspectionDao {
 
     @Query(SELECT_INSPECTIONS)
-    fun getAllInspecions(): LiveData<List<Inspection>>
+    fun getAllInspections(): LiveData<List<Inspection>>
 
     @Query(SELECT_INSPECTIONS_COUNT)
     fun getTotalInspections(): Flowable<Int>
@@ -36,10 +35,7 @@ interface RoomInspectionDao {
     fun insertAll(vehicles: List<Inspection>)
 
     @Delete()
-    fun delete(vehicle: Vehicle)
-
-    @Query(SELECT_FROM + TABLE_INSPECTIONS + " WHERE id IN (:inspectionId)")
-    fun getInspection(inspectionId: Long): LiveData<Inspection>
+    fun delete(inspection: Inspection)
 
     @Query(SELECT_FROM + TABLE_INSPECTIONS + " WHERE id IN (:inspectionId)")
     fun getInspectionF(inspectionId: Long): Flowable<Inspection>
