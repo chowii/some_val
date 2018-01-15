@@ -30,8 +30,6 @@ data class Inspection(
     @Ignore
     @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
-//    constructor(0,"",false,fase,false,false,false,falase,false,"","","","","","","","","")
-//    @Ignore constructor(vehicleId: Long = 0, url: String = "", base64: String= "",bitmap: Bitmap?=null) : this()
 }
 
 //uncomment and remove at will
@@ -65,39 +63,41 @@ data class Image(
         @PrimaryKey
         @SerializedName("id") val id: Long,
         val inspectionId: Long,
-        @SerializedName("name") val url: String,
+        @SerializedName("name") val url: String?,
         @SerializedName("attachment") val attachmentB64: String,
-        @SerializedName("overlay") val overlayB64: String) {
-//    @Ignore
-//    val bitmap: Bitmap? = null
-//    @Ignore constructor(vehicleId: Long = 0, url: String = "", base64: String= "",bitmap: Bitmap?=null) : this()
-}
+        @SerializedName("overlay") val overlayB64: String)
 
 @Entity(tableName = RoomContract.TABLE_DAMAGE_REPORT, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class DamageReport(
+        @PrimaryKey
+        @SerializedName("id") val idReport: Long,
         @SerializedName("inspection_id") val inspectionId: Long,
-        @SerializedName("vehicle_template_id") val vehicle_template_id: String,
-        @SerializedName("is_inspected") val isInspected: Boolean,
-        //todo uncomment at will
-//        @SerializedName("items") val damageItems: List<DamageItem>,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+        @SerializedName("vehicle_template_id") val vehicleTemplateId: String,
+        @SerializedName("is_inspected") val isInspected: Boolean) {
+    @Ignore
+    @SerializedName("items")
+    val damageItems: List<DamageItem> = emptyList()
+}
+
+//)
 
 @Entity(tableName = RoomContract.TABLE_DAMAGE_ITEM, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class DamageItem(
         @PrimaryKey(autoGenerate = true) val id: Long,
         val inspectionId: Long,
-        @SerializedName("component") val component: String,
-        @SerializedName("fault") val fault: String,
-        @SerializedName("repair_action") val repairAction: String,
-        @SerializedName("comment") val comment: String,
-        @SerializedName("coord_x") val x: Double,
-        @SerializedName("coord_y") val y: Double,
-        @SerializedName("is_inspected") val isInspected: Boolean
-        //todo uncomment at will
-//        @SerializedName("items") val damageComponents: List<DamageItem>,
-)
+        @SerializedName("component") val component: String?,
+        @SerializedName("fault") val fault: String?,
+        @SerializedName("repair_action") val repairAction: String?,
+        @SerializedName("comment") val comment: String?,
+        @SerializedName("coord_x") val coordX: Double?,
+        @SerializedName("coord_y") val coordY: Double?,
+        @SerializedName("is_inspected") val isInspected: Boolean) {
+    @Ignore
+    @SerializedName("images")
+    val photos: MutableList<Image> = mutableListOf()
+}
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_TYRES, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
@@ -106,26 +106,25 @@ data class Tyre(
         @SerializedName("name") val model: String,
         @SerializedName("brand") val brand: String?,
         @SerializedName("depth") val depth: Double?,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+        @PrimaryKey(autoGenerate = true) val idTyre: Long)
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_ACCESSORIES, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])])
 data class Accessory(
-        @SerializedName("name") val model: String,
+        @SerializedName("name") val name: String,
         @SerializedName("value") val isChecked: Boolean,
         @SerializedName("inspection_id") val inspectionId: Long,
         @PrimaryKey(autoGenerate = true) val id: Long)
 
-
 data class LocationDepot(
+        @SerializedName("id") val idLocation: Long,
         @SerializedName("address_1") val address1: String,
-        @SerializedName("address_2") val address2: String,
-        @SerializedName("address_3") val address3: String,
+        @SerializedName("address_2") val address2: String?,
+        @SerializedName("address_3") val address3: String?,
         @SerializedName("address_4") val address4: String,
         @SerializedName("postcode") val postCode: String,
         @SerializedName("suburb") val suburb: String,
         @SerializedName("state") val state: String,
         @SerializedName("country") val country: String,
-        @SerializedName("lat") val latitude: Double,
-        @SerializedName("long") val longitude: Double) {
-}
+        @SerializedName("lat") val latitude: Float?,
+        @SerializedName("long") val longitude: Float?)
