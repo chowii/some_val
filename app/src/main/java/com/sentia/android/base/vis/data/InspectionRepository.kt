@@ -45,7 +45,7 @@ class InspectionRepository : BaseRepository() {
         val dao = roomVehicleDataSource.inspectionDao()
         val inspectionFlowable = Observable.combineLatest(
                 dao.getInspectionF(inspectionId).toObservable(),
-                dao.getInspectionPhotos(inspectionId).toObservable().startWith(emptyList<Image>()),
+                dao.getInspectionPhotos(inspectionId).toObservable(),
 
                 BiFunction { inspection: Inspection, photos: List<Image> ->
                     inspection.images.addAll(photos)
