@@ -1,6 +1,6 @@
 package com.sentia.android.base.vis.data.room.entity
 
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 //@Entity(tableName = RoomContract.TABLE_VEHICLES,
 //        indices = [(Index(value = ["id", "model"], unique = true)), (Index(value = ["model", "make"], unique = true))])
 data class Vehicle(
-        @PrimaryKey
+        @ColumnInfo(name = "vehicle_id")
         @SerializedName("id") val idVehicle: Long,
 //        @SerializedName("inspection_id") val inspectionId: Long,
         @SerializedName("drive_vehicle_id") var driveId: String? = null,

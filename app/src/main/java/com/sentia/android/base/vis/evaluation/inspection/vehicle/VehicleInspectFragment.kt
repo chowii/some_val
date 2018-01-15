@@ -17,7 +17,6 @@ import com.sentia.android.base.vis.util.Resource
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_inspection_vehicle.*
-import org.jetbrains.anko.info
 import org.reactivestreams.Publisher
 
 /**
@@ -63,7 +62,6 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
 
                 })
                 .subscribe { (old, new) ->
-                    info { old.spareKeyAndRemote.toString() + " - " + new.spareKeyAndRemote }
                     inspectionViewModel?.saveTempChanges(old) {
                         it.spareKeyAndRemote = new.spareKeyAndRemote
                     }
