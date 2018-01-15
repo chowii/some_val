@@ -9,8 +9,8 @@ import com.sentia.android.base.vis.data.room.RoomContract
  */
 @Entity(tableName = RoomContract.TABLE_INSPECTIONS,
         indices = [(Index(value = ["id"], unique = true)),
-            (Index(value = ["vehicle_id"], unique = true)),
-            (Index(value = ["vin"], unique = true))])
+            (Index(value = ["vehicle_id"])),
+            (Index(value = ["vin"]))])
 data class Inspection(
         @PrimaryKey
         @SerializedName("id") val id: Long,
@@ -52,7 +52,7 @@ data class Inspection(
 @Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true)),
-            (Index(value = ["name"], unique = true))])
+            (Index(value = ["name"]))])
 data class Depot(
         @PrimaryKey
         @SerializedName("id") val id: Long,

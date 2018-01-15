@@ -1,0 +1,834 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "57b8e92e4743b51d4157f0891b2df34d",
+    "entities": [
+      {
+        "tableName": "Inspections_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `state` TEXT NOT NULL, `masterKeyAndRemote` INTEGER NOT NULL, `spareKeyAndRemote` INTEGER NOT NULL, `lockingWheelNut` INTEGER NOT NULL, `serviceBook` INTEGER NOT NULL, `serviceRequired` INTEGER NOT NULL, `ownersManual` INTEGER NOT NULL, `eTag` INTEGER NOT NULL, `fuelTag` INTEGER NOT NULL, `serviceHistory` TEXT, `odometer` TEXT, `lastServiceDate` TEXT, `inspectionType` TEXT, `condition` TEXT, `vehicleCondition` TEXT, `vehicle_id` INTEGER NOT NULL, `driveId` TEXT, `rego` TEXT NOT NULL, `glassesCode` TEXT, `vin` TEXT NOT NULL, `make` TEXT NOT NULL, `model` TEXT NOT NULL, `derivative` TEXT, `registeredDate` TEXT, `registeredState` TEXT, `registeredName` TEXT, `buildDate` TEXT, `complianceDate` TEXT, `virInspectionDate` TEXT, `registrationExpireDate` TEXT, `bodyType` TEXT, `doors` INTEGER, `transmissionType` TEXT, `fuelType` TEXT, `emissions` TEXT, `engineSize` TEXT, `engineBhp` TEXT, `driverSide` TEXT, `driverTransmission` TEXT, `engineNumber` TEXT, `gears` INTEGER, `colour` TEXT, `interiorTrim` TEXT, `no_of_seats` INTEGER, `vatQualifying` TEXT, `miles` INTEGER, `milesDate` TEXT, `p1` TEXT, `p2` TEXT, `notes` TEXT, `options` TEXT, `instruction` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "masterKeyAndRemote",
+            "columnName": "masterKeyAndRemote",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spareKeyAndRemote",
+            "columnName": "spareKeyAndRemote",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lockingWheelNut",
+            "columnName": "lockingWheelNut",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serviceBook",
+            "columnName": "serviceBook",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serviceRequired",
+            "columnName": "serviceRequired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownersManual",
+            "columnName": "ownersManual",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eTag",
+            "columnName": "eTag",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fuelTag",
+            "columnName": "fuelTag",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serviceHistory",
+            "columnName": "serviceHistory",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "odometer",
+            "columnName": "odometer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastServiceDate",
+            "columnName": "lastServiceDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inspectionType",
+            "columnName": "inspectionType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "condition",
+            "columnName": "condition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicleCondition",
+            "columnName": "vehicleCondition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.idVehicle",
+            "columnName": "vehicle_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicle.driveId",
+            "columnName": "driveId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.rego",
+            "columnName": "rego",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicle.glassesCode",
+            "columnName": "glassesCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.vin",
+            "columnName": "vin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicle.make",
+            "columnName": "make",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicle.model",
+            "columnName": "model",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicle.derivative",
+            "columnName": "derivative",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.registeredDate",
+            "columnName": "registeredDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.registeredState",
+            "columnName": "registeredState",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.registeredName",
+            "columnName": "registeredName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.buildDate",
+            "columnName": "buildDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.complianceDate",
+            "columnName": "complianceDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.virInspectionDate",
+            "columnName": "virInspectionDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.registrationExpireDate",
+            "columnName": "registrationExpireDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.bodyType",
+            "columnName": "bodyType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.doors",
+            "columnName": "doors",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.transmissionType",
+            "columnName": "transmissionType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.fuelType",
+            "columnName": "fuelType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.emissions",
+            "columnName": "emissions",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.engineSize",
+            "columnName": "engineSize",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.engineBhp",
+            "columnName": "engineBhp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.driverSide",
+            "columnName": "driverSide",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.driverTransmission",
+            "columnName": "driverTransmission",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.engineNumber",
+            "columnName": "engineNumber",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.gears",
+            "columnName": "gears",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.colour",
+            "columnName": "colour",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.interiorTrim",
+            "columnName": "interiorTrim",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.no_of_seats",
+            "columnName": "no_of_seats",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.vatQualifying",
+            "columnName": "vatQualifying",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.miles",
+            "columnName": "miles",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.milesDate",
+            "columnName": "milesDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.p1",
+            "columnName": "p1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.p2",
+            "columnName": "p2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.options",
+            "columnName": "options",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vehicle.instruction",
+            "columnName": "instruction",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Inspections_Table_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Inspections_Table_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_Inspections_Table_vehicle_id",
+            "unique": false,
+            "columnNames": [
+              "vehicle_id"
+            ],
+            "createSql": "CREATE  INDEX `index_Inspections_Table_vehicle_id` ON `${TABLE_NAME}` (`vehicle_id`)"
+          },
+          {
+            "name": "index_Inspections_Table_vin",
+            "unique": false,
+            "columnNames": [
+              "vin"
+            ],
+            "createSql": "CREATE  INDEX `index_Inspections_Table_vin` ON `${TABLE_NAME}` (`vin`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Depots_Model_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `inspectionId` INTEGER NOT NULL, `idLocation` INTEGER NOT NULL, `address1` TEXT NOT NULL, `address2` TEXT, `address3` TEXT, `address4` TEXT NOT NULL, `postCode` TEXT NOT NULL, `suburb` TEXT NOT NULL, `state` TEXT NOT NULL, `country` TEXT NOT NULL, `latitude` REAL, `longitude` REAL, PRIMARY KEY(`id`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.idLocation",
+            "columnName": "idLocation",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.address1",
+            "columnName": "address1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.address2",
+            "columnName": "address2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationDepot.address3",
+            "columnName": "address3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationDepot.address4",
+            "columnName": "address4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.postCode",
+            "columnName": "postCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.suburb",
+            "columnName": "suburb",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationDepot.latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationDepot.longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Depots_Model_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Depots_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          },
+          {
+            "name": "index_Depots_Model_Table_name",
+            "unique": false,
+            "columnNames": [
+              "name"
+            ],
+            "createSql": "CREATE  INDEX `index_Depots_Model_Table_name` ON `${TABLE_NAME}` (`name`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Photos_Model_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `inspectionId` INTEGER NOT NULL, `url` TEXT, `attachmentB64` TEXT NOT NULL, `overlayB64` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attachmentB64",
+            "columnName": "attachmentB64",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "overlayB64",
+            "columnName": "overlayB64",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Photos_Model_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Photos_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Damage_report_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idReport` INTEGER NOT NULL, `inspectionId` INTEGER NOT NULL, `vehicleTemplateId` TEXT NOT NULL, `isInspected` INTEGER NOT NULL, PRIMARY KEY(`idReport`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "idReport",
+            "columnName": "idReport",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicleTemplateId",
+            "columnName": "vehicleTemplateId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isInspected",
+            "columnName": "isInspected",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idReport"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Damage_report_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Damage_report_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Accessories_model_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `isChecked` INTEGER NOT NULL, `inspectionId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isChecked",
+            "columnName": "isChecked",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Accessories_model_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Accessories_model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Tyres_Model_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inspectionId` INTEGER NOT NULL, `model` TEXT NOT NULL, `brand` TEXT, `depth` REAL, `idTyre` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "model",
+            "columnName": "model",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brand",
+            "columnName": "brand",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "depth",
+            "columnName": "depth",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idTyre",
+            "columnName": "idTyre",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTyre"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Tyres_Model_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Tyres_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Damage_items_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `inspectionId` INTEGER NOT NULL, `component` TEXT, `fault` TEXT, `repairAction` TEXT, `comment` TEXT, `coordX` REAL, `coordY` REAL, `isInspected` INTEGER NOT NULL, FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "component",
+            "columnName": "component",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fault",
+            "columnName": "fault",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "repairAction",
+            "columnName": "repairAction",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "comment",
+            "columnName": "comment",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coordX",
+            "columnName": "coordX",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coordY",
+            "columnName": "coordY",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isInspected",
+            "columnName": "isInspected",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Damage_items_Table_inspectionId",
+            "unique": true,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Damage_items_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"57b8e92e4743b51d4157f0891b2df34d\")"
+    ]
+  }
+}
