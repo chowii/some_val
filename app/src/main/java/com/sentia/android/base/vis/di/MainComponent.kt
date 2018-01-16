@@ -30,7 +30,7 @@ object MainComponent {
         bind<RemoteDataSource>() with singleton { RemoteDataSource() }
         bind<RoomInspectionDataSource>() with singleton { RoomInspectionDataSource.buildPersistentVehicle(App.context!!) }    //this needs to be singleton bottom page https://developer.android.com/training/data-storage/room/index.html
         bind<InspectionRepository>() with singleton { InspectionRepository() }
-        bind<Constants>() with singleton { Constants(instance()) }
+        bind<Constants>() with singleton { Constants(App.context!!.resources) }
 
         //Rest Adapter
         bind<AuthManager>() with provider { AuthManager() }
