@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sentia.android.base.vis">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.sentia.android.base.vis.App"
         android:allowBackup="true"

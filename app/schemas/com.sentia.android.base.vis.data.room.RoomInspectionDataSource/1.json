@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "57b8e92e4743b51d4157f0891b2df34d",
+    "identityHash": "e3708d5aec904444cb6668ee6c3765a8",
     "entities": [
       {
         "tableName": "Inspections_Table",
@@ -490,7 +490,7 @@
       },
       {
         "tableName": "Photos_Model_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `inspectionId` INTEGER NOT NULL, `url` TEXT, `attachmentB64` TEXT NOT NULL, `overlayB64` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `attachmentB64` TEXT NOT NULL, `overlayB64` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -499,14 +499,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "inspectionId",
-            "columnName": "inspectionId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "url",
-            "columnName": "url",
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -531,27 +525,15 @@
         },
         "indices": [
           {
-            "name": "index_Photos_Model_Table_inspectionId",
+            "name": "index_Photos_Model_Table_id",
             "unique": true,
             "columnNames": [
-              "inspectionId"
+              "id"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_Photos_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+            "createSql": "CREATE UNIQUE INDEX `index_Photos_Model_Table_id` ON `${TABLE_NAME}` (`id`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Inspections_Table",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "inspectionId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "Damage_report_Table",
@@ -824,11 +806,70 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "Inspection_Photos_Model_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inspectionId` INTEGER NOT NULL, `imageId` INTEGER NOT NULL, PRIMARY KEY(`inspectionId`, `imageId`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`imageId`) REFERENCES `Photos_Model_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "inspectionId",
+            "columnName": "inspectionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageId",
+            "columnName": "imageId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "inspectionId",
+            "imageId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_Inspection_Photos_Model_Table_inspectionId",
+            "unique": false,
+            "columnNames": [
+              "inspectionId"
+            ],
+            "createSql": "CREATE  INDEX `index_Inspection_Photos_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inspections_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inspectionId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "Photos_Model_Table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "imageId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"57b8e92e4743b51d4157f0891b2df34d\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e3708d5aec904444cb6668ee6c3765a8\")"
     ]
   }
 }

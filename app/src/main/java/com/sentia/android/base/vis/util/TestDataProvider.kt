@@ -1,5 +1,6 @@
 package com.sentia.android.base.vis.util
 
+import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.Vehicle
 import java.util.*
@@ -12,9 +13,9 @@ class TestDataProvider {
         fun getInspections(): List<Inspection> {
             return listOf(
                     Inspection(123, "NSW", false, false, false, false, true, false, false, false, "noIDEA", "randomValue", "someDate", "waxon_waxoff", "mint", "noidea2"
-                            , createRandomVehicle()),
+                            , createRandomVehicle()).apply { images.addAll(createMockPhotos()) },
                     Inspection(12, "QSL", true, true, true, true, true, true, true, true, "noIDEA2", "randomValue2", "someDate2", "waxon_waxoff2", "filthy", "noidea2"
-                            , createRandomVehicle()))
+                            , createRandomVehicle()).apply { images.addAll(createMockPhotos()) })
 
         }
 
@@ -23,5 +24,14 @@ class TestDataProvider {
             return Vehicle(idVehicle = r.nextLong(), model = "Mondeo" + r.nextInt(), make = "Ford", rego = "12/21/2017", vin = "123123123")
         }
 
+        private fun createMockPhotos() = mutableListOf<Image>().apply {
+            add(Image(1, "Name1", "base64", "Overlay1"))
+            add(Image(2, "Name2", "base64", "Overlay2"))
+            add(Image(3, "Name3", "base64", "Overlay3"))
+            add(Image(4, "Name4", "base64", "Overlay4"))
+            add(Image(5, "Name5", "base64", "Overlay5"))
+            add(Image(6, "Name6", "base64", "Overlay6"))
+            add(Image(7, "Name7", "base64", "Overlay7"))
+        }
     }
 }

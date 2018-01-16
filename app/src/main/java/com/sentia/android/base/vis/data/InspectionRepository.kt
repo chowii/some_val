@@ -10,6 +10,7 @@ import com.sentia.android.base.vis.data.repository.BaseRepository
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.InspectionImage
 import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
@@ -32,8 +33,20 @@ class InspectionRepository : BaseRepository() {
     private val roomVehicleDataSource by kodein.instance<RoomInspectionDataSource>()
 
     override fun addMockedInspections() {
+        val inspectionDao = roomVehicleDataSource.inspectionDao()
+
         val inspections = RoomInspectionDataSource.getAllInspections()
-        roomVehicleDataSource.inspectionDao().insertAll(inspections)
+        inspectionDao.insertAll(inspections)
+
+        val images = inspections.flatMap { inspection -> inspection.images }
+        inspectionDao.insertAllImages(images)
+
+        val inspectionImages = inspections.flatMap { inspection ->
+            inspection.images.map { image ->
+                InspectionImage(inspection.id, image.id)
+            }
+        }
+        inspectionDao.insertAllInspectionImages(inspectionImages)
     }
 
     private fun addInspection(inspections: List<Inspection>) {

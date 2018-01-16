@@ -18,6 +18,7 @@ class RoomContract {
         const val TABLE_DAMAGE_ITEM = "Damage_items_Table"
         const val TABLE_LOCATION_JSON = "Location_Model_Table"
         const val TABLE_PHOTOS = "Photos_Model_Table"
+        const val TABLE_INSPECTION_PHOTOS = "Inspection_Photos_Model_Table"
 
         private const val SELECT_COUNT = "SELECT COUNT(*) FROM "
         internal const val SELECT_FROM = "SELECT * FROM "

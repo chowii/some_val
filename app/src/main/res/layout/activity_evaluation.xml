@@ -69,7 +69,7 @@
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_main_photos" />
+            android:text="@string/tab_evaluation_photos" />
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"

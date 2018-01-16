@@ -28,7 +28,7 @@ class EvaluationTabsPagerAdapter(fm: FragmentManager, private val resources: Res
 
     override fun getPageTitle(position: Int): CharSequence? = when (position) {
         TAB_INSPECTION -> resources.getString(R.string.tab_evaluation_inspection)
-        TAB_PHOTOS -> resources.getString(R.string.tab_evaluation_inspection)
+        TAB_PHOTOS -> resources.getString(R.string.tab_evaluation_photos)
         TAB_DAMAGES -> resources.getString(R.string.tab_evaluation_damages)
         else -> ""
     }
