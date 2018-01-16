@@ -1,14 +1,15 @@
 package com.sentia.android.base.vis.di
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.provider
-import com.github.salomonbrys.kodein.singleton
+import com.github.salomonbrys.kodein.*
+import com.github.salomonbrys.kodein.android.androidModule
 import com.sentia.android.base.vis.App
 import com.sentia.android.base.vis.api.RestAdapter
+import com.sentia.android.base.vis.api.auth.AuthManager
+import com.sentia.android.base.vis.api.interceptor.AuthInterceptor
 import com.sentia.android.base.vis.data.InspectionRepository
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
+import com.sentia.android.base.vis.util.Constants
 import com.sentia.android.base.vis.util.RxBus
 
 /**
@@ -18,6 +19,7 @@ import com.sentia.android.base.vis.util.RxBus
 object MainComponent {
 
     fun mainComponent() = Kodein {
+        import(androidModule)
         BaseAppComponent()
     }
 
@@ -28,5 +30,10 @@ object MainComponent {
         bind<RemoteDataSource>() with singleton { RemoteDataSource() }
         bind<RoomInspectionDataSource>() with singleton { RoomInspectionDataSource.buildPersistentVehicle(App.context!!) }    //this needs to be singleton bottom page https://developer.android.com/training/data-storage/room/index.html
         bind<InspectionRepository>() with singleton { InspectionRepository() }
+        bind<Constants>() with singleton { Constants(instance()) }
+
+        //Rest Adapter
+        bind<AuthManager>() with provider { AuthManager() }
+        bind<AuthInterceptor>() with provider { AuthInterceptor(instance()) }
     }
 }

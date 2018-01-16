@@ -59,6 +59,7 @@ allprojects {
         //Network
         retrofit_version = "2.3.0"
         retrofitGsonConverter_version = "2.3.0"
+        okhttp_version = "3.6.0"
 
         //Persistence
         room_version = "1.0.0"

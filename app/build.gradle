@@ -84,11 +84,14 @@ dependencies {
     //Dependency injection framework
     implementation "com.github.salomonbrys.kodein:kodein:$kodein_version"
     implementation "com.github.salomonbrys.kodein:kodein-conf:$kodein_version"
+    implementation "com.github.salomonbrys.kodein:kodein-android:$kodein_version"
+
 
     //Type-safe HTTP client
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
     //Persistence
     kapt "android.arch.persistence.room:compiler:$room_version"
