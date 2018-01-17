@@ -12,9 +12,8 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import com.sentia.android.base.vis.App
 import com.sentia.android.base.vis.api.interceptor.AuthInterceptor
-import com.sentia.android.base.vis.data.room.entity.Vehicle
+import com.sentia.android.base.vis.api.interceptor.StatusCodeInterceptor
 import com.sentia.android.base.vis.util.Constants.Companion.BASE_URL
-import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,18 +34,17 @@ class RestAdapter {
     private val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
-//            .addInterceptor(StatusCodeInterceptor()) todo-mario or whoever, refactor this if needed
+            .addInterceptor(StatusCodeInterceptor())
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
 
-    private var projectApi: Api = Retrofit.Builder()
+    var projectApi: Api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(buildConverter())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClientBuilder.build())
             .build()
             .create(Api::class.java)
-
 
     private fun buildConverter(): GsonConverterFactory {
         return GsonConverterFactory.create(GsonBuilder().registerTypeAdapterFactory(DataTypeAdapterFactory()).create())
@@ -86,5 +84,4 @@ class RestAdapter {
         }
     }
 
-    fun getSampleList(): Observable<Vehicle> = projectApi.getSample(mapOf())
 }

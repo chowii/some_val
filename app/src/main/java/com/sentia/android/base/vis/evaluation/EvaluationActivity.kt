@@ -23,6 +23,7 @@ class EvaluationActivity : BaseActivity(), LifecycleOwner {
 
         tl_evaluation.setupWithViewPager(vp_tabs_evaluation)
         vp_tabs_evaluation.adapter = EvaluationTabsPagerAdapter(supportFragmentManager, resources)
+
     }
 
 }

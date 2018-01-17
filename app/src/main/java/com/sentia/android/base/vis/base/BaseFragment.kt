@@ -3,7 +3,9 @@ package com.sentia.android.base.vis.base
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.App
+import com.sentia.android.base.vis.api.auth.AuthManager
 import org.jetbrains.anko.AnkoLogger
 
 /**
@@ -12,6 +14,8 @@ import org.jetbrains.anko.AnkoLogger
 abstract class BaseFragment : Fragment(), AnkoLogger {
 
     val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
+    protected val authManager: AuthManager by kodein.instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initViewModel()

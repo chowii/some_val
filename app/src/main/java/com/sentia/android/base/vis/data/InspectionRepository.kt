@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import com.github.salomonbrys.kodein.instance
+import com.sentia.android.base.vis.api.model.LoginResult
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.repository.BaseRepository
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
@@ -15,12 +16,12 @@ import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
+import com.sentia.android.base.vis.util.forUi
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.subscribeBy
 import org.jetbrains.anko.error
 
 
@@ -91,8 +92,7 @@ class InspectionRepository : BaseRepository() {
                 { inspectionResult: Resource<List<Inspection>>? -> resultLiveAndRoom.value = inspectionResult })
 
         compositeDisposable += remoteDataSource.getInspectionList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .forUi()
                 .subscribe(
                         {
                             addInspection(it)
@@ -112,5 +112,17 @@ class InspectionRepository : BaseRepository() {
         return MutableLiveData()
     }
 
+    fun login(email: String, password: String): LiveData<Resource<LoginResult>> {
+        val liveData = MutableLiveData<Resource<LoginResult>>()
+        liveData.value = Resource(LOADING)
 
+        compositeDisposable += remoteDataSource.login(email, password)
+                .forUi()
+                .subscribeBy(
+                        onNext = { liveData.value = Resource(SUCCESS, it) },
+                        onError = { liveData.value = Resource(ERROR, null, AppException(it)) })
+
+        return liveData
+
+    }
 }

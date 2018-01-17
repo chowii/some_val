@@ -24,6 +24,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver, AnkoLogger {
         repository.compositeDisposable.clear()
         compositeDisposable.clear()
     }
+
     override fun onCleared() {
         unSubscribeViewModel()
         super.onCleared()

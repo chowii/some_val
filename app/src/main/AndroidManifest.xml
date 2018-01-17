@@ -23,6 +23,7 @@
         <activity
             android:name=".evaluation.EvaluationActivity"
             android:parentActivityName=".search.SearchActivity" />
+        <activity android:name=".login.LoginActivity" />
     </application>
 
 </manifest>

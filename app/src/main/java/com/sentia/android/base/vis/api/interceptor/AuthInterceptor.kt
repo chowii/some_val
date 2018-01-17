@@ -14,7 +14,8 @@ class AuthInterceptor(private val authManager: AuthManager) : Interceptor {
 
         val authToken = authManager.getAuthToken()
         val requestBuilder = request.newBuilder()
-        if (authToken != "") {
+
+        if (authToken.isNotEmpty()) {
             requestBuilder.addHeader("Authorization", authToken)
         }
         val newRequest = requestBuilder.build()
