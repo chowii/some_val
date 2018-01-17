@@ -31,7 +31,10 @@
                 style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_odometer" />
+                android:hint="@string/hint_odometer"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@id/swi_master_key" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -50,7 +53,14 @@
                 style="@style/DisabledAppTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_derivative" />
+                android:hint="@string/hint_derivative"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@+id/et_registration"
+                android:nextFocusLeft="@+id/et_make"
+                android:nextFocusRight="@+id/et_registration"
+                android:text="@{inspection.vehicle.derivative}"
+                tools:text="FG 4.0 xt ssss (6sp) RWD" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -69,7 +79,12 @@
                 style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_reg_exp_date" />
+                android:hint="@string/hint_reg_exp_date"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@+id/et_vin"
+                android:nextFocusLeft="@+id/et_reg_state"
+                android:nextFocusRight="@+id/et_vin" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.constraint.Guideline
@@ -145,6 +160,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:hint="@string/hint_registration"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@+id/et_reg_state"
+                android:nextFocusLeft="@+id/et_derivative"
+                android:nextFocusRight="@+id/et_reg_state"
                 tools:text="BTD75K" />
         </android.support.design.widget.TextInputLayout>
 
@@ -163,6 +183,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_registration_state"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@+id/et_reg_exp_date"
+                android:nextFocusLeft="@+id/et_registration"
+                android:nextFocusRight="@+id/et_reg_exp_date"
                 tools:text="Italy" />
         </android.support.design.widget.TextInputLayout>
 
@@ -180,9 +205,15 @@
                 style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{inspection.vehicle.vin}"
-                android:hint="@string/hint_vin" />
+                android:hint="@string/hint_vin"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:nextFocusForward="@+id/et_odometer"
+                android:nextFocusLeft="@+id/et_reg_exp_date"
+                android:nextFocusRight="@+id/et_odometer"
+                android:text="@{inspection.vehicle.vin}" />
         </android.support.design.widget.TextInputLayout>
+
 
         <Switch
             android:id="@+id/swi_master_key"
@@ -190,8 +221,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/btn_min_height"
             android:layout_marginTop="24dp"
-            android:text="@string/master_key_and_remote"
             android:checked="@{inspection.masterKeyAndRemote}"
+            android:text="@string/master_key_and_remote"
             app:layout_constraintEnd_toEndOf="@+id/til_vin"
             app:layout_constraintStart_toStartOf="@+id/til_vin"
             app:layout_constraintTop_toBottomOf="@+id/til_vin" />

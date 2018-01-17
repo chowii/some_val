@@ -31,7 +31,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="AppSwitch" parent="Widget.AppCompat.CompoundButton.Switch">
+    <style name="AppSwitch" >
         <item name="android:background">@drawable/bg_switch</item>
         <item name="android:textSize">18sp</item>
     </style>

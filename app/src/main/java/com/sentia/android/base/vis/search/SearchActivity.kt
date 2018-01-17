@@ -20,6 +20,5 @@ class SearchActivity : BaseActivity() {
             startActivity(intentFor<LoginActivity>().clearTask())
             finish()
         }
-
     }
 }

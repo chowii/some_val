@@ -7,13 +7,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.jakewharton.rxbinding2.widget.checkedChanges
+import com.jakewharton.rxbinding2.widget.editorActions
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.EvaluationBaseFragment
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.databinding.FragmentInspectionVehicleBinding
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource
+import com.sentia.android.base.vis.util.hideKeyboard
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.fragment_inspection_vehicle.*
@@ -66,6 +69,13 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                         it.spareKeyAndRemote = new.spareKeyAndRemote
                     }
                 }
+
+
+        et_odometer.editorActions().subscribe {
+            when (it) {EditorInfo.IME_ACTION_NEXT -> hideKeyboard()
+            }
+        }
+        et_registration.requestFocus()
     }
 
     companion object {

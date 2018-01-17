@@ -28,4 +28,3 @@ class Constants(val res: Resources) {
 
     }
 }
-

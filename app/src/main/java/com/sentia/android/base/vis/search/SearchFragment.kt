@@ -14,6 +14,7 @@ import com.sentia.android.base.vis.databinding.FragmentSearchBinding
 import com.sentia.android.base.vis.evaluation.EvaluationActivity
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource.Status.*
+import com.sentia.android.base.vis.util.hideKeyboard
 import com.sentia.android.base.vis.util.intentFor
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.jetbrains.anko.error
@@ -42,7 +43,11 @@ class SearchFragment : BaseFragment() {
         initUi(savedInstanceState)
 
         //todo remove
-        bt_go_to_evaluation.setOnClickListener { startActivity(intentFor<EvaluationActivity>(KEY_INSPECTION_ID to 123)) }
+        bt_go_to_evaluation.setOnClickListener {
+            startActivity(intentFor<EvaluationActivity>(KEY_INSPECTION_ID to 123))
+            hideKeyboard()
+        }
+
     }
 
 
