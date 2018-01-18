@@ -18,11 +18,11 @@ class DamagesListFragment : BaseFragment() {
     private val vehicleId: Long by lazy { arguments?.getLong(KEY_INSPECTION_ID, 0) ?: 0 }
 
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
+        inspectionViewModel =  ViewModelProviders.of(activity!!).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
     }
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_damages_list, container, false)
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_damages_list, container, false)
     }
     companion object {
         fun newInstance(vehicleId: Long) = DamagesListFragment().apply {

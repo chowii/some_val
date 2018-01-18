@@ -13,7 +13,7 @@ abstract class EvaluationBaseFragment : BaseFragment() {
     protected val inspectionId: Long by lazy { arguments?.getLong(KEY_INSPECTION_ID, 0) ?: 0 }
 
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(this.activity).get(EvaluationViewModel::class.java)
+        inspectionViewModel = ViewModelProviders.of(this.activity!!).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
     }
 

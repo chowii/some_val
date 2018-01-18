@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.os.Bundle
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseActivity
+import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.tintBackArrow
 import kotlinx.android.synthetic.main.activity_evaluation.*
 
@@ -22,7 +23,7 @@ class EvaluationActivity : BaseActivity(), LifecycleOwner {
 
 
         tl_evaluation.setupWithViewPager(vp_tabs_evaluation)
-        vp_tabs_evaluation.adapter = EvaluationTabsPagerAdapter(supportFragmentManager, resources)
+        vp_tabs_evaluation.adapter = EvaluationTabsPagerAdapter(supportFragmentManager, resources,intent.getLongExtra(KEY_INSPECTION_ID,0L))
 
     }
 

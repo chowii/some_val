@@ -17,12 +17,12 @@ class DamagesFragment : BaseFragment() {
     private var inspectionViewModel: EvaluationViewModel? = null
 
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
+        inspectionViewModel =  ViewModelProviders.of(activity!!).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_damages, container, false)
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_damages, container, false)
     }
 
     companion object {

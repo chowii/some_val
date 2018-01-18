@@ -18,12 +18,12 @@ class DamagesSelectorFragment : BaseFragment() {
     private val vehicleId: Long by lazy { arguments?.getLong(KEY_INSPECTION_ID, 0) ?: 0 }
 
     override fun initViewModel() {
-        inspectionViewModel = ViewModelProviders.of(activity).get(EvaluationViewModel::class.java)
+        inspectionViewModel =  ViewModelProviders.of(activity!!).get(EvaluationViewModel::class.java)
         inspectionViewModel?.let { lifecycle.addObserver(it) }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_damages_selector, container, false)
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_damages_selector, container, false)
     }
 
     companion object {

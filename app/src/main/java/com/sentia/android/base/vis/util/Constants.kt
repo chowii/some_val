@@ -9,6 +9,7 @@ import com.sentia.android.base.vis.R
 const val KEY_INSPECTION_ID = "Inspection_ID"
 const val PASSWORD_MIN_LENGTH: Int = 6
 const val SP_AUTH: String = "Auth shared preferences"
+const val TAG_DATE_PICKER_DIALOG:String = "tag picker dialog fragment"
 
 class Constants(val res: Resources) {
     companion object {

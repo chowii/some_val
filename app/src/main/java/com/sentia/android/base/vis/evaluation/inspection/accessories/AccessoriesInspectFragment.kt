@@ -25,7 +25,7 @@ class AccessoriesInspectFragment : BaseFragment() {
 
     private lateinit var binding: FragmentInspectionAccessoriesBinding
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inspection_accessories, container, false)
 //        initUi(savedInstanceState)

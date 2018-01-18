@@ -26,13 +26,13 @@ class PhotosFragment : EvaluationBaseFragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
     }
 
     private fun initUi() {
-        val photosAdapter = PhotosAdapter(context)
+        val photosAdapter = PhotosAdapter()
         with(rv_photos) {
             setHasFixedSize(true)
             adapter = photosAdapter

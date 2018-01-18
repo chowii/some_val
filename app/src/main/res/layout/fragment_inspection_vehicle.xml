@@ -34,7 +34,8 @@
                 android:hint="@string/hint_odometer"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:nextFocusForward="@id/swi_master_key" />
+                android:nextFocusForward="@id/swi_master_key"
+                android:text="@{inspection.odometer}" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -79,6 +80,7 @@
                 style="@style/AppTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/hint_reg_exp_date"
                 android:imeOptions="actionNext"
                 android:inputType="text"
@@ -86,6 +88,23 @@
                 android:nextFocusLeft="@+id/et_reg_state"
                 android:nextFocusRight="@+id/et_vin" />
         </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:id="@+id/v_overlay_til_reg_exp_date"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:nextFocusForward="@+id/et_vin"
+            android:nextFocusLeft="@+id/et_reg_exp_date"
+            android:nextFocusRight="@+id/et_vin"
+            app:layout_constraintBottom_toBottomOf="@+id/til_reg_exp_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/til_reg_exp_date"
+            app:layout_constraintTop_toTopOf="@+id/til_reg_exp_date">
+
+        </View>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
@@ -165,6 +184,7 @@
                 android:nextFocusForward="@+id/et_reg_state"
                 android:nextFocusLeft="@+id/et_derivative"
                 android:nextFocusRight="@+id/et_reg_state"
+                android:text="@{inspection.vehicle.rego}"
                 tools:text="BTD75K" />
         </android.support.design.widget.TextInputLayout>
 
@@ -185,9 +205,9 @@
                 android:hint="@string/hint_registration_state"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:nextFocusForward="@+id/et_reg_exp_date"
+                android:nextFocusForward="@+id/v_overlay_til_reg_exp_date"
                 android:nextFocusLeft="@+id/et_registration"
-                android:nextFocusRight="@+id/et_reg_exp_date"
+                android:nextFocusRight="@+id/v_overlay_til_reg_exp_date"
                 tools:text="Italy" />
         </android.support.design.widget.TextInputLayout>
 

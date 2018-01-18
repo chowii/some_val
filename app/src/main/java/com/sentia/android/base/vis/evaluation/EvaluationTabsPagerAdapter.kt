@@ -16,13 +16,13 @@ import com.sentia.android.base.vis.evaluation.photos.PhotosFragment
 /**
  * Created by mariolopez on 8/1/18.
  */
-class EvaluationTabsPagerAdapter(fm: FragmentManager, private val resources: Resources) : FragmentStatePagerAdapter(fm) {
+class EvaluationTabsPagerAdapter(fm: FragmentManager, private val resources: Resources, private val inspectionId: Long) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment = when (position) {
 
-        TAB_INSPECTION -> InspectionFragment.newInstance(123)
-        TAB_PHOTOS -> PhotosFragment.newInstance(123)
-        TAB_DAMAGES -> DamagesFragment.newInstance(123)
+        TAB_INSPECTION -> InspectionFragment.newInstance(inspectionId)
+        TAB_PHOTOS -> PhotosFragment.newInstance(inspectionId)
+        TAB_DAMAGES -> DamagesFragment.newInstance(inspectionId)
         else -> Fragment()
     }
 

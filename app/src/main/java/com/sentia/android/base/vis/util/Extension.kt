@@ -37,17 +37,17 @@ import org.jetbrains.anko.internals.AnkoInternals
 //}
 //Porting anko function to fragment
 inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?>): Intent {
-    return AnkoInternals.createIntent(this.context, T::class.java, params)
+    return AnkoInternals.createIntent(this.context!!, T::class.java, params)
 }
 
 inline fun <reified T : Activity> Fragment.startActivity(vararg params: Pair<String, Any>) {
-    AnkoInternals.internalStartActivity(this.activity, T::class.java, params)
+    AnkoInternals.internalStartActivity(this.activity!!, T::class.java, params)
 }
 
 fun ActionBar?.tintBackArrow(@ColorRes color: Int) {
-    val upArrow = ContextCompat.getDrawable(this?.themedContext, R.drawable.abc_ic_ab_back_material)
-    upArrow.setColorFilter(ContextCompat.getColor(this?.themedContext, color), PorterDuff.Mode.SRC_ATOP)
-    this?.setHomeAsUpIndicator(upArrow)
+    val upArrow = ContextCompat.getDrawable(this!!.themedContext, R.drawable.abc_ic_ab_back_material)
+    upArrow?.setColorFilter(ContextCompat.getColor(this.themedContext, color), PorterDuff.Mode.SRC_ATOP)
+    this.setHomeAsUpIndicator(upArrow)
 
 }
 

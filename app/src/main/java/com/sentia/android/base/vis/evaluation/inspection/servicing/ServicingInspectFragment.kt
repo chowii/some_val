@@ -25,7 +25,7 @@ class ServicingInspectFragment : BaseFragment() {
 
     private lateinit var binding: FragmentInspectionTyresBinding
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inspection_tyres, container, false)
 //        initUi(savedInstanceState)

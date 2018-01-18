@@ -34,18 +34,18 @@ class SearchFragment : BaseFragment() {
 
     private lateinit var binding: FragmentSearchBinding
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi(savedInstanceState)
 
         //todo remove
         bt_go_to_evaluation.setOnClickListener {
-            startActivity(intentFor<EvaluationActivity>(KEY_INSPECTION_ID to 123))
+            startActivity(intentFor<EvaluationActivity>(KEY_INSPECTION_ID to 40L))
             hideKeyboard()
         }
 
@@ -74,8 +74,8 @@ class SearchFragment : BaseFragment() {
     }
 
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        val bundle: Bundle = outState ?: Bundle()
+    override fun onSaveInstanceState(outState: Bundle) {
+        val bundle: Bundle = outState
         bundle.putString(KEY_SEARCH_KEY_WORD, et_search.text.toString())
         super.onSaveInstanceState(outState)
     }
