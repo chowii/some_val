@@ -31,19 +31,27 @@ class EvaluationActivity : BaseActivity(), LifecycleOwner {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                alert {
-                    title = getString(R.string.alert_attention)
-                    negativeButton(android.R.string.cancel, { it.dismiss() })
-                    positiveButton(android.R.string.ok, {
-                        it.dismiss()
-                        super.onBackPressed()
-                    })
-                    message = getString(R.string.alert_warning_closing)
-
-                }.show()
+                showClosingChangesDialog()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showClosingChangesDialog() {
+        alert {
+            title = getString(R.string.alert_attention)
+            negativeButton(android.R.string.cancel, { it.dismiss() })
+            positiveButton(android.R.string.ok, {
+                it.dismiss()
+                super.onBackPressed()
+            })
+            message = getString(R.string.alert_warning_closing)
+
+        }.show()
+    }
+
+    override fun onBackPressed() {
+        showClosingChangesDialog()
     }
 }
