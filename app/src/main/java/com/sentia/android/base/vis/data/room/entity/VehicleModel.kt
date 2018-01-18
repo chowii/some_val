@@ -46,5 +46,5 @@ data class Vehicle(
         @SerializedName("p1") var p1: String? = null,
         @SerializedName("p2") var p2: String? = null,
         @SerializedName("vehicle_notes") var notes: String? = null,
-        @SerializedName("options") var options: String? = null,
+//        @SerializedName("options") var options: String? = null,
         @SerializedName("instruction") var instruction: String? = null)

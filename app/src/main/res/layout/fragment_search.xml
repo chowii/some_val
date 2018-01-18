@@ -16,7 +16,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@color/a50_gray"
         android:padding="6dp"
         tools:context="com.sentia.android.base.vis.evaluation.EvaluationActivity">
 

@@ -7,5 +7,6 @@
     <color name="colorBackground">#EAEdF1</color>
     <color name="white">@android:color/white</color>
     <color name="a50_white">#80ffffff</color>
+    <color name="a50_gray">#60000000</color>
     <color name="black">@android:color/black</color>
 </resources>

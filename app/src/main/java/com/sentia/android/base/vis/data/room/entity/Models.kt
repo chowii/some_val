@@ -9,8 +9,8 @@ import com.sentia.android.base.vis.data.room.RoomContract
  */
 @Entity(tableName = RoomContract.TABLE_INSPECTIONS,
         indices = [(Index(value = ["id"], unique = true)),
-        (Index(value = ["vehicle_id"])),
-        (Index(value = ["vin"]))])
+            (Index(value = ["vehicle_id"])),
+            (Index(value = ["vin"]))])
 data class Inspection(
         @PrimaryKey
         @SerializedName("id") val id: Long,
@@ -32,7 +32,7 @@ data class Inspection(
         @Embedded
         @SerializedName("vehicle") var vehicle: Vehicle) {
     @Ignore
-    @SerializedName("images")
+//    @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
 }
 
@@ -50,9 +50,9 @@ data class Inspection(
 //)
 
 @Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT, foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true)),
-        (Index(value = ["name"]))])
+            (Index(value = ["name"]))])
 data class Depot(
         @PrimaryKey
         @SerializedName("id") val id: Long,
@@ -67,11 +67,13 @@ data class Image(
         @PrimaryKey
         @SerializedName("id") val id: Long,
         @SerializedName("name") val name: String?,
-        @SerializedName("attachment") val attachmentB64: String,
-        @SerializedName("overlay") val overlayB64: String)
+        @SerializedName("is_attachment_present") val isAttachmentUploaded: Boolean,
+        @SerializedName("is_overlay_present") val isOverlayUploaded: Boolean,
+        @SerializedName("attachment") val attachmentB64: String?,
+        @SerializedName("overlay") val overlayB64: String?)
 
 @Entity(tableName = RoomContract.TABLE_DAMAGE_REPORT, foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true))])
 data class DamageReport(
         @PrimaryKey
@@ -87,7 +89,7 @@ data class DamageReport(
 //)
 
 @Entity(tableName = RoomContract.TABLE_DAMAGE_ITEM, foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true))])
 data class DamageItem(
         @PrimaryKey(autoGenerate = true) val id: Long,
@@ -105,7 +107,7 @@ data class DamageItem(
 }
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_TYRES, foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true))])
 data class Tyre(
         val inspectionId: Long,
@@ -115,7 +117,7 @@ data class Tyre(
         @PrimaryKey(autoGenerate = true) val idTyre: Long)
 
 @Entity(tableName = RoomContract.TABLE_VEHICLES_ACCESSORIES, foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
         indices = [(Index(value = ["inspectionId"], unique = true))])
 data class Accessory(
         @SerializedName("name") val name: String,
@@ -138,10 +140,10 @@ data class LocationDepot(
 
 @SuppressWarnings(RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD)
 @Entity(tableName = RoomContract.TABLE_INSPECTION_PHOTOS, primaryKeys = [
-"inspectionId", "imageId"], foreignKeys = [
-ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"]),
-ForeignKey(entity = Image::class, parentColumns = ["id"], childColumns = ["imageId"])], indices = [
-(Index(value = ["inspectionId"]))])
+    "inspectionId", "imageId"], foreignKeys = [
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"]),
+    ForeignKey(entity = Image::class, parentColumns = ["id"], childColumns = ["imageId"])], indices = [
+    (Index(value = ["inspectionId"]))])
 data class InspectionImage(
         val inspectionId: Long,
         val imageId: Long)

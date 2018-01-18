@@ -23,7 +23,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         rxBus.observe(AuthPass::class.java).subscribe {
             when (it) {
                 is NotAuthorised -> {

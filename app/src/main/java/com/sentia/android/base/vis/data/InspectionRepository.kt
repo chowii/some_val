@@ -18,11 +18,18 @@ import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
 import com.sentia.android.base.vis.util.forUi
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.annotations.NonNull
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.error
+import org.jetbrains.anko.info
 
 
 /**
@@ -33,25 +40,33 @@ class InspectionRepository : BaseRepository() {
     private val remoteDataSource by kodein.instance<RemoteDataSource>()
     private val roomVehicleDataSource by kodein.instance<RoomInspectionDataSource>()
 
-    override fun addMockedInspections() {
-        val inspectionDao = roomVehicleDataSource.inspectionDao()
+    private fun addInspections(inspections: List<Inspection>) {
+        Completable.fromAction { roomVehicleDataSource.inspectionDao().insertAll(inspections) }
+                //insert Image
+                .concatWith { roomVehicleDataSource.inspectionDao().insertAllImages(inspections.flatMap { it.images }) }
+                .concatWith {
+                    //insert inspection images
+                    roomVehicleDataSource.inspectionDao().insertAllInspectionImages(inspections.flatMap { inspection ->
+                        inspection.images.map { image ->
+                            InspectionImage(inspection.id, image.id)
+                        }
+                    })
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : CompletableObserver {
+                    override fun onSubscribe(@NonNull disposable: Disposable) {
+                        compositeDisposable += disposable
+                    }
 
-        val inspections = RoomInspectionDataSource.getAllInspections()
-        inspectionDao.insertAll(inspections)
+                    override fun onComplete() {
+                        info("DataSource has been Populated")
+                    }
 
-        val images = inspections.flatMap { inspection -> inspection.images }
-        inspectionDao.insertAllImages(images)
-
-        val inspectionImages = inspections.flatMap { inspection ->
-            inspection.images.map { image ->
-                InspectionImage(inspection.id, image.id)
-            }
-        }
-        inspectionDao.insertAllInspectionImages(inspectionImages)
-    }
-
-    private fun addInspection(inspections: List<Inspection>) {
-        roomVehicleDataSource.inspectionDao().insertAll(inspections)
+                    override fun onError(@NonNull e: Throwable) {
+                        error("DataSource hasn't been Populated yet")
+                    }
+                })
 
     }
 
@@ -75,34 +90,36 @@ class InspectionRepository : BaseRepository() {
 
 
     override fun getInspections(): LiveData<Resource<List<Inspection>>> {
-        val result = MediatorLiveData<Inspection>()
-        val liveResult = MutableLiveData<Resource<List<Inspection>>>()
-        val resultLiveAndRoom = MutableLiveData<Resource<List<Inspection>>>()
+        val result = MediatorLiveData<Resource<List<Inspection>>>()
+        val remoteResult = MutableLiveData<Resource<List<Inspection>>>()
 
-        liveResult.value = Resource(LOADING)
+        remoteResult.value = Resource(LOADING)
 
         //todo this logic needs to be refactored once we know how the api will work
         //todo at the current moment we just add both sources so the loading feeding won't be effective 100%
 
         result.addSource(roomVehicleDataSource.inspectionDao().getAllInspections(),
                 { inspection: List<Inspection>? ->
-                    resultLiveAndRoom.value = Resource(SUCCESS, inspection)
+                    result.value = Resource(SUCCESS, inspection)
                 })
-        result.addSource(liveResult,
-                { inspectionResult: Resource<List<Inspection>>? -> resultLiveAndRoom.value = inspectionResult })
+        //remote source
+        result.addSource(remoteResult,
+                { inspectionResult: Resource<List<Inspection>>? ->
+                    result.value = inspectionResult
+                })
 
         compositeDisposable += remoteDataSource.getInspectionList()
                 .forUi()
-                .subscribe(
-                        {
-                            addInspection(it)
-                            liveResult.value = Resource(SUCCESS, it)
+                .subscribeBy(
+                        onNext = {
+                            addInspections(it)
+                            remoteResult.value = Resource(SUCCESS, it)
                         },
-                        {
+                        onError = {
                             error { it }
-                            liveResult.value = Resource(ERROR, null, AppException(it))
+                            remoteResult.value = Resource(ERROR, null, AppException(it))
                         })
-        return resultLiveAndRoom
+        return result
     }
 
     override fun getTotalInspections() = roomVehicleDataSource.inspectionDao().getTotalInspections()
@@ -125,4 +142,24 @@ class InspectionRepository : BaseRepository() {
         return liveData
 
     }
+
+
+    //todo-to be removed
+    override fun addMockedInspections() {
+        val inspectionDao = roomVehicleDataSource.inspectionDao()
+
+        val inspections = RoomInspectionDataSource.getAllInspections()
+        inspectionDao.insertAll(inspections)
+
+        val images = inspections.flatMap { inspection -> inspection.images }
+        inspectionDao.insertAllImages(images)
+
+        val inspectionImages = inspections.flatMap { inspection ->
+            inspection.images.map { image ->
+                InspectionImage(inspection.id, image.id)
+            }
+        }
+        inspectionDao.insertAllInspectionImages(inspectionImages)
+    }
+
 }

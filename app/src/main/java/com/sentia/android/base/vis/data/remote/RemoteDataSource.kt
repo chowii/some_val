@@ -4,9 +4,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.App
 import com.sentia.android.base.vis.api.RestAdapter
-import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.util.Constants.Keys
-import io.reactivex.Observable
 
 /**
  * Created by mariolopez on 28/12/17.
@@ -17,7 +15,7 @@ class RemoteDataSource {
     private val restAdapter by kodein.instance<RestAdapter>()
 
     //    fun getInspectionList() = restAdapter.getInspectionList()
-    fun getInspectionList() = Observable.just(emptyList<Inspection>())!!
+    fun getInspectionList() = restAdapter.projectApi.getInspections()
 
     //    fun getInspection(id:Long) = Observable.just(emptyList<Vehicle>())!!
 

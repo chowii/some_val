@@ -5,17 +5,16 @@ package com.sentia.android.base.vis.api
  */
 
 import com.sentia.android.base.vis.api.model.LoginResult
-import com.sentia.android.base.vis.data.room.entity.Vehicle
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.QueryMap
 
 interface Api {
 
-    @GET("searchservice.svc/mapsearch")
-    fun getSample(@QueryMap options: Map<String, String>): Observable<Vehicle>
+    @GET("inspections")
+    fun getInspections(): Observable<List<Inspection>>
 
     @POST("sessions")
     fun loginUser(@Body map: Map<String, String>): Observable<LoginResult>

@@ -16,6 +16,7 @@ import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.hideKeyboard
 import com.sentia.android.base.vis.util.intentFor
+import com.sentia.android.base.vis.util.toast
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.jetbrains.anko.error
 
@@ -28,7 +29,7 @@ class SearchFragment : BaseFragment() {
     override fun initViewModel() {
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
         searchViewModel?.let { lifecycle.addObserver(it) }
-        searchViewModel?.initLocalInspections()
+//        searchViewModel?.initLocalInspections()
     }
 
     private lateinit var binding: FragmentSearchBinding
@@ -54,12 +55,11 @@ class SearchFragment : BaseFragment() {
     private fun initUi(savedInstanceState: Bundle?) {
         et_search.textChanges().subscribe { searchViewModel?.search(it.toString()) }
 
-        //todo init recycler view
         searchViewModel?.loadInspections()?.observe(this, Observer {
             val size = it?.data?.size
             when (it?.status) {
-                SUCCESS -> TODO()
-                ERROR -> TODO()
+                SUCCESS -> toast("EUREKA")
+                ERROR -> error { it.exception?.message }
                 LOADING -> error { it.exception }
             }
             //todo-init recycler view

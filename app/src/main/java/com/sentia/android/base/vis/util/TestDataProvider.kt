@@ -25,13 +25,13 @@ class TestDataProvider {
         }
 
         private fun createMockPhotos() = mutableListOf<Image>().apply {
-            add(Image(1, "Name1", "base64", "Overlay1"))
-            add(Image(2, "Name2", "base64", "Overlay2"))
-            add(Image(3, "Name3", "base64", "Overlay3"))
-            add(Image(4, "Name4", "base64", "Overlay4"))
-            add(Image(5, "Name5", "base64", "Overlay5"))
-            add(Image(6, "Name6", "base64", "Overlay6"))
-            add(Image(7, "Name7", "base64", "Overlay7"))
+            add(Image(1, "Name1", false,false,"base64", "Overlay1"))
+            add(Image(2, "Name2",false,false, "base64", "Overlay2"))
+            add(Image(3, "Name3",false,false,"base64", "Overlay3"))
+            add(Image(4, "Name4",false,false,"base64", "Overlay4"))
+            add(Image(5, "Name5",false,false,"base64", "Overlay5"))
+            add(Image(6, "Name6",false,false,"base64", "Overlay6"))
+            add(Image(7, "Name7",false,false,"base64", "Overlay7"))
         }
     }
 }

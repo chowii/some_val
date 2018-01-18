@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.sentia.android.base.vis.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -67,6 +68,7 @@ fun <T> Observable<T>.forUi(): Observable<T> =
                 .subscribeOn(Schedulers.io())
 
 
+
 fun View.visible() {
     this.visibility = View.VISIBLE
 }
@@ -109,3 +111,6 @@ fun String?.isEmail(): Boolean {
  * @return return if the string is an email format
  */
 fun CharSequence?.isEmail(): Boolean = this.toString().isEmail()
+
+
+fun Fragment.toast(message: CharSequence) = Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
