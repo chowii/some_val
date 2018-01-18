@@ -68,6 +68,9 @@
     <string name="hint_email">Email</string>
     <string name="til_error_email">not a valid email</string>
     <string name="til_error_password">insert a password of at least 6 digits</string>
+    <string name="alert_attention">Attention</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="alert_warning_closing">by closing this screen you will loose all not commited changes</string>
     <!--*****************************************************************************************-->
 
 </resources>
