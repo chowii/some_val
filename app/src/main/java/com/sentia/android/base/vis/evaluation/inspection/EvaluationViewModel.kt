@@ -85,4 +85,8 @@ class EvaluationViewModel : BaseViewModel() {
         mutationInspectionLiveData.value = Resource(Resource.Status.SUCCESS, mutableInspection!!)
     }
 
+    fun persistChanges(): LiveData<Resource<Nothing>> {
+        return repository.addInspections(listOf(mutableInspection!!))
+    }
+
 }

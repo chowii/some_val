@@ -12,9 +12,9 @@ class TestDataProvider {
     companion object {
         fun getInspections(): List<Inspection> {
             return listOf(
-                    Inspection(123, "NSW", false, false, false, false, true, false, false, false, "noIDEA", "randomValue", "someDate", "waxon_waxoff", "mint", "noidea2"
+                    Inspection(123, true, "NSW", false, false, false, false, true, false, false, false, "noIDEA", "randomValue", "someDate", "waxon_waxoff", "mint", "noidea2"
                             , createRandomVehicle()).apply { images.addAll(createMockPhotos()) },
-                    Inspection(12, "QSL", true, true, true, true, true, true, true, true, "noIDEA2", "randomValue2", "someDate2", "waxon_waxoff2", "filthy", "noidea2"
+                    Inspection(12,true, "QSL", true, true, true, true, true, true, true, true, "noIDEA2", "randomValue2", "someDate2", "waxon_waxoff2", "filthy", "noidea2"
                             , createRandomVehicle()).apply { images.addAll(createMockPhotos()) })
 
         }
@@ -25,13 +25,13 @@ class TestDataProvider {
         }
 
         private fun createMockPhotos() = mutableListOf<Image>().apply {
-            add(Image(1, "Name1", false,false,"base64", "Overlay1"))
-            add(Image(2, "Name2",false,false, "base64", "Overlay2"))
-            add(Image(3, "Name3",false,false,"base64", "Overlay3"))
-            add(Image(4, "Name4",false,false,"base64", "Overlay4"))
-            add(Image(5, "Name5",false,false,"base64", "Overlay5"))
-            add(Image(6, "Name6",false,false,"base64", "Overlay6"))
-            add(Image(7, "Name7",false,false,"base64", "Overlay7"))
+            add(Image(1,true, "Name1", false,false,"base64", "Overlay1"))
+            add(Image(2,true, "Name2",false,false, "base64", "Overlay2"))
+            add(Image(3, true,"Name3",false,false,"base64", "Overlay3"))
+            add(Image(4, true,"Name4",false,false,"base64", "Overlay4"))
+            add(Image(5,true, "Name5",false,false,"base64", "Overlay5"))
+            add(Image(6,true, "Name6",false,false,"base64", "Overlay6"))
+            add(Image(7, true,"Name7",false,false,"base64", "Overlay7"))
         }
     }
 }

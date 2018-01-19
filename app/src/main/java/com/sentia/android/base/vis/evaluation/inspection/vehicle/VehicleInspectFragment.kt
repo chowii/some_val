@@ -101,6 +101,7 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                 })
                 .subscribe { (old, new) ->
                     inspectionViewModel?.saveTempChanges(old) {
+                        it.synced = false
                         it.spareKeyAndRemote = new.spareKeyAndRemote
                     }
                 }

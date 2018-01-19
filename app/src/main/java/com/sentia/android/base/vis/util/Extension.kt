@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.sentia.android.base.vis.R
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.internals.AnkoInternals
@@ -67,6 +68,9 @@ fun <T> Observable<T>.forUi(): Observable<T> =
         this.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
 
+fun <T> Single<T>.forUi(): Single<T> =
+        this.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
 
 
 fun View.visible() {

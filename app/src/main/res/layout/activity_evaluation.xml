@@ -121,4 +121,15 @@
         tools:background="@android:color/holo_green_dark">
 
     </android.support.v4.view.ViewPager>
+
+    <ProgressBar
+        android:id="@+id/pb_evaluation"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_evaluation_finish"
+        app:layout_constraintEnd_toStartOf="@+id/tv_evaluation_finish"
+        app:layout_constraintTop_toTopOf="@+id/tv_evaluation_finish" />
 </android.support.constraint.ConstraintLayout>

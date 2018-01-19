@@ -18,12 +18,9 @@ import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
 import com.sentia.android.base.vis.util.forUi
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Completable
-import io.reactivex.CompletableObserver
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.annotations.NonNull
-import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
@@ -40,34 +37,31 @@ class InspectionRepository : BaseRepository() {
     private val remoteDataSource by kodein.instance<RemoteDataSource>()
     private val roomVehicleDataSource by kodein.instance<RoomInspectionDataSource>()
 
-    private fun addInspections(inspections: List<Inspection>) {
-        Completable.fromAction { roomVehicleDataSource.inspectionDao().insertAll(inspections) }
-                //insert Image
-                .concatWith { roomVehicleDataSource.inspectionDao().insertAllImages(inspections.flatMap { it.images }) }
-                .concatWith {
-                    //insert inspection images
-                    roomVehicleDataSource.inspectionDao().insertAllInspectionImages(inspections.flatMap { inspection ->
-                        inspection.images.map { image ->
-                            InspectionImage(inspection.id, image.id)
-                        }
-                    })
-                }
+    internal fun addInspections(inspections: List<Inspection>): LiveData<Resource<Nothing>> {
+        val result = MutableLiveData<Resource<Nothing>>()
+        result.value = Resource(LOADING)
+        Single.fromCallable {
+            val inspectionsInserted = roomVehicleDataSource.inspectionDao().insertAll(inspections)
+            roomVehicleDataSource.inspectionDao().insertAllImages(inspections.flatMap { it.images })
+//              insert inspection images
+            roomVehicleDataSource.inspectionDao().insertAllInspectionImages(inspections.flatMap { inspection ->
+                inspection.images.map { image -> InspectionImage(inspection.id, image.id) }
+            })
+            inspectionsInserted
+        }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(@NonNull disposable: Disposable) {
-                        compositeDisposable += disposable
-                    }
-
-                    override fun onComplete() {
-                        info("DataSource has been Populated")
-                    }
-
-                    override fun onError(@NonNull e: Throwable) {
-                        error("DataSource hasn't been Populated yet")
-                    }
-                })
-
+                .subscribeBy(
+                        onSuccess = {
+                            result.value = Resource(SUCCESS)
+                            info("DataSource has been Populated: inspection" + it.size)
+                        },
+                        onError = {
+                            result.value = Resource(ERROR)
+                            error("DataSource hasn't been Populated yet")
+                        }
+                )
+        return result
     }
 
     override fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>> {
@@ -111,9 +105,9 @@ class InspectionRepository : BaseRepository() {
         compositeDisposable += remoteDataSource.getInspectionList()
                 .forUi()
                 .subscribeBy(
-                        onNext = {
-                            addInspections(it)
-                            remoteResult.value = Resource(SUCCESS, it)
+                        onSuccess= {
+                            addInspections(it) //this will trigger the db source when completed
+
                         },
                         onError = {
                             error { it }
@@ -146,20 +140,21 @@ class InspectionRepository : BaseRepository() {
 
     //todo-to be removed
     override fun addMockedInspections() {
-        val inspectionDao = roomVehicleDataSource.inspectionDao()
-
-        val inspections = RoomInspectionDataSource.getAllInspections()
-        inspectionDao.insertAll(inspections)
-
-        val images = inspections.flatMap { inspection -> inspection.images }
-        inspectionDao.insertAllImages(images)
-
-        val inspectionImages = inspections.flatMap { inspection ->
-            inspection.images.map { image ->
-                InspectionImage(inspection.id, image.id)
-            }
-        }
-        inspectionDao.insertAllInspectionImages(inspectionImages)
+//        val inspectionDao = roomVehicleDataSource.inspectionDao()
+//
+//        val inspections = RoomInspectionDataSource.getAllInspections()
+//        inspectionDao.insertAll(inspections)
+//
+//        val images = inspections.flatMap { inspection -> inspection.images }
+//        inspectionDao.insertAllImages(images)
+//
+//        val inspectionImages = inspections.flatMap { inspection ->
+//            inspection.images.map { image ->
+//                InspectionImage(inspection.id, image.id)
+//            }
+//        }
+//        inspectionDao.insertAllInspectionImages(inspectionImages)
     }
+
 
 }

@@ -14,6 +14,7 @@ import com.sentia.android.base.vis.data.room.RoomContract
 data class Inspection(
         @PrimaryKey
         @SerializedName("id") val id: Long,
+        var synced: Boolean = true,
         @SerializedName("state") val state: String,
         @SerializedName("master_key_and_remote") var masterKeyAndRemote: Boolean,
         @SerializedName("spare_key_and_remote") var spareKeyAndRemote: Boolean,
@@ -66,6 +67,7 @@ data class Depot(
 data class Image(
         @PrimaryKey
         @SerializedName("id") val id: Long,
+        val synced: Boolean = true,
         @SerializedName("name") val name: String?,
         @SerializedName("is_attachment_present") val isAttachmentUploaded: Boolean,
         @SerializedName("is_overlay_present") val isOverlayUploaded: Boolean,

@@ -28,13 +28,13 @@ interface RoomInspectionDao {
 
     //
     @Insert(onConflict = REPLACE)
-    fun insertAll(vehicles: List<Inspection>)
+    fun insertAll(vehicles: List<Inspection>): List<Long>
 
     @Insert(onConflict = REPLACE)
-    fun insertAllImages(photos: List<Image>)
+    fun insertAllImages(photos: List<Image>): List<Long>
 
     @Insert(onConflict = REPLACE)
-    fun insertAllInspectionImages(inspectionImage: List<InspectionImage>)
+    fun insertAllInspectionImages(inspectionImage: List<InspectionImage>): List<Long>
 
     @Delete()
     fun delete(inspection: Inspection)

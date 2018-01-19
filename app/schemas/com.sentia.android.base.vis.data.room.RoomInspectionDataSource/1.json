@@ -2,15 +2,21 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "48874d2522f39fba01e5699edd303bd1",
+    "identityHash": "97ff038566c8aede5df01d07e154d5be",
     "entities": [
       {
         "tableName": "Inspections_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `state` TEXT NOT NULL, `masterKeyAndRemote` INTEGER NOT NULL, `spareKeyAndRemote` INTEGER NOT NULL, `lockingWheelNut` INTEGER NOT NULL, `serviceBook` INTEGER NOT NULL, `serviceRequired` INTEGER NOT NULL, `ownersManual` INTEGER NOT NULL, `eTag` INTEGER NOT NULL, `fuelTag` INTEGER NOT NULL, `serviceHistory` TEXT, `odometer` TEXT, `lastServiceDate` TEXT, `inspectionType` TEXT, `condition` TEXT, `vehicleCondition` TEXT, `vehicle_id` INTEGER NOT NULL, `driveId` TEXT, `rego` TEXT NOT NULL, `glassesCode` TEXT, `vin` TEXT NOT NULL, `make` TEXT NOT NULL, `model` TEXT NOT NULL, `derivative` TEXT, `registeredDate` TEXT, `registeredState` TEXT, `registeredName` TEXT, `buildDate` TEXT, `complianceDate` TEXT, `virInspectionDate` TEXT, `registrationExpireDate` TEXT, `bodyType` TEXT, `doors` INTEGER, `transmissionType` TEXT, `fuelType` TEXT, `emissions` TEXT, `engineSize` TEXT, `engineBhp` TEXT, `driverSide` TEXT, `driverTransmission` TEXT, `engineNumber` TEXT, `gears` INTEGER, `colour` TEXT, `interiorTrim` TEXT, `no_of_seats` INTEGER, `vatQualifying` TEXT, `miles` INTEGER, `milesDate` TEXT, `p1` TEXT, `p2` TEXT, `notes` TEXT, `instruction` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `synced` INTEGER NOT NULL, `state` TEXT NOT NULL, `masterKeyAndRemote` INTEGER NOT NULL, `spareKeyAndRemote` INTEGER NOT NULL, `lockingWheelNut` INTEGER NOT NULL, `serviceBook` INTEGER NOT NULL, `serviceRequired` INTEGER NOT NULL, `ownersManual` INTEGER NOT NULL, `eTag` INTEGER NOT NULL, `fuelTag` INTEGER NOT NULL, `serviceHistory` TEXT, `odometer` TEXT, `lastServiceDate` TEXT, `inspectionType` TEXT, `condition` TEXT, `vehicleCondition` TEXT, `vehicle_id` INTEGER NOT NULL, `driveId` TEXT, `rego` TEXT NOT NULL, `glassesCode` TEXT, `vin` TEXT NOT NULL, `make` TEXT NOT NULL, `model` TEXT NOT NULL, `derivative` TEXT, `registeredDate` TEXT, `registeredState` TEXT, `registeredName` TEXT, `buildDate` TEXT, `complianceDate` TEXT, `virInspectionDate` TEXT, `registrationExpireDate` TEXT, `bodyType` TEXT, `doors` INTEGER, `transmissionType` TEXT, `fuelType` TEXT, `emissions` TEXT, `engineSize` TEXT, `engineBhp` TEXT, `driverSide` TEXT, `driverTransmission` TEXT, `engineNumber` TEXT, `gears` INTEGER, `colour` TEXT, `interiorTrim` TEXT, `no_of_seats` INTEGER, `vatQualifying` TEXT, `miles` INTEGER, `milesDate` TEXT, `p1` TEXT, `p2` TEXT, `notes` TEXT, `instruction` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "synced",
+            "columnName": "synced",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -484,11 +490,17 @@
       },
       {
         "tableName": "Photos_Model_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `isAttachmentUploaded` INTEGER NOT NULL, `isOverlayUploaded` INTEGER NOT NULL, `attachmentB64` TEXT, `overlayB64` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `synced` INTEGER NOT NULL, `name` TEXT, `isAttachmentUploaded` INTEGER NOT NULL, `isOverlayUploaded` INTEGER NOT NULL, `attachmentB64` TEXT, `overlayB64` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "synced",
+            "columnName": "synced",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -875,7 +887,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"48874d2522f39fba01e5699edd303bd1\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"97ff038566c8aede5df01d07e154d5be\")"
     ]
   }
 }
