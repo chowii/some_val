@@ -7,4 +7,6 @@
     <dimen name="top_margin_tab_layout">21dp</dimen>
     <dimen name="badge_diameter">36dp</dimen>
     <dimen name="item_damage_inset_margin">24dp</dimen>
+    <dimen name="search_screen_horizontal_padding_inset">112dp</dimen>
+    <dimen name="search_screen_vertical_padding_inset">60dp</dimen>
 </resources>

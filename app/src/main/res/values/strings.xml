@@ -8,7 +8,15 @@
     <string name="tab_evaluation_inspection">Inspection</string>
     <string name="tab_evaluation_photos">Photos</string>
     <string name="tab_evaluation_damages">Damages</string>
-    <!--*****************************************************************************************-->
+    <string name="alert_warning_closing">By closing this screen you will loose all not committed changes</string>
+
+    <!--SEARCH-->
+    <!--Search Screen-->
+    <string name="btn_search_label">search</string>
+    <string name="search_registration_or_vin">Search registration or VIN</string>
+    <string name="search_no_inspection">No Inspections</string>
+    <string name="inspection_item_vin_label">VIN/Chassis: </string>
+    <string name="today_inspections_label">Today</string>
 
     <!--INSPECTION-->
     <!--Inspection tabs-->
@@ -74,8 +82,5 @@
     <string name="login_app_title">Vehicle Inspection System</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="forgot_password_contact">Contact your administrator to get access.</string>
-
-    <string name="alert_warning_closing">By closing this screen you will loose all not committed changes</string>
-    <!--*****************************************************************************************-->
 
 </resources>

@@ -12,7 +12,6 @@ import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.InspectionImage
-import com.sentia.android.base.vis.data.room.entity.Vehicle
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
 import com.sentia.android.base.vis.util.exception.AppException
@@ -89,9 +88,6 @@ class InspectionRepository : BaseRepository() {
 
         remoteResult.value = Resource(LOADING)
 
-        //todo this logic needs to be refactored once we know how the api will work
-        //todo at the current moment we just add both sources so the loading feeding won't be effective 100%
-
         result.addSource(roomVehicleDataSource.inspectionDao().getAllInspections(),
                 { inspection: List<Inspection>? ->
                     result.value = Resource(SUCCESS, inspection)
@@ -105,9 +101,8 @@ class InspectionRepository : BaseRepository() {
         compositeDisposable += remoteDataSource.getInspectionList()
                 .forUi()
                 .subscribeBy(
-                        onSuccess= {
+                        onSuccess = {
                             addInspections(it) //this will trigger the db source when completed
-
                         },
                         onError = {
                             error { it }
@@ -118,9 +113,14 @@ class InspectionRepository : BaseRepository() {
 
     override fun getTotalInspections() = roomVehicleDataSource.inspectionDao().getTotalInspections()
 
-    fun doSearch(search: String?): LiveData<Resource<List<Vehicle>>> {
-        // todo have logic here to get data from db or/and online then filter the list
-        return MutableLiveData()
+    fun doSearch(search: String?): LiveData<Resource<List<Inspection>>> {
+        val result = MediatorLiveData<Resource<List<Inspection>>>()
+        result.value = Resource(LOADING)
+        result.addSource(roomVehicleDataSource.inspectionDao().findInspection(search.orEmpty()),
+                { inspection: List<Inspection>? ->
+                    result.value = Resource(SUCCESS, inspection)
+                })
+        return result
     }
 
     fun login(email: String, password: String): LiveData<Resource<LoginResult>> {
@@ -130,7 +130,7 @@ class InspectionRepository : BaseRepository() {
         compositeDisposable += remoteDataSource.login(email, password)
                 .forUi()
                 .subscribeBy(
-                        onNext = { liveData.value = Resource(SUCCESS, it) },
+                        onSuccess = { liveData.value = Resource(SUCCESS, it) },
                         onError = { liveData.value = Resource(ERROR, null, AppException(it)) })
 
         return liveData

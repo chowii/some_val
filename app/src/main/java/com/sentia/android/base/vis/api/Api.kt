@@ -6,7 +6,6 @@ package com.sentia.android.base.vis.api
 
 import com.sentia.android.base.vis.api.model.LoginResult
 import com.sentia.android.base.vis.data.room.entity.Inspection
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,6 +17,6 @@ interface Api {
     fun getInspections(): Single<List<Inspection>>
 
     @POST("sessions")
-    fun loginUser(@Body map: Map<String, String>): Observable<LoginResult>
+    fun loginUser(@Body map: Map<String, String>): Single<LoginResult>
 
 }

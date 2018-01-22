@@ -11,46 +11,138 @@
             name="searchKeyWord"
             type="java.lang.String" />
 
+        <variable
+            name="searchResult"
+            type="com.sentia.android.base.vis.search.SearchFragment.SearchResultView" />
+
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/a50_gray"
-        android:padding="6dp"
+        android:background="@color/colorBackground"
         tools:context="com.sentia.android.base.vis.evaluation.EvaluationActivity">
 
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="0dp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_search_field"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="@dimen/search_screen_horizontal_padding_inset"
+            android:layout_marginStart="@dimen/search_screen_horizontal_padding_inset"
+            android:layout_marginTop="48dp"
+            android:background="@color/white"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_search">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_search_black"
+                    android:hint="@string/search_registration_or_vin"
+                    android:lines="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_search"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/mdtp_red" />
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="93dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/btn_search_label"
+                    app:layout_constraintBottom_toBottomOf="@+id/et_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/et_search" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/search_screen_vertical_padding_inset"
+            android:background="@color/white"
+            android:gravity="center_horizontal|top"
+            android:text="@string/search_no_inspection"
+            android:visibility="@{!searchResult.isLoaded}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_search" />
+            app:layout_constraintEnd_toEndOf="@+id/cv_search_field"
+            app:layout_constraintStart_toStartOf="@+id/cv_search_field"
+            app:layout_constraintTop_toBottomOf="@+id/cv_search_field">
 
-        <Button
-            android:id="@+id/bt_go_to_evaluation"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_margin="16dp"
+                android:gravity="start"
+                android:text="@string/search_no_inspection"
+                android:visibility="@{searchResult.isEmpty &amp;&amp; searchResult.isLoaded}" />
+
+            <ProgressBar
+                android:id="@+id/pb_search_inspection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:visibility="@{searchResult.isEmpty || searchResult.isLoading}" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="48dp"
+            android:text="@string/search_no_inspection"
+            android:visibility="@{searchResult.isLoaded}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cv_search_field"
+            app:layout_constraintStart_toStartOf="@+id/cv_search_field"
+            app:layout_constraintTop_toBottomOf="@+id/cv_search_field"
+            tools:foreground="@android:color/holo_red_dark">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_inspections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="99dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:layout_marginBottom="8dp"
+            android:text="@string/today_inspections_label"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView3"
+            app:layout_constraintStart_toStartOf="@+id/cardView3" />
 
 
     </android.support.constraint.ConstraintLayout>

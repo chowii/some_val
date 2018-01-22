@@ -10,7 +10,7 @@ import com.sentia.android.base.vis.data.room.RoomContract
 @Entity(tableName = RoomContract.TABLE_INSPECTIONS,
         indices = [(Index(value = ["id"], unique = true)),
             (Index(value = ["vehicle_id"])),
-            (Index(value = ["vin"]))])
+            (Index(value = ["vehicle_vin"]))])
 data class Inspection(
         @PrimaryKey
         @SerializedName("id") val id: Long,

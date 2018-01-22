@@ -14,7 +14,6 @@ class LoginViewModel : BaseViewModel() {
 
     override val repository by kodein.instance<InspectionRepository>()
 
-
     fun login(username: String, password: String): LiveData<Resource<LoginResult>> =
             repository.login(username, password)
 }

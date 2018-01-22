@@ -3,6 +3,7 @@ package com.sentia.android.base.vis.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.databinding.BindingAdapter
 import android.graphics.PorterDuff
 import android.support.annotation.ColorRes
 import android.support.v4.app.Fragment
@@ -20,7 +21,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.internals.AnkoInternals
+
+
 
 /**
  * Created by mariolopez on 8/1/18.
@@ -118,3 +122,8 @@ fun CharSequence?.isEmail(): Boolean = this.toString().isEmail()
 
 
 fun Fragment.toast(message: CharSequence) = Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
+
+fun Fragment.snackBarX(message: String?) {
+    if (message.isNullOrBlank())
+        this.view?.let { snackbar(it, message!!) }
+}

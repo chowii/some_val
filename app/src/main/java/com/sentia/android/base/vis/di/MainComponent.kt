@@ -25,12 +25,12 @@ object MainComponent {
 
     fun Kodein.Builder.BaseAppComponent() {
 
-        bind<RestAdapter>() with singleton{ RestAdapter() }
+        bind<RestAdapter>() with singleton { RestAdapter() }
 
         bind<RxBus>() with provider { RxBus.Create.instance }
         bind<RemoteDataSource>() with singleton { RemoteDataSource() }
         bind<RoomInspectionDataSource>() with singleton { RoomInspectionDataSource.buildPersistentVehicle(App.context!!) }    //this needs to be singleton bottom page https://developer.android.com/training/data-storage/room/index.html
-        bind<InspectionRepository>() with singleton { InspectionRepository() }
+        bind<InspectionRepository>() with provider { InspectionRepository() }
 
 
         //todo-tem change this after kode in issue for import module is fixed

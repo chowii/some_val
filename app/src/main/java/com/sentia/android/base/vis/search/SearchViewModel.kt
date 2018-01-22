@@ -31,6 +31,10 @@ class SearchViewModel : BaseViewModel() {
         repository.doSearch(it)
     }
 
+    fun search(searchWord: String?) {
+        searchInput.value = searchWord
+    }
+
     fun loadInspections(): LiveData<Resource<List<Inspection>>>? {
         if (liveInspectionData == null) {
             liveInspectionData = MutableLiveData()
@@ -70,10 +74,6 @@ class SearchViewModel : BaseViewModel() {
                         error("DataSource hasn't been Populated yet")
                     }
                 })
-    }
-
-    fun search(searchWord: String?) {
-        searchInput.value = searchWord
     }
 }
 

@@ -13,8 +13,10 @@ data class Vehicle(
         @SerializedName("id") val idVehicle: Long,
 //        @SerializedName("inspection_id") val inspectionId: Long,
         @SerializedName("drive_vehicle_id") var driveId: String? = null,
+        @ColumnInfo(name = "vehicle_rego")
         @SerializedName("rego") var rego: String,
         @SerializedName("glasses_code") var glassesCode: String? = null,
+        @ColumnInfo(name = "vehicle_vin")
         @SerializedName("vin") var vin: String,
         @SerializedName("make") var make: String,
         @SerializedName("model") var model: String,
