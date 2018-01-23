@@ -36,6 +36,11 @@ class EvaluationActivity : BaseActivity(), LifecycleOwner {
         initUi()
     }
 
+    override fun onStart() {
+        super.onStart()
+        inspectionViewModel.findInspection(intent.getLongExtra(KEY_INSPECTION_ID, 0L))
+    }
+
     private fun initUi() {
         setSupportActionBar(toolbar_evaluation)
         supportActionBar?.setDisplayShowHomeEnabled(true)

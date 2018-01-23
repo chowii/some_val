@@ -90,7 +90,10 @@ class PhotosFragment : EvaluationBaseFragment() {
                 inspectionDbObs,
                 BiFunction { base64: String, inspection: Inspection ->
                     Pair(inspection, inspection.copyWithList().apply {
-                        this.images.find { it.id == selectedImage?.id }?.attachmentB64 = base64
+                        this.images.find { it.id == selectedImage?.id }?.let {
+                            it.attachmentB64 = base64
+                            it.synced = false
+                        }
                     })
 
                 })
@@ -99,8 +102,8 @@ class PhotosFragment : EvaluationBaseFragment() {
                             inspectionViewModel?.saveTempChanges(old) {
                                 it.images.clear()
                                 it.images.addAll(new.images)
-                                photosAdapter.setData(it.images)
                             }
+                            photosAdapter.setData(new.images)
                         },
                         onError = {
                             error { it.message }

@@ -44,8 +44,6 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
 
     private fun initUi(savedInstanceState: Bundle?) {
 
-        inspectionViewModel?.findInspection(inspectionId)
-
         inspectionViewModel?.currentInspection
                 ?.observe(this, Observer<Resource<Inspection>?> {
                     binding.inspection = it?.data

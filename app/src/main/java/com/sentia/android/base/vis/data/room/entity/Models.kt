@@ -73,7 +73,7 @@ data class Depot(
 data class Image(
         @PrimaryKey
         @SerializedName("id") val id: Long,
-        val synced: Boolean = true,
+        var synced: Boolean = true,
         @SerializedName("name") val name: String?,
         @SerializedName("is_attachment_present") val isAttachmentUploaded: Boolean,
         @SerializedName("is_overlay_present") val isOverlayUploaded: Boolean,
