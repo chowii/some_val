@@ -9,6 +9,7 @@ import com.sentia.android.base.vis.api.interceptor.AuthInterceptor
 import com.sentia.android.base.vis.data.InspectionRepository
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
+import com.sentia.android.base.vis.sentialibrary.ImageCompressor
 import com.sentia.android.base.vis.util.Constants
 import com.sentia.android.base.vis.util.RxBus
 import com.sentia.android.base.vis.util.SP_AUTH
@@ -42,5 +43,6 @@ object MainComponent {
 
 
         bind<AuthInterceptor>() with provider { AuthInterceptor(instance()) }
+        bind<ImageCompressor>() with singleton { ImageCompressor(App.context!!) }
     }
 }

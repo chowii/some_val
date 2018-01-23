@@ -1,7 +1,6 @@
 package com.sentia.android.base.vis.evaluation.inspection.vehicle
 
 import android.app.Activity
-import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -21,7 +20,6 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.Observable
 import io.reactivex.functions.Function8
 import kotlinx.android.synthetic.main.fragment_inspection_vehicle.*
-import org.reactivestreams.Publisher
 import java.util.*
 
 /**
@@ -54,9 +52,6 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                     binding.executePendingBindings()
                 })
 
-        val toPublisher: Publisher<Resource<Inspection>>? = LiveDataReactiveStreams.toPublisher(this, inspectionViewModel?.currentInspection)
-        val obsFromPublisher: Observable<Inspection> = Observable.fromPublisher(toPublisher).map { it.data!! }.firstOrError().toObservable().share()
-
         v_overlay_til_reg_exp_date.setOnClickListener {
             val calendar = Calendar.getInstance()
             val datePicker = DatePickerDialog.newInstance(
@@ -80,7 +75,7 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                 et_odometer.textChanges().toObsString(),
                 swi_spare_key.checkedChanges(),
                 swi_master_key.checkedChanges(),
-                obsFromPublisher,
+                inspectionDbObs,
                 Function8 { registration: String,
                             registrationState: String,
                             registrationExpDate: String,
@@ -89,7 +84,7 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                             spareKeyAndRemote: Boolean,
                             masterKeyAndRemote: Boolean,
                             inspection: Inspection ->
-                    Pair(inspection, inspection.copy().apply {
+                    Pair(inspection, inspection.copyWithList().apply {
                         this.vehicle.rego = registration
                         this.vehicle.registeredState = registrationState
                         this.vehicle.registrationExpireDate = registrationExpDate

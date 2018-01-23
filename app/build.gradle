@@ -108,6 +108,9 @@ dependencies {
 
     //implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rx2bindings_version"
 
+    implementation "com.github.marchinram:RxGallery:$rxImagePicker_version"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rxPermissions_version"
+
     //Anko
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation "org.jetbrains.anko:anko-design:$anko_version"
@@ -121,7 +124,4 @@ dependencies {
     //Badge https://github.com/minibugdev/DrawableBadge?utm_source=android-arsenal.com&utm_medium=referral&utm_campaign=6341
     implementation 'com.github.minibugdev:drawablebadge:1.0.3'
     implementation 'com.wdullaer:materialdatetimepicker:3.5.0'//date picker
-
-
-
 }

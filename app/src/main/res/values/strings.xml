@@ -83,4 +83,9 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="forgot_password_contact">Contact your administrator to get access.</string>
 
+    <!--Photos Tab-->
+    <string name="photos_dialog_camera">Take a photo</string>
+    <string name="photos_dialog_gallery">Select from gallery</string>
+    <string name="photos_dialog_loading">Loading..</string>
+
 </resources>

@@ -35,6 +35,12 @@ data class Inspection(
     @Ignore
 //    @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
+
+    fun copyWithList(): Inspection {
+        val copy = copy()
+        copy.images.addAll(this.images)
+        return copy
+    }
 }
 
 //uncomment and remove at will
@@ -71,7 +77,7 @@ data class Image(
         @SerializedName("name") val name: String?,
         @SerializedName("is_attachment_present") val isAttachmentUploaded: Boolean,
         @SerializedName("is_overlay_present") val isOverlayUploaded: Boolean,
-        @SerializedName("attachment") val attachmentB64: String?,
+        @SerializedName("attachment") var attachmentB64: String?,
         @SerializedName("overlay") val overlayB64: String?)
 
 @Entity(tableName = RoomContract.TABLE_DAMAGE_REPORT, foreignKeys = [
