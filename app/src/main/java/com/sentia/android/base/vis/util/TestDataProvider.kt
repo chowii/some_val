@@ -1,5 +1,6 @@
 package com.sentia.android.base.vis.util
 
+import com.sentia.android.base.vis.data.room.entity.Accessory
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.Vehicle
@@ -13,9 +14,9 @@ class TestDataProvider {
         fun getInspections(): List<Inspection> {
             return listOf(
                     Inspection(123, true, "NSW", false, false, false, false, true, false, false, false, "noIDEA", "randomValue", "someDate", "waxon_waxoff", "mint", "noidea2"
-                            , createRandomVehicle()).apply { images.addAll(createMockPhotos()) },
+                            , createMockAccessories(), createRandomVehicle()).apply { images.addAll(createMockPhotos()) },
                     Inspection(12,true, "QSL", true, true, true, true, true, true, true, true, "noIDEA2", "randomValue2", "someDate2", "waxon_waxoff2", "filthy", "noidea2"
-                            , createRandomVehicle()).apply { images.addAll(createMockPhotos()) })
+                            , createMockAccessories(), createRandomVehicle()).apply { images.addAll(createMockPhotos()) })
 
         }
 
@@ -32,6 +33,11 @@ class TestDataProvider {
             add(Image(5,true, "Name5",false,false,"base64", "Overlay5"))
             add(Image(6,true, "Name6",false,false,"base64", "Overlay6"))
             add(Image(7, true,"Name7",false,false,"base64", "Overlay7"))
+        }
+
+        private fun createMockAccessories() = mutableListOf<Accessory>().apply {
+            add(Accessory("Satellite Navigation", true))
+            add(Accessory("Reverse Camera", false))
         }
     }
 }

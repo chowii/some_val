@@ -30,8 +30,10 @@ data class Inspection(
         @SerializedName("inspection_type") var inspectionType: String?,
         @SerializedName("condition") var condition: String?,
         @SerializedName("vehicle_condition") var vehicleCondition: String?,
+        @SerializedName("accessories") var accessories: MutableList<Accessory>,
         @Embedded
         @SerializedName("vehicle") var vehicle: Vehicle) {
+
     @Ignore
 //    @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
@@ -51,8 +53,7 @@ data class Inspection(
 
 //        @SerializedName("exterior_damage_report") var extDamageReport: DamageReport,
 //        @SerializedName("interior_damage_report") var intDamageReport: DamageReport,
-//        @SerializedName("tyres") var tyres: List<Tyre>,
-//        @SerializedName("accessories") var tyres: List<Accessory>,
+//        @SerializedName("tyres") var tyres: List<Tyre>,,
 
 //)
 
@@ -124,14 +125,9 @@ data class Tyre(
         @SerializedName("depth") val depth: Double?,
         @PrimaryKey(autoGenerate = true) val idTyre: Long)
 
-@Entity(tableName = RoomContract.TABLE_VEHICLES_ACCESSORIES, foreignKeys = [
-    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
-        indices = [(Index(value = ["inspectionId"], unique = true))])
 data class Accessory(
-        @SerializedName("name") val name: String,
-        @SerializedName("value") val isChecked: Boolean,
-        @SerializedName("inspection_id") val inspectionId: Long,
-        @PrimaryKey(autoGenerate = true) val id: Long)
+        @SerializedName("name") var name: String,
+        @SerializedName("value") var isChecked: Boolean)
 
 data class LocationDepot(
         @SerializedName("id") val idLocation: Long,

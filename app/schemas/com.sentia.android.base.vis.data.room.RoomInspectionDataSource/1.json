@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "31fc486d6e5720e89a823f90cac8a6de",
+    "identityHash": "f2d11b8729db12290089c49db5ead45c",
     "entities": [
       {
         "tableName": "Inspections_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `synced` INTEGER NOT NULL, `state` TEXT NOT NULL, `masterKeyAndRemote` INTEGER NOT NULL, `spareKeyAndRemote` INTEGER NOT NULL, `lockingWheelNut` INTEGER NOT NULL, `serviceBook` INTEGER NOT NULL, `serviceRequired` INTEGER NOT NULL, `ownersManual` INTEGER NOT NULL, `eTag` INTEGER NOT NULL, `fuelTag` INTEGER NOT NULL, `serviceHistory` TEXT, `odometer` TEXT, `lastServiceDate` TEXT, `inspectionType` TEXT, `condition` TEXT, `vehicleCondition` TEXT, `vehicle_id` INTEGER NOT NULL, `driveId` TEXT, `vehicle_rego` TEXT NOT NULL, `glassesCode` TEXT, `vehicle_vin` TEXT NOT NULL, `make` TEXT NOT NULL, `model` TEXT NOT NULL, `derivative` TEXT, `registeredDate` TEXT, `registeredState` TEXT, `registeredName` TEXT, `buildDate` TEXT, `complianceDate` TEXT, `virInspectionDate` TEXT, `registrationExpireDate` TEXT, `bodyType` TEXT, `doors` INTEGER, `transmissionType` TEXT, `fuelType` TEXT, `emissions` TEXT, `engineSize` TEXT, `engineBhp` TEXT, `driverSide` TEXT, `driverTransmission` TEXT, `engineNumber` TEXT, `gears` INTEGER, `colour` TEXT, `interiorTrim` TEXT, `no_of_seats` INTEGER, `vatQualifying` TEXT, `miles` INTEGER, `milesDate` TEXT, `p1` TEXT, `p2` TEXT, `notes` TEXT, `instruction` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `synced` INTEGER NOT NULL, `state` TEXT NOT NULL, `masterKeyAndRemote` INTEGER NOT NULL, `spareKeyAndRemote` INTEGER NOT NULL, `lockingWheelNut` INTEGER NOT NULL, `serviceBook` INTEGER NOT NULL, `serviceRequired` INTEGER NOT NULL, `ownersManual` INTEGER NOT NULL, `eTag` INTEGER NOT NULL, `fuelTag` INTEGER NOT NULL, `serviceHistory` TEXT, `odometer` TEXT, `lastServiceDate` TEXT, `inspectionType` TEXT, `condition` TEXT, `vehicleCondition` TEXT, `accessories` TEXT NOT NULL, `vehicle_id` INTEGER NOT NULL, `driveId` TEXT, `vehicle_rego` TEXT NOT NULL, `glassesCode` TEXT, `vehicle_vin` TEXT NOT NULL, `make` TEXT NOT NULL, `model` TEXT NOT NULL, `derivative` TEXT, `registeredDate` TEXT, `registeredState` TEXT, `registeredName` TEXT, `buildDate` TEXT, `complianceDate` TEXT, `virInspectionDate` TEXT, `registrationExpireDate` TEXT, `bodyType` TEXT, `doors` INTEGER, `transmissionType` TEXT, `fuelType` TEXT, `emissions` TEXT, `engineSize` TEXT, `engineBhp` TEXT, `driverSide` TEXT, `driverTransmission` TEXT, `engineNumber` TEXT, `gears` INTEGER, `colour` TEXT, `interiorTrim` TEXT, `no_of_seats` INTEGER, `vatQualifying` TEXT, `miles` INTEGER, `milesDate` TEXT, `p1` TEXT, `p2` TEXT, `notes` TEXT, `instruction` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -109,6 +109,12 @@
             "columnName": "vehicleCondition",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "accessories",
+            "columnName": "accessories",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "vehicle.idVehicle",
@@ -613,65 +619,6 @@
         ]
       },
       {
-        "tableName": "Accessories_model_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `isChecked` INTEGER NOT NULL, `inspectionId` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
-        "fields": [
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "isChecked",
-            "columnName": "isChecked",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "inspectionId",
-            "columnName": "inspectionId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "id"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [
-          {
-            "name": "index_Accessories_model_Table_inspectionId",
-            "unique": true,
-            "columnNames": [
-              "inspectionId"
-            ],
-            "createSql": "CREATE UNIQUE INDEX `index_Accessories_model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "Inspections_Table",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "inspectionId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
-      },
-      {
         "tableName": "Tyres_Model_Table",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inspectionId` INTEGER NOT NULL, `model` TEXT NOT NULL, `brand` TEXT, `depth` REAL, `idTyre` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
@@ -887,7 +834,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"31fc486d6e5720e89a823f90cac8a6de\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f2d11b8729db12290089c49db5ead45c\")"
     ]
   }
 }

@@ -124,6 +124,6 @@ fun CharSequence?.isEmail(): Boolean = this.toString().isEmail()
 fun Fragment.toast(message: CharSequence) = Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
 
 fun Fragment.snackBarX(message: String?) {
-    if (message.isNullOrBlank())
+    if (!message.isNullOrBlank())
         this.view?.let { snackbar(it, message!!) }
 }

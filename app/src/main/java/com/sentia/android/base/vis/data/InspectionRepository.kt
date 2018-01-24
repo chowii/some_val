@@ -9,6 +9,7 @@ import com.sentia.android.base.vis.api.model.LoginResult
 import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.repository.BaseRepository
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
+import com.sentia.android.base.vis.data.room.entity.Accessory
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.data.room.entity.InspectionImage
@@ -21,6 +22,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers

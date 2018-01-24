@@ -3,6 +3,7 @@ package com.sentia.android.base.vis.data.room
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.sentia.android.base.vis.data.room.entity.*
 import com.sentia.android.base.vis.util.TestDataProvider
@@ -11,7 +12,8 @@ import com.sentia.android.base.vis.util.TestDataProvider
  * Created by mariolopez on 28/12/17.
  */
 @Database(entities = [(Inspection::class), (Depot::class), (Image::class), (DamageReport::class),
-    (Accessory::class), (Tyre::class), (DamageItem::class), (InspectionImage::class)], version = 1, exportSchema = true)
+    (Tyre::class), (DamageItem::class), (InspectionImage::class)], version = 1, exportSchema = true)
+@TypeConverters(AccessoryTypeConverter::class)
 abstract class RoomInspectionDataSource : RoomDatabase() {
 
     abstract fun inspectionDao(): RoomInspectionDao

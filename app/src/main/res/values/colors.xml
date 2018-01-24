@@ -9,4 +9,5 @@
     <color name="a50_white">#80ffffff</color>
     <color name="a50_gray">#60000000</color>
     <color name="black">@android:color/black</color>
+    <color name="separator_gray">#1e000000</color>
 </resources>

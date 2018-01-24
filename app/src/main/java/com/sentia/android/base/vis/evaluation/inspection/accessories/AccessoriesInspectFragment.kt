@@ -1,39 +1,79 @@
 package com.sentia.android.base.vis.evaluation.inspection.accessories
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sentia.android.base.vis.R
-import com.sentia.android.base.vis.base.BaseFragment
-import com.sentia.android.base.vis.databinding.FragmentInspectionAccessoriesBinding
-import com.sentia.android.base.vis.search.SearchViewModel
+import com.sentia.android.base.vis.base.EvaluationBaseFragment
+import com.sentia.android.base.vis.data.room.entity.Accessory
+import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
+import com.sentia.android.base.vis.util.Resource
+import com.sentia.android.base.vis.views.GridDividerItemDecoration
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
+import kotlinx.android.synthetic.main.fragment_inspection_accessories.*
 
 /**
  * Created by mariolopez on 9/1/18.
  */
-class AccessoriesInspectFragment : BaseFragment() {
-    private var accessoriesViewModel: SearchViewModel? = null
+class AccessoriesInspectFragment : EvaluationBaseFragment() {
 
-    override fun initViewModel() {
-        accessoriesViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        accessoriesViewModel?.let { lifecycle.addObserver(it) }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_inspection_accessories, container, false)
     }
 
-    private lateinit var binding: FragmentInspectionAccessoriesBinding
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUi(savedInstanceState)
+    }
 
-     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inspection_accessories, container, false)
-//        initUi(savedInstanceState)
-
-        return binding.root
+    private fun initUi(savedInstanceState: Bundle?) {
+        val accessoriesAdapter = AccessoriesAdapter()
+        with(rv_accessories) {
+            setHasFixedSize(true)
+            adapter = accessoriesAdapter
+            layoutManager = GridLayoutManager(this.context, NUMBER_OF_COLUMNS)
+            addItemDecoration(GridDividerItemDecoration(
+                    ContextCompat.getDrawable(context, R.drawable.item_decoration_grid_seperator),
+                    ContextCompat.getDrawable(context, R.drawable.item_decoration_grid_seperator),
+                    AccessoriesInspectFragment.NUMBER_OF_COLUMNS
+            ))
+        }
+        Observable.combineLatest(
+                accessoriesAdapter.itemClicks,
+                inspectionDbObs,
+                BiFunction { accessoriesList: MutableList<Accessory>,
+                             inspection: Inspection ->
+                    Pair(inspection, inspection.copyWithList().apply {
+                        this.accessories = accessoriesList
+                    })
+                })
+                .subscribe { (old, new) ->
+                    inspectionViewModel?.saveTempChanges(old) {
+                        it.synced = false
+                        it.accessories.clear()
+                        it.accessories.addAll(new.accessories)
+                    }
+                    accessoriesAdapter.updateAccessories(new.accessories)
+                }
+        inspectionViewModel?.findInspection(inspectionId)
+        inspectionViewModel?.currentInspection
+                ?.observe(this, Observer<Resource<Inspection>?> {
+                    it?.data?.accessories?.let { accessories ->
+                        accessoriesAdapter.updateAccessories(accessories)
+                    }
+                })
     }
 
     companion object {
+
+        private const val NUMBER_OF_COLUMNS = 2
+
         fun newInstance(vehicleId: Long) = AccessoriesInspectFragment().apply {
             arguments = Bundle().apply {
                 putLong(KEY_INSPECTION_ID, vehicleId)
@@ -41,3 +81,4 @@ class AccessoriesInspectFragment : BaseFragment() {
         }
     }
 }
+
