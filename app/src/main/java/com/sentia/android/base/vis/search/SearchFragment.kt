@@ -14,7 +14,6 @@ import com.sentia.android.base.vis.databinding.FragmentSearchBinding
 import com.sentia.android.base.vis.evaluation.EvaluationActivity
 import com.sentia.android.base.vis.search.SearchFragment.SearchResultView
 import com.sentia.android.base.vis.util.*
-import com.sentia.android.base.vis.util.Resource.Status.*
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
@@ -50,39 +49,36 @@ class SearchFragment : BaseFragment() {
         menu?.findItem(R.id.action_sync_all)?.isVisible = false
 
         //Restore search key
-        binding.searchKeyWord = savedInstanceState?.getString(KEY_SEARCH_KEY_WORD).orEmpty()
-
+        val searchKeyWord = savedInstanceState?.getString(KEY_SEARCH_KEY_WORD).orEmpty()
+        binding.searchKeyWord = searchKeyWord
+        searchViewModel.search(searchKeyWord.toRoomSearchString())
         //toolbar
         tb_search.setTitle(R.string.search_screen_title)
 
         //Search
         et_search.textChanges().filter { it.isNotBlank() }
-                .subscribe { searchViewModel.search("%" + it.toString() + "%") /* by putting % the search works like contains*/ }
-        //initial values for search
-        et_search.textChanges().filter { it.isEmpty() }.subscribe {
-            searchViewModel.loadInspections()
-                    .observe(this, Observer {
+                .subscribe { searchViewModel.search(it.toRoomSearchString()) }
 
-                        // Views state
-                        binding.searchResult = it?.toSearchResultView()
-                        binding.executePendingBindings()
+        //Swipe to refresh
+        srl_inspections.setOnRefreshListener { searchViewModel.search(et_search.text.toRoomSearchString()) }
 
-                        //menu sync all item visibility
-                        menu?.findItem(R.id.action_sync_all)?.isVisible =
-                                it?.data?.any { it.uploadStatus.status == UploadStatus.Status.NOT_SYNCED }.orFalse()
-
-                        when (it?.status) {
-                            SUCCESS -> inspectionsAdapter.setInspections(it.data)
-                            ERROR -> snackBarX(it.exception?.message)
-                            LOADING -> {/*do nothing */
-                            }
-                        }
-                    })
-            //this will trigger changes in the db
-        }
         //set inspections from search result
         searchViewModel.searchResult?.observe(this, Observer {
-            inspectionsAdapter.setInspections(it?.data)
+
+            // Views state
+            binding.searchResult = it?.toSearchResultView()
+            binding.executePendingBindings()
+
+            //Menu sync all item visibility
+            menu?.findItem(R.id.action_sync_all)?.isVisible =
+                    it?.data?.any { it.uploadStatus.status == UploadStatus.Status.NOT_SYNCED }.orFalse()
+
+            when (it?.status) {
+                Resource.Status.SUCCESS -> inspectionsAdapter.setInspections(it.data)
+                Resource.Status.ERROR -> snackBarX(it.exception?.message)
+                Resource.Status.LOADING -> { /*do nothing */
+                }
+            }
         })
 
         //RecyclerViewSetup
@@ -90,7 +86,7 @@ class SearchFragment : BaseFragment() {
         inspectionsAdapter = SearchInspectionsAdapter()
         rv_inspections.adapter = inspectionsAdapter
 
-        //clicks
+        //Clicks
         inspectionsAdapter.itemClicks.subscribe {
             hideKeyboard()
             startActivity(intentFor<EvaluationActivity>(KEY_INSPECTION_ID to it))
@@ -125,13 +121,17 @@ class SearchFragment : BaseFragment() {
     }
 
     data class SearchResultView(val isLoading: Boolean = false, val isEmpty: Boolean = false,
-                                val isLoaded: Boolean = !isLoading && !isEmpty)
+                                val isLoaded: Boolean = !isLoading)
 
 }
 
-private fun <T> Resource<List<T>>.toSearchResultView() =
-        when (this.status) {
-            Resource.Status.SUCCESS -> SearchResultView(false, this.data?.isEmpty().orFalse())
-            Resource.Status.ERROR -> SearchResultView(false, false)
-            Resource.Status.LOADING -> SearchResultView(true, false)
-        }
+private fun <T> Resource<List<T>>.toSearchResultView(): SearchResultView {
+    val isEmpty = this.data?.isEmpty().orTrue()
+    return when (this.status) {
+        Resource.Status.SUCCESS -> SearchResultView(false, isEmpty)
+        Resource.Status.ERROR -> SearchResultView(false, isEmpty, true)
+        Resource.Status.LOADING -> SearchResultView(true, false)
+    }
+}
+
+private fun Boolean?.orTrue(): Boolean = this ?: true

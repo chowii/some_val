@@ -26,17 +26,17 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_search"
             android:layout_width="match_parent"
-            app:titleTextColor="@color/white"
             android:layout_height="wrap_content"
-            android:paddingStart="60dp"
-            android:paddingEnd="20dp"
-            tools:title="@string/search_screen_title"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
+            android:paddingEnd="20dp"
+            android:paddingStart="60dp"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white"
+            tools:title="@string/search_screen_title" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_search_field"
@@ -75,8 +75,8 @@
                     android:layout_width="93dp"
                     android:layout_height="0dp"
                     android:layout_marginEnd="16dp"
-                    android:visibility="gone"
                     android:text="@string/btn_search_label"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/et_search"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/et_search" />
@@ -84,19 +84,27 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/cardView3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="@dimen/search_screen_vertical_padding_inset"
-            android:background="@color/white"
-            android:gravity="center_horizontal|top"
-            android:text="@string/search_no_inspection"
-            android:visibility="@{!searchResult.isLoaded}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cv_search_field"
             app:layout_constraintStart_toStartOf="@+id/cv_search_field"
             app:layout_constraintTop_toBottomOf="@+id/cv_search_field">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/srl_inspections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isRefreshing="@{searchResult.isLoading}">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_inspections"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_list_search_inspections" />
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -106,34 +114,6 @@
                 android:gravity="start"
                 android:text="@string/search_no_inspection"
                 android:visibility="@{searchResult.isEmpty &amp;&amp; searchResult.isLoaded}" />
-
-            <ProgressBar
-                android:id="@+id/pb_search_inspection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="16dp"
-                android:visibility="@{searchResult.isEmpty || searchResult.isLoading}" />
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="48dp"
-            android:text="@string/search_no_inspection"
-            android:visibility="@{searchResult.isLoaded}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cv_search_field"
-            app:layout_constraintStart_toStartOf="@+id/cv_search_field"
-            app:layout_constraintTop_toBottomOf="@+id/cv_search_field">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_inspections"
-                tools:listitem ="@layout/item_list_search_inspections"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -144,7 +124,6 @@
             android:text="@string/today_inspections_label"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/cardView3"
             app:layout_constraintStart_toStartOf="@+id/cv_search_field"
             app:layout_constraintTop_toBottomOf="@+id/cv_search_field" />
 

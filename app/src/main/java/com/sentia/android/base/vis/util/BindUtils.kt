@@ -2,6 +2,7 @@ package com.sentia.android.base.vis.util
 
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Base64
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +14,11 @@ import com.bumptech.glide.Glide
 @BindingAdapter("android:visibility")
 fun setVisibility(view: View, value: Boolean) {
     view.visibility = if (value) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:isRefreshing")
+fun showSpinningRefreshLayout(srl: SwipeRefreshLayout, value: Boolean) {
+    srl.isRefreshing = value
 }
 
 object ImageBindingAdapter {

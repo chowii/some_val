@@ -10,3 +10,7 @@ import io.reactivex.Flowable
 fun <T> Flowable<T>.toLiveData(): LiveData<T?> {
     return LiveDataReactiveStreams.fromPublisher(this)
 }
+
+fun CharSequence.toRoomSearchString(): String = this.toString().toRoomSearchString()
+fun String.toRoomSearchString() = "%$this%" /* by putting % the search works like contains*/
+fun String.isNotABlankSearchString() = this.replace("%","").isNotBlank()

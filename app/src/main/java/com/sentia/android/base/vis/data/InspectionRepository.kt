@@ -95,7 +95,7 @@ class InspectionRepository : BaseRepository() {
 
     }
 
-    override fun getInspections(): LiveData<Resource<List<Inspection>>?> {
+    override fun getInspections(): LiveData<Resource<List<Inspection>>> {
         val result = MediatorLiveData<Resource<List<Inspection>>>()
         val remoteResult = MutableLiveData<Resource<List<Inspection>>>()
 

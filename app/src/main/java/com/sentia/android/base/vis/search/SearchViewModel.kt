@@ -12,6 +12,7 @@ import com.sentia.android.base.vis.data.InspectionRepository
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.upload.Uploader
 import com.sentia.android.base.vis.util.Resource
+import com.sentia.android.base.vis.util.isNotABlankSearchString
 
 class SearchViewModel : BaseViewModel() {
 
@@ -21,16 +22,21 @@ class SearchViewModel : BaseViewModel() {
 
     internal val searchResult = switchMap(searchInput) {
         //this is lazy load so it caches the result on rotation
-        repository.doSearch(it)
+        if (it.isNotABlankSearchString()) {
+            repository.doSearch(it)
+        } else {
+            loadInspections()
+        }
     }
 
-    fun search(searchWord: String?) {
+    /**
+     * @param searchWord search key word surrounded by % %  see DbExtensionExt toRoomSearchString()
+     */
+    fun search(searchWord: String) {
         searchInput.value = searchWord
     }
 
-    fun loadInspections(): LiveData<Resource<List<Inspection>>?> = repository.getInspections()
+    private fun loadInspections(): LiveData<Resource<List<Inspection>>> = repository.getInspections()
 
     fun sync(inspectionToUpload: Inspection? = null) = uploader.sync(inspectionToUpload)
 }
-
-
