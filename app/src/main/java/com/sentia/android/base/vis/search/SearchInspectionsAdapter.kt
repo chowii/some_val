@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.NOT_SYNCED
+import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.UPLOADING
 import com.sentia.android.base.vis.databinding.ItemListSearchInspectionsBinding
+import com.sentia.android.base.vis.search.SearchInspectionsAdapter.InspectionItemView
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.item_list_search_inspections.view.*
 
 /**
  * Created by mariolopez on 19/1/18.
@@ -19,6 +23,8 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
 
     private var itemClicksPublisher: PublishSubject<Long> = PublishSubject.create()
     var itemClicks: Observable<Long> = itemClicksPublisher.toFlowable(BackpressureStrategy.LATEST).toObservable()
+    private var uploadClicksPublisher: PublishSubject<Inspection> = PublishSubject.create()
+    var uploadClicks: Observable<Inspection> = uploadClicksPublisher.toFlowable(BackpressureStrategy.LATEST).toObservable()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InspectionHolder {
         val binding = ItemListSearchInspectionsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,6 +36,7 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
         val inspectionItemView = inspection.toInspectionItemView(holder.itemView.context.resources,
                 position == inspections.size)
         holder.itemView.clicks().map { inspection.id }.subscribe { itemClicksPublisher.onNext(it) }
+        holder.itemView.ic_upload.clicks().map { inspection }.subscribe { uploadClicksPublisher.onNext(it) }
         holder.bind(inspectionItemView)
     }
 
@@ -42,7 +49,8 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
     }
 
     data class InspectionItemView(val rego: String, val modelDerivative: String, val vin: String,
-                                  val uploaded: String, val isUploading: Boolean,
+                                  val inspectedDate: String, val isUploading: Boolean,
+                                  val isNotSynced : Boolean,
                                   val isDividerVisible: Boolean = true)
 
     fun setInspections(newInspections: List<Inspection>?) {
@@ -55,7 +63,10 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
 }
 
 private fun Inspection.toInspectionItemView(resources: Resources, isLastElement: Boolean): SearchInspectionsAdapter.InspectionItemView =
-        SearchInspectionsAdapter.InspectionItemView(this.vehicle.rego,
+        InspectionItemView(this.vehicle.rego,
                 "${this.vehicle.model} ${this.vehicle.derivative.orEmpty()}",
-                String.format(resources.getString(R.string.inspection_item_vin_label), this.vehicle.vin), "", false,
+                String.format(resources.getString(R.string.inspection_item_vin_label), this.vehicle.vin),
+                this.inspectedDate,
+                this.uploadStatus.status == UPLOADING,
+                this.uploadStatus.status == NOT_SYNCED,
                 !isLastElement)

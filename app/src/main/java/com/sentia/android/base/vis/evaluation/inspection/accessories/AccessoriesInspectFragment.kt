@@ -11,6 +11,7 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.EvaluationBaseFragment
 import com.sentia.android.base.vis.data.room.entity.Accessory
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.NOT_SYNCED
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.views.GridDividerItemDecoration
@@ -54,16 +55,16 @@ class AccessoriesInspectFragment : EvaluationBaseFragment() {
                     })
                 })
                 .subscribe { (old, new) ->
-                    inspectionViewModel?.saveTempChanges(old) {
-                        it.synced = false
+                    inspectionViewModel.saveTempChanges(old) {
+                        it.uploadStatus.status = NOT_SYNCED
                         it.accessories.clear()
                         it.accessories.addAll(new.accessories)
                     }
                     accessoriesAdapter.updateAccessories(new.accessories)
                 }
-        inspectionViewModel?.findInspection(inspectionId)
-        inspectionViewModel?.currentInspection
-                ?.observe(this, Observer<Resource<Inspection>?> {
+        inspectionViewModel.findInspection(inspectionId)
+        inspectionViewModel.currentInspection
+                .observe(this, Observer<Resource<Inspection>?> {
                     it?.data?.accessories?.let { accessories ->
                         accessoriesAdapter.updateAccessories(accessories)
                     }

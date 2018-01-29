@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="baseUrl">https://inspection-system-staging.herokuapp.com/api/</string>
+    <!--FEDERICO local ngrok -->
+    <!--<string name="baseUrl">http://6a7209bb.ngrok.io/api/</string>-->
+
 </resources>

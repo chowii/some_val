@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding2.widget.textChanges
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.EvaluationBaseFragment
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.NOT_SYNCED
 import com.sentia.android.base.vis.databinding.FragmentInspectionVehicleBinding
 import com.sentia.android.base.vis.util.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -30,10 +31,7 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
     private lateinit var binding: FragmentInspectionVehicleBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inspection_vehicle, container, false)
-//        initUi(savedInstanceState)
-
         return binding.root
     }
 
@@ -44,11 +42,10 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
 
     private fun initUi(savedInstanceState: Bundle?) {
 
-        inspectionViewModel?.currentInspection
-                ?.observe(this, Observer<Resource<Inspection>?> {
-                    binding.inspection = it?.data
-                    binding.executePendingBindings()
-                })
+        inspectionViewModel.currentInspection.observe(this, Observer<Resource<Inspection>?> {
+            binding.inspection = it?.data
+            binding.executePendingBindings()
+        })
 
         v_overlay_til_reg_exp_date.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -93,12 +90,18 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
                     })
                 })
                 .subscribe { (old, new) ->
-                    inspectionViewModel?.saveTempChanges(old) {
-                        it.synced = false
+                    inspectionViewModel.saveTempChanges(old) {
+                        it.uploadStatus.status = NOT_SYNCED
+                        it.spareKeyAndRemote = new.spareKeyAndRemote
+                        it.vehicle.rego = new.vehicle.rego
+                        it.vehicle.registeredState = new.vehicle.registeredState
+                        it.vehicle.registrationExpireDate = new.vehicle.registrationExpireDate
+                        it.vehicle.vin = new.vehicle.vin
+                        it.odometer = new.odometer
+                        it.masterKeyAndRemote = new.masterKeyAndRemote
                         it.spareKeyAndRemote = new.spareKeyAndRemote
                     }
                 }
-
 
         et_odometer.editorActions().subscribe {
             when (it) {EditorInfo.IME_ACTION_NEXT -> hideKeyboard()
@@ -110,7 +113,6 @@ class VehicleInspectFragment : EvaluationBaseFragment() {
     companion object {
         fun newInstance(vehicleId: Long) = VehicleInspectFragment().apply {
             arguments = Bundle().apply {
-
                 putLong(KEY_INSPECTION_ID, vehicleId)
             }
         }

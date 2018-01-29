@@ -28,6 +28,7 @@
 
     <!--Inspection Vehicle-->
     <string name="hint_make">Make</string>
+    <string name="hint_model">Model</string>
     <string name="hint_registration">Registration</string>
     <string name="hint_registration_state">Registration state</string>
     <string name="hint_vin">VIN</string>
@@ -87,5 +88,7 @@
     <string name="photos_dialog_camera">Take a photo</string>
     <string name="photos_dialog_gallery">Select from gallery</string>
     <string name="photos_dialog_loading">Loading..</string>
+    <string name="search_screen_title">Vehicle Inspection System</string>
+    <string name="search_btn_sync_all">Sync All</string>
 
 </resources>

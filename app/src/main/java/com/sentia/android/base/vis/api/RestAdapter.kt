@@ -7,13 +7,16 @@ package com.sentia.android.base.vis.api
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.google.gson.*
+import com.google.gson.annotations.Expose
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import com.sentia.android.base.vis.App
 import com.sentia.android.base.vis.api.interceptor.AuthInterceptor
 import com.sentia.android.base.vis.api.interceptor.StatusCodeInterceptor
+import com.sentia.android.base.vis.data.room.entity.UploadStatus
 import com.sentia.android.base.vis.util.Constants.Companion.BASE_URL
+import com.sentia.android.base.vis.util.orFalse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +27,7 @@ import java.util.concurrent.TimeUnit
 
 
 class RestAdapter {
-    val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
+    private val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
 
     private val authInterceptor by kodein.instance<AuthInterceptor>()
 
@@ -47,10 +50,47 @@ class RestAdapter {
             .create(Api::class.java)
 
     private fun buildConverter(): GsonConverterFactory {
-        return GsonConverterFactory.create(GsonBuilder().registerTypeAdapterFactory(DataTypeAdapterFactory()).create())
+        return GsonConverterFactory.create(GsonBuilder()
+                .addSerializationExclusionStrategy(SerializeExclStrategy())
+                .addDeserializationExclusionStrategy(DeserializeExclStrategy())
+                .excludeFieldsWithModifiers()
+                .registerTypeAdapterFactory(DataTypeAdapterFactory()).create())
     }
 
-    class DataTypeAdapterFactory : TypeAdapterFactory {
+    inner class SerializeExclStrategy : ExclusionStrategy {
+        override fun shouldSkipField(f: FieldAttributes?): Boolean {
+            val expose = f?.getAnnotation(Expose::class.java)
+            val excludeDeserialize = expose?.toString()?.contains("serialize=false").orFalse()
+            val excludeSerializable = f?.name?.contains("serialVersionUID").orFalse()
+            return excludeDeserialize || excludeSerializable
+        }
+
+        override fun shouldSkipClass(clazz: Class<*>?): Boolean {
+            val isUploadState = clazz?.simpleName.equals(UploadStatus::class.java.simpleName).orFalse()
+            if (isUploadState) {
+                return true
+            }
+            return false
+        }
+    }
+    inner class DeserializeExclStrategy : ExclusionStrategy {
+        override fun shouldSkipField(f: FieldAttributes?): Boolean {
+            val expose = f?.getAnnotation(Expose::class.java)
+            val excludeDeserialize = expose?.toString()?.contains("deserialize=false").orFalse()
+            val excludeSerializable = f?.name?.contains("serialVersionUID").orFalse()
+            return excludeDeserialize || excludeSerializable
+        }
+
+        override fun shouldSkipClass(clazz: Class<*>?): Boolean {
+            val isUploadState = clazz?.simpleName.equals(UploadStatus::class.java.simpleName).orFalse()
+            if (isUploadState) {
+                return true
+            }
+            return false
+        }
+    }
+
+    inner class DataTypeAdapterFactory : TypeAdapterFactory {
 
         override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T> {
 

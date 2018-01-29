@@ -1,8 +1,11 @@
 package com.sentia.android.base.vis.data.room.entity
 
 import android.arch.persistence.room.*
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.sentia.android.base.vis.data.room.RoomContract
+import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.SYNCED
+import com.sentia.android.base.vis.util.TestDataProvider
 
 /**
  * Created by mariolopez on 27/12/17.
@@ -13,9 +16,8 @@ import com.sentia.android.base.vis.data.room.RoomContract
             (Index(value = ["vehicle_vin"]))])
 data class Inspection(
         @PrimaryKey
-        @SerializedName("id") val id: Long,
-        var synced: Boolean = true,
-        @SerializedName("state") val state: String,
+        @SerializedName("id") var id: Long,
+        @SerializedName("state") var state: String,
         @SerializedName("master_key_and_remote") var masterKeyAndRemote: Boolean,
         @SerializedName("spare_key_and_remote") var spareKeyAndRemote: Boolean,
         @SerializedName("locking_wheel_nut") var lockingWheelNut: Boolean,
@@ -32,22 +34,32 @@ data class Inspection(
         @SerializedName("vehicle_condition") var vehicleCondition: String?,
         @SerializedName("accessories") var accessories: MutableList<Accessory>,
         @Embedded
-        @SerializedName("vehicle") var vehicle: Vehicle) {
+        @SerializedName("vehicle") var vehicle: Vehicle,
+        @Expose(serialize = false, deserialize = false)
+        @Embedded
+        var uploadStatus: UploadStatus) {
+
+    constructor() : this(0, "", false, false,
+            false, false, false, false, false,
+            false, null, null, null, null,
+            null, null, mutableListOf<Accessory>(),
+            TestDataProvider.createRandomVehicle(), UploadStatus())
 
     @Ignore
-//    @SerializedName("images")
+    @SerializedName("images")
     val images: MutableList<Image> = mutableListOf()
+
+    @Ignore
+    @Expose(serialize = false, deserialize = false)
+    var inspectedDate: String = ""
 
     fun copyWithList(): Inspection {
         val copy = copy()
         copy.images.addAll(this.images)
         return copy
     }
-}
 
-//uncomment and remove at will
-//        see image for example
-
+//uncomment and remove at will see image for example
 
 //        @SerializedName("depot") var rsfTyreId: Depot,
 
@@ -56,6 +68,7 @@ data class Inspection(
 //        @SerializedName("tyres") var tyres: List<Tyre>,,
 
 //)
+}
 
 @Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT, foreignKeys = [
     ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
@@ -151,3 +164,16 @@ data class LocationDepot(
 data class InspectionImage(
         val inspectionId: Long,
         val imageId: Long)
+
+data class UploadStatus(
+        @ColumnInfo(name = "status")
+        var status: Status = SYNCED, var uploadDate: String? = null) {
+    constructor() : this(SYNCED, null)
+
+    enum class Status {
+        SYNCED,
+        NOT_SYNCED,
+        UPLOADING,
+        FAILED
+    }
+}

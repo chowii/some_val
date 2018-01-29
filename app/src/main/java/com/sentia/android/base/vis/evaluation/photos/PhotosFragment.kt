@@ -11,6 +11,7 @@ import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.EvaluationBaseFragment
 import com.sentia.android.base.vis.data.room.entity.Image
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.UploadStatus
 import com.sentia.android.base.vis.databinding.FragmentPhotosBinding
 import com.sentia.android.base.vis.sentialibrary.ImageSelector
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
@@ -44,13 +45,12 @@ class PhotosFragment : EvaluationBaseFragment() {
 
     private fun initUi() {
         val photosAdapter = PhotosAdapter()
-        inspectionViewModel?.currentInspection
-                ?.observe(this, Observer<Resource<Inspection>?> {
-                    it?.data?.images?.let {
-                        photosAdapter.setData(it)
-                    }
-                })
-        inspectionViewModel?.imageObservable?.subscribeBy(
+        inspectionViewModel.currentInspection.observe(this, Observer<Resource<Inspection>?> {
+            it?.data?.images?.let {
+                photosAdapter.setData(it)
+            }
+        })
+        inspectionViewModel.imageObservable.subscribeBy(
                 onNext = { resource ->
                     when (resource.status) {
                         SUCCESS -> srl_loading.isRefreshing = false
@@ -81,7 +81,7 @@ class PhotosFragment : EvaluationBaseFragment() {
                     lifecycle.addObserver(imageSelector)
                     imageSelector.selectImage()
                 }
-                .flatMap { inspectionViewModel?.compressAndDecodeImage(it, context!!) }
+                .flatMap { inspectionViewModel.compressAndDecodeImage(it, context!!) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
@@ -95,11 +95,11 @@ class PhotosFragment : EvaluationBaseFragment() {
                             it.synced = false
                         }
                     })
-
                 })
                 .subscribeBy(
                         onNext = { (old, new) ->
-                            inspectionViewModel?.saveTempChanges(old) {
+                            inspectionViewModel.saveTempChanges(old) {
+                                it.uploadStatus.status = UploadStatus.Status.NOT_SYNCED
                                 it.images.clear()
                                 it.images.addAll(new.images)
                             }

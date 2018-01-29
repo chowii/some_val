@@ -11,19 +11,11 @@ import com.sentia.android.base.vis.base.BaseViewModel
 import com.sentia.android.base.vis.data.InspectionRepository
 import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.sentialibrary.ImageCompressor
+import com.sentia.android.base.vis.util.DateUtils
 import com.sentia.android.base.vis.util.Resource
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Completable
-import io.reactivex.CompletableObserver
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.annotations.NonNull
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import org.jetbrains.anko.error
-import org.jetbrains.anko.info
 
 /**
  * Created by mariolopez on 9/1/18.
@@ -37,7 +29,7 @@ class EvaluationViewModel : BaseViewModel() {
     private val mutationInspectionLiveData = MutableLiveData<Resource<Inspection>>()
     private val imageSubject: PublishSubject<Resource<String>> = PublishSubject.create()
 
-    val imageCompressor by kodein.instance<ImageCompressor>()
+    private val imageCompressor by kodein.instance<ImageCompressor>()
     val imageObservable: Observable<Resource<String>> = imageSubject.toFlowable(BackpressureStrategy.MISSING).toObservable()
 
     val currentInspection: LiveData<Resource<Inspection>> = switchMap(inspectionLiveData) {
@@ -53,41 +45,6 @@ class EvaluationViewModel : BaseViewModel() {
         inspectionLiveData.value = id
     }
 
-    //todo remove the following 3 methods
-    fun initLocalInspections() {
-        compositeDisposable += repository.getTotalInspections()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (isRoomEmpty(it)) {
-                        populate() //mocked version for data we could switch map and fetch for remote repository
-                    } else info("DataSource has been already Populated")
-
-                }
-    }
-
-
-    private fun isRoomEmpty(storedSamplesTotal: Int) = storedSamplesTotal == 0
-
-    private fun populate() {
-        Completable.fromAction { repository.addMockedInspections() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(@NonNull disposable: Disposable) {
-                        compositeDisposable += disposable
-                    }
-
-                    override fun onComplete() {
-                        info("DataSource has been Populated")
-                    }
-
-                    override fun onError(@NonNull e: Throwable) {
-                        error("DataSource hasn't been Populated yet")
-                    }
-                })
-    }
-
     fun saveTempChanges(inspectionFromDb: Inspection, mutation: (Inspection) -> Unit) {
         if (mutableInspection == null) {
             mutableInspection = inspectionFromDb
@@ -96,9 +53,9 @@ class EvaluationViewModel : BaseViewModel() {
         mutationInspectionLiveData.value = Resource(Resource.Status.SUCCESS, mutableInspection!!)
     }
 
-    fun persistChanges(): LiveData<Resource<Nothing>> {
-        return repository.addInspections(listOf(mutableInspection!!))
-    }
+    fun persistChanges(): LiveData<Resource<Nothing>> = repository.addInspections(listOf(mutableInspection?.apply {
+        inspectedDate = DateUtils.timeToDisplayableString(System.currentTimeMillis())
+    }!!))
 
     fun compressAndDecodeImage(uri: Uri, context: Context): Observable<String> {
         imageSubject.onNext(Resource(Resource.Status.LOADING))

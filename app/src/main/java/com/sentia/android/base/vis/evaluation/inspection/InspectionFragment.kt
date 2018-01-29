@@ -53,8 +53,9 @@ class InspectionFragment : EvaluationBaseFragment() {
         vp_tabs_inspection.adapter = InspectionTabsPagerAdapter(childFragmentManager, resources, inspectionId)
         vp_tabs_inspection.currentItem = InspectionTabsPagerAdapter.TAB_VEHICLE
 
-        inspectionViewModel?.currentInspection
-                ?.observe(this, Observer<Resource<Inspection>?> {
+        inspectionViewModel.findInspection(inspectionId)
+        inspectionViewModel.currentInspection
+                .observe(this, Observer<Resource<Inspection>?> {
                     info { it?.data?.id }
                 })
     }

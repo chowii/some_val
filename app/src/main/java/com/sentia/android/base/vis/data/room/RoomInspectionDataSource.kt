@@ -13,7 +13,7 @@ import com.sentia.android.base.vis.util.TestDataProvider
  */
 @Database(entities = [(Inspection::class), (Depot::class), (Image::class), (DamageReport::class),
     (Tyre::class), (DamageItem::class), (InspectionImage::class)], version = 1, exportSchema = true)
-@TypeConverters(AccessoryTypeConverter::class)
+@TypeConverters(AccessoryTypeConverter::class, UploadStatusTypeConverter::class)
 abstract class RoomInspectionDataSource : RoomDatabase() {
 
     abstract fun inspectionDao(): RoomInspectionDao

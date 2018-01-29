@@ -14,12 +14,12 @@ import org.reactivestreams.Publisher
  */
 abstract class EvaluationBaseFragment : BaseFragment() {
 
-    protected var inspectionViewModel: EvaluationViewModel? = null
+    protected lateinit var inspectionViewModel: EvaluationViewModel
     protected val inspectionId: Long by lazy { arguments?.getLong(KEY_INSPECTION_ID, 0) ?: 0 }
 
     private val inspectionPublisher: Publisher<Resource<Inspection>>? by lazy {
         LiveDataReactiveStreams
-                .toPublisher(this, inspectionViewModel?.currentInspection)
+                .toPublisher(this, inspectionViewModel.currentInspection)
     }
     protected val inspectionDbObs: Observable<Inspection> by lazy {
         Observable.fromPublisher(inspectionPublisher)
@@ -31,7 +31,7 @@ abstract class EvaluationBaseFragment : BaseFragment() {
 
     override fun initViewModel() {
         inspectionViewModel = ViewModelProviders.of(this.activity!!).get(EvaluationViewModel::class.java)
-        inspectionViewModel?.let { lifecycle.addObserver(it) }
+        inspectionViewModel.let { lifecycle.addObserver(it) }
     }
 
 }

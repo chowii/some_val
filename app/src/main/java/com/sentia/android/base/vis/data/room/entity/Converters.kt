@@ -1,13 +1,25 @@
-package com.sentia.android.base.vis.data.room
+package com.sentia.android.base.vis.data.room.entity
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sentia.android.base.vis.data.room.entity.Accessory
 
 /**
- * Created by Jovan on 23/1/18.
+ * Created by mariolopez on 23/1/18.
  */
+class UploadStatusTypeConverter {
+
+    @TypeConverter
+    fun uploadStatusToString(uploadStatus: UploadStatus.Status): String {
+        return uploadStatus.toString()
+    }
+
+    @TypeConverter
+    fun uploadStatusStringToEnum(uploadStatusString: String): UploadStatus.Status {
+        return UploadStatus.Status.valueOf(uploadStatusString)
+    }
+
+}
 
 class AccessoryTypeConverter {
 

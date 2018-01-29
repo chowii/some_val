@@ -3,7 +3,6 @@ package com.sentia.android.base.vis.util
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.databinding.BindingAdapter
 import android.graphics.PorterDuff
 import android.support.annotation.ColorRes
 import android.support.v4.app.Fragment

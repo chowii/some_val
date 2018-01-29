@@ -129,7 +129,7 @@
                 style="@style/DisabledAppTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_make"
+                android:hint="@string/hint_model"
                 android:text="@{inspection.vehicle.model}"
                 tools:text="Ford" />
         </android.support.design.widget.TextInputLayout>

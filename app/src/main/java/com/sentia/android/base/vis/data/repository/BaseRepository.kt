@@ -19,9 +19,7 @@ abstract class BaseRepository : Repository, AnkoLogger {
 
 interface Repository {
 
-    fun addMockedInspections()
-
-    fun getInspections(): LiveData<Resource<List<Inspection>>>
+    fun getInspections(): LiveData<Resource<List<Inspection>>?>
 
     fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>>
 
