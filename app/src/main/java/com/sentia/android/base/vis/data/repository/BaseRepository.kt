@@ -21,7 +21,7 @@ interface Repository {
 
     fun getInspections(): LiveData<Resource<List<Inspection>>>
 
-    fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>>
+    fun findCompleteInspection(inspectionId: Long): Flowable<Resource<Inspection>>
 
     fun getTotalInspections(): Flowable<Int>
 }

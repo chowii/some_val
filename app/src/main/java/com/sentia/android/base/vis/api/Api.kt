@@ -12,6 +12,7 @@ import retrofit2.http.*
 
 interface Api {
 
+
     @GET(PATH_INSPECTIONS)
     fun getInspections(): Single<List<Inspection>>
 

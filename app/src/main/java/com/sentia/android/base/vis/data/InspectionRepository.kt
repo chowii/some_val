@@ -1,7 +1,6 @@
 package com.sentia.android.base.vis.data
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import com.github.salomonbrys.kodein.instance
@@ -22,6 +21,7 @@ import com.sentia.android.base.vis.util.forUi
 import com.sentia.android.base.vis.util.orFalse
 import com.sentia.android.base.vis.util.toLiveData
 import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -78,20 +78,19 @@ class InspectionRepository : BaseRepository() {
         return result
     }
 
-    override fun findInspection(inspectionId: Long): LiveData<Resource<Inspection>> {
+    override fun findCompleteInspection(inspectionId: Long): Flowable<Resource<Inspection>> {
         val dao = roomVehicleDataSource.inspectionDao()
-        val inspectionFlowable = Observable.combineLatest(
+
+        return Observable.combineLatest(
                 dao.findInspectionById(inspectionId).toObservable(),
                 dao.getInspectionPhotos(inspectionId).toObservable(),
 
-                BiFunction { inspection: Inspection, photos: List<Image> ->
+                BiFunction<Inspection?, List<Image>?, Inspection> { inspection: Inspection, photos: List<Image> ->
                     inspection.images.addAll(photos)
                     inspection
                 })
                 .map { Resource(SUCCESS, it) }
                 .toFlowable(BackpressureStrategy.ERROR)
-
-        return LiveDataReactiveStreams.fromPublisher<Resource<Inspection>>(inspectionFlowable)
 
     }
 
@@ -163,17 +162,18 @@ class InspectionRepository : BaseRepository() {
                 .flatMap { inspection ->
                     Observable.just(inspection)
                 }
+                .switchMap { findCompleteInspection(it.id).map { it.data }.first(it).toObservable() }
                 .switchMap {
-                    updateInspectionUploadStatus(it.id, UPLOADING) // it will update live data for inspections
+                    updateInspectionUploadStatus(it, UPLOADING) // it will update live data for inspections
                 }
                 .switchMap { remoteDataSource.uploadInspection(it) }
-                .switchMap { updateInspectionUploadStatus(it.id, SYNCED) }
+                .switchMap { updateInspectionUploadStatus(it, SYNCED) }
+                .switchMap { updateStatusSingle(it, SYNCED, dao).concatWith(deleteSingle(it, dao)).toObservable() }
 //                .onErrorResumeNext(Observable.just(it))
                 .subscribeBy(
                         onNext = {
-                            updateStatusSingle(it, SYNCED, dao)
                             //todo delete the inspection
-                            info { "inspection ${ it.id} inspectedDate: " + it.id.toString() + " - " + it.uploadStatus.status.toString() }
+                            info { "Upload complete for inspection :${it.id} inspectedDate: " + it.id.toString() + " - " + it.uploadStatus.status.toString() }
                         },
                         onError = {
                             //todo grab the id for the inspection from the throwable and mark it as failed
@@ -181,21 +181,31 @@ class InspectionRepository : BaseRepository() {
                         })
     }
 
-    private fun updateInspectionUploadStatus(inspectionId: Long, uploadStatus: UploadStatus.Status): Observable<Inspection>? {
+
+    private fun updateInspectionUploadStatus(inspection: Inspection, uploadStatus: UploadStatus.Status): Observable<Inspection>? {
         val dao = roomVehicleDataSource.inspectionDao()
-        return dao.findInspectionById(inspectionId)
+        return dao.findInspectionById(inspection.id)
                 .firstOrError().toObservable()
                 .switchMap {
-                    updateStatusSingle(it, uploadStatus, dao)?.toObservable()
+                    updateStatusSingle(it, uploadStatus, dao).toObservable()
                 }
+                .switchMap { Observable.just(inspection) }
     }
 
-    private fun updateStatusSingle(it: Inspection, uploadStatus: UploadStatus.Status, dao: RoomInspectionDao): Single<Inspection>? {
+    private fun updateStatusSingle(it: Inspection, uploadStatus: UploadStatus.Status, dao: RoomInspectionDao): Single<Inspection> {
         return Single.fromCallable {
             val updatedInspection = it.apply { it.uploadStatus.status = uploadStatus }
             info { "uploading status for inspection : ${it.id} with status ${it.uploadStatus.status}" }
             dao.insertAll(listOf(updatedInspection))
             updatedInspection
+        }
+    }
+
+    private fun deleteSingle(it: Inspection, dao: RoomInspectionDao): Single<Inspection>? {
+        return Single.fromCallable {
+            info { "deleting inspection : ${it.id} after uploading" }
+            dao.delete(it)
+            it
         }
     }
 }

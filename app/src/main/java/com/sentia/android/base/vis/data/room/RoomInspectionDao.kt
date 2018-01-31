@@ -44,6 +44,8 @@ interface RoomInspectionDao {
 
     @Delete()
     fun delete(inspection: Inspection)
+    @Delete()
+    fun delete(images: List<Image>)
 
     @Query(SELECT_INSPECTIONS + " WHERE id IN (:inspectionId)")
     fun findInspectionById(inspectionId: Long): Flowable<Inspection>

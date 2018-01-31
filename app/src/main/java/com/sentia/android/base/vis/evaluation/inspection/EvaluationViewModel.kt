@@ -13,6 +13,7 @@ import com.sentia.android.base.vis.data.room.entity.Inspection
 import com.sentia.android.base.vis.sentialibrary.ImageCompressor
 import com.sentia.android.base.vis.util.DateUtils
 import com.sentia.android.base.vis.util.Resource
+import com.sentia.android.base.vis.util.toLiveData
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -35,7 +36,7 @@ class EvaluationViewModel : BaseViewModel() {
     val currentInspection: LiveData<Resource<Inspection>> = switchMap(inspectionLiveData) {
         //this is lazy load so it caches the result on rotation
         if (mutableInspection == null) {
-            repository.findInspection(it)
+            repository.findCompleteInspection(it).toLiveData()
         } else {
             mutationInspectionLiveData
         }

@@ -7,7 +7,7 @@ import io.reactivex.Flowable
 /**
  * Created by mariolopez on 24/1/18.
  */
-fun <T> Flowable<T>.toLiveData(): LiveData<T?> {
+fun <T> Flowable<T>.toLiveData(): LiveData<T> {
     return LiveDataReactiveStreams.fromPublisher(this)
 }
 

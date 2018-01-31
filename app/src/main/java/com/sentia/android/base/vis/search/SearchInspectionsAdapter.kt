@@ -50,7 +50,7 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
 
     data class InspectionItemView(val rego: String, val modelDerivative: String, val vin: String,
                                   val inspectedDate: String, val isUploading: Boolean,
-                                  val isNotSynced : Boolean,
+                                  val isNotSynced: Boolean,
                                   val isDividerVisible: Boolean = true)
 
     fun setInspections(newInspections: List<Inspection>?) {

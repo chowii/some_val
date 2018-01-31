@@ -62,7 +62,6 @@ data class Inspection(
 //uncomment and remove at will see image for example
 
 //        @SerializedName("depot") var rsfTyreId: Depot,
-
 //        @SerializedName("exterior_damage_report") var extDamageReport: DamageReport,
 //        @SerializedName("interior_damage_report") var intDamageReport: DamageReport,
 //        @SerializedName("tyres") var tyres: List<Tyre>,,
@@ -158,9 +157,11 @@ data class LocationDepot(
 @SuppressWarnings(RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD)
 @Entity(tableName = RoomContract.TABLE_INSPECTION_PHOTOS, primaryKeys = [
     "inspectionId", "imageId"], foreignKeys = [
-    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"]),
-    ForeignKey(entity = Image::class, parentColumns = ["id"], childColumns = ["imageId"])], indices = [
-    (Index(value = ["inspectionId"]))])
+    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"],
+            onDelete = ForeignKey.CASCADE),
+    ForeignKey(entity = Image::class, parentColumns = ["id"], childColumns = ["imageId"],
+            onDelete = ForeignKey.CASCADE)],
+        indices = [(Index(value = ["inspectionId"]))])
 data class InspectionImage(
         val inspectionId: Long,
         val imageId: Long)
