@@ -91,4 +91,21 @@
     <string name="search_screen_title">Vehicle Inspection System</string>
     <string name="search_btn_sync_all">Sync All</string>
 
+    <!--Vehicle Details-->
+    <string name="vehicle_details">Vehicle Details</string>
+    <string name="vehicle_make">Make</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_derivative">Derivative</string>
+    <string name="vehicle_build_year">Build year</string>
+    <string name="vehicle_body_type">Body type</string>
+    <string name="vehicle_fuel">Fuel</string>
+    <string name="vehicle_transmission">Transmission</string>
+    <string name="vehicle_seats">Seats</string>
+    <string name="vehicle_doors">Doors</string>
+    <string name="vehicle_driver_side">Driver side</string>
+    <string name="vehicle_engine_number">Engine number</string>
+    <string name="vehicle_drive">Drive</string>
+    <string name="vehicle_gears">Gears</string>
+    <string name="vehicle_factory_options">Factory Options</string>
+    <string name="vehicle_close">Close</string>
 </resources>

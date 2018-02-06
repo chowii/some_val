@@ -16,6 +16,7 @@ object DateUtils : AnkoLogger {
     private val FORMAT_ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     private val FORMAT_DISPLAYABLE = "dd MMM yyyy"
     private val FORMAT_TIME = "hh:mma"
+    private val FORMAT_DATE_FROM_SERVER = "yyyy-MM-dd"
 
     val dateFormatForFileName: String
         get() = SimpleDateFormat(FORMAT_FOR_FILE_NAME, Locale.getDefault()).format(Date())
@@ -60,7 +61,18 @@ object DateUtils : AnkoLogger {
         return calendar.timeInMillis
     }
 
+    fun toTimeInMillis(date: String): Long {
+        var result: Long? = null
+        try {
+            val simpleDateFormat = SimpleDateFormat(FORMAT_DATE_FROM_SERVER, Locale.getDefault())
+            result = simpleDateFormat.parse(date).time
+        } catch (e: ParseException) {
+            error { "Error during parsing a date : " + e.message }
+        }
+        return result
+    }
 }
+
 /**
  * Returns a string representation in the format specified of the long date
  * @param format format of output string

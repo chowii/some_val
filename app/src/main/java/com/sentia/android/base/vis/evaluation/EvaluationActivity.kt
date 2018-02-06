@@ -9,6 +9,7 @@ import android.view.View
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseActivity
 import com.sentia.android.base.vis.evaluation.inspection.EvaluationViewModel
+import com.sentia.android.base.vis.evaluation.vehicledetails.VehicleDetailsDialog
 import com.sentia.android.base.vis.search.SearchActivity
 import com.sentia.android.base.vis.util.KEY_INSPECTION_ID
 import com.sentia.android.base.vis.util.Resource
@@ -67,6 +68,10 @@ class EvaluationActivity : BaseActivity(), LifecycleOwner {
                     else -> throw it?.exception ?: Exception("this shouldn't happen ")
                 }
             })
+        }
+
+        tv_evaluation_vehicle_details.setOnClickListener {
+            VehicleDetailsDialog().show(supportFragmentManager, VehicleDetailsDialog.TAG)
         }
     }
 

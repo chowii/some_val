@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vehicle"
+            type="com.sentia.android.base.vis.data.room.entity.Vehicle"/>
+
+        <variable
+            name="accessories"
+            type="String"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/vehicle_details"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_make"
+            app:layout_constraintEnd_toStartOf="@+id/tv_make"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_make"/>
+
+        <TextView
+            android:id="@+id/tv_make"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.make}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_model"
+            app:layout_constraintEnd_toStartOf="@+id/tv_model"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toTopOf="@+id/tv_model"/>
+
+        <TextView
+            android:id="@+id/tv_model"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.model}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/tv_make"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView25"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_derivative"
+            app:layout_constraintEnd_toStartOf="@+id/tv_derivative"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/tv_derivative"/>
+
+        <TextView
+            android:id="@+id/tv_derivative"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.derivative}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toBottomOf="@+id/tv_model"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_build_year"
+            app:layout_constraintEnd_toStartOf="@+id/tv_build_year"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView25"
+            app:layout_constraintTop_toTopOf="@+id/tv_build_year"/>
+
+        <TextView
+            android:id="@+id/tv_build_year"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/tv_derivative"
+            app:year="@{vehicle.buildDate}"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView43"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_body_type"
+            app:layout_constraintEnd_toStartOf="@+id/tv_body_type"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView27"
+            app:layout_constraintTop_toTopOf="@+id/tv_body_type"/>
+
+        <TextView
+            android:id="@+id/tv_body_type"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.bodyType}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView43"
+            app:layout_constraintTop_toBottomOf="@+id/tv_build_year"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView45"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_fuel"
+            app:layout_constraintEnd_toStartOf="@+id/tv_fuel_type"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView43"
+            app:layout_constraintTop_toTopOf="@+id/tv_fuel_type"/>
+
+        <TextView
+            android:id="@+id/tv_fuel_type"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.fuelType}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView45"
+            app:layout_constraintTop_toBottomOf="@+id/tv_body_type"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView49"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_transmission"
+            app:layout_constraintEnd_toStartOf="@+id/tv_transmission"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView45"
+            app:layout_constraintTop_toTopOf="@+id/tv_transmission"/>
+
+        <TextView
+            android:id="@+id/tv_transmission"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.transmissionType}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView49"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fuel_type"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView29"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_seats"
+            app:layout_constraintEnd_toStartOf="@+id/tv_seats"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline11"
+            app:layout_constraintTop_toTopOf="@+id/tv_seats"/>
+
+        <TextView
+            android:id="@+id/tv_seats"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.no_of_seats.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView29"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView31"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_doors"
+            app:layout_constraintEnd_toStartOf="@+id/tv_doors"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView29"
+            app:layout_constraintTop_toTopOf="@+id/tv_doors"/>
+
+        <TextView
+            android:id="@+id/tv_doors"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.doors.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView31"
+            app:layout_constraintTop_toBottomOf="@+id/tv_seats"
+            tools:text="@tools:sample/lorem"/>
+
+        <TextView
+            android:id="@+id/textView34"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_driver_side"
+            app:layout_constraintEnd_toStartOf="@+id/tv_driver_side"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView31"
+            app:layout_constraintTop_toTopOf="@+id/tv_driver_side"/>
+
+        <TextView
+            android:id="@+id/tv_driver_side"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.driverSide}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView34"
+            app:layout_constraintTop_toBottomOf="@+id/tv_doors"
+            tools:text="Test"/>
+
+        <TextView
+            android:id="@+id/textView36"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_engine_number"
+            app:layout_constraintEnd_toStartOf="@+id/tv_engine_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView34"
+            app:layout_constraintTop_toTopOf="@+id/tv_engine_number"/>
+
+        <TextView
+            android:id="@+id/tv_engine_number"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.engineNumber}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView36"
+            app:layout_constraintTop_toBottomOf="@+id/tv_driver_side"
+            tools:text="Test"/>
+
+        <TextView
+            android:id="@+id/textView39"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_drive"
+            app:layout_constraintEnd_toStartOf="@+id/tv_drive"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textView36"
+            app:layout_constraintTop_toTopOf="@+id/tv_drive"/>
+
+        <TextView
+            android:id="@+id/tv_drive"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.driverTransmission}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView39"
+            app:layout_constraintTop_toBottomOf="@+id/tv_engine_number"
+            tools:text="Test"/>
+
+        <TextView
+            android:id="@+id/textView41"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vehicle_gears"
+            app:layout_constraintEnd_toStartOf="@+id/tv_gears"
+            app:layout_constraintStart_toStartOf="@+id/textView39"
+            app:layout_constraintTop_toTopOf="@+id/tv_gears"/>
+
+        <TextView
+            android:id="@+id/tv_gears"
+            style="@style/TextVehicleDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{vehicle.gears.toString()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView41"
+            app:layout_constraintTop_toBottomOf="@+id/tv_drive"
+            tools:text="Test"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextVehicleDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorBackground"
+            android:padding="16dp"
+            android:text="@string/vehicle_factory_options"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_transmission"/>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:text="@{accessories}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:text="Options"/>
+
+        <Button
+            android:id="@+id/btn_close"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/vehicle_close"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
