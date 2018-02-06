@@ -83,6 +83,8 @@ class InspectionRepository : BaseRepository() {
                 dao.getInspectionPhotos(inspectionId).toObservable(),
 
                 BiFunction<Inspection?, List<Image>?, Inspection> { inspection: Inspection, photos: List<Image> ->
+                    //todo: ignored fields from database are not empty
+                    inspection.images.clear()
                     inspection.images.addAll(photos)
                     inspection
                 })

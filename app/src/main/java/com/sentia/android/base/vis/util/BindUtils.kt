@@ -53,6 +53,8 @@ object ImageBindingAdapter {
                     .placeholder(placeHolder)
                     .centerCrop()
                     .into(view)
+        } else {
+            view.setImageBitmap(null)
         }
     }
 }

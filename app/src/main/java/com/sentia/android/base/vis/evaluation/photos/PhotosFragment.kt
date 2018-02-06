@@ -45,6 +45,11 @@ class PhotosFragment : EvaluationBaseFragment() {
 
     private fun initUi() {
         val photosAdapter = PhotosAdapter()
+        with(rv_photos) {
+            setHasFixedSize(true)
+            adapter = photosAdapter
+            layoutManager = GridLayoutManager(this.context, ITEMS_IN_LINE)
+        }
         inspectionViewModel.currentInspection.observe(this, Observer<Resource<Inspection>?> {
             it?.data?.images?.let {
                 photosAdapter.setData(it)
@@ -62,12 +67,6 @@ class PhotosFragment : EvaluationBaseFragment() {
                     error { "Error during compressing image" }
                 })
         subscribeOnItemClick(photosAdapter)
-
-        with(rv_photos) {
-            setHasFixedSize(true)
-            adapter = photosAdapter
-            layoutManager = GridLayoutManager(this.context, ITEMS_IN_LINE)
-        }
         srl_loading.isEnabled = false
     }
 
