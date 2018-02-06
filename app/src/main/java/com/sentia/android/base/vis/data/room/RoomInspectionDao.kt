@@ -6,12 +6,10 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.SELECT_FROM
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.SELECT_INSPECTIONS
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.SELECT_INSPECTIONS_COUNT
+import com.sentia.android.base.vis.data.room.RoomContract.Companion.SELECT_LOOKUPS
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.TABLE_INSPECTION_PHOTOS
 import com.sentia.android.base.vis.data.room.RoomContract.Companion.TABLE_PHOTOS
-import com.sentia.android.base.vis.data.room.entity.Image
-import com.sentia.android.base.vis.data.room.entity.Inspection
-import com.sentia.android.base.vis.data.room.entity.InspectionImage
-import com.sentia.android.base.vis.data.room.entity.UploadStatus
+import com.sentia.android.base.vis.data.room.entity.*
 import io.reactivex.Flowable
 
 /**
@@ -26,6 +24,9 @@ interface RoomInspectionDao {
     @Query(SELECT_INSPECTIONS)
     fun getAllInspections(): Flowable<List<Inspection>?>
 
+    @Query(SELECT_LOOKUPS)
+    fun getAllLookups(): Flowable<Lookups>
+
     @Query(SELECT_INSPECTIONS + " WHERE vehicle_vin LIKE :search OR vehicle_rego LIKE :search")
     fun findInspectionByVinOrRego(search: String): LiveData<List<Inspection>>
 
@@ -34,7 +35,13 @@ interface RoomInspectionDao {
 
     //
     @Insert(onConflict = REPLACE)
-    fun insertAll(vehicles: List<Inspection>): List<Long>
+    fun insertAll(inspections: List<Inspection>): List<Long>
+
+    @Insert(onConflict = REPLACE)
+    fun insertLookups(lookups: Lookups): Long
+
+    @Insert(onConflict = REPLACE)
+    fun insertAllDepots(depots: List<Depot>): List<Long>
 
     @Insert(onConflict = REPLACE)
     fun insertAllImages(photos: List<Image>): List<Long>

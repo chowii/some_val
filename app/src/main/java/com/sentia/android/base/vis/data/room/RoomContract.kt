@@ -18,11 +18,13 @@ class RoomContract {
         const val TABLE_LOCATION_JSON = "Location_Model_Table"
         const val TABLE_PHOTOS = "Photos_Model_Table"
         const val TABLE_INSPECTION_PHOTOS = "Inspection_Photos_Model_Table"
+        const val TABLE_LOOKUPS = "LOOKUPS"
 
         private const val SELECT_COUNT = "SELECT COUNT(*) FROM "
         internal const val SELECT_FROM = "SELECT * FROM "
 
         const val SELECT_INSPECTIONS_COUNT = SELECT_COUNT + TABLE_INSPECTIONS
         const val SELECT_INSPECTIONS = SELECT_FROM + TABLE_INSPECTIONS
+        const val SELECT_LOOKUPS= SELECT_FROM + TABLE_LOOKUPS
     }
 }

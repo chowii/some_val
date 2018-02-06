@@ -16,4 +16,6 @@ class LoginViewModel : BaseViewModel() {
 
     fun login(username: String, password: String): LiveData<Resource<LoginResult>> =
             repository.login(username, password)
+
+    fun loadInitValues() = repository.getInitValues()
 }

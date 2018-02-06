@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "82132add08cf360d6a9c0e90365fdbb0",
+    "identityHash": "66ba1bbb5b6a1e24bb3ed93872c85f67",
     "entities": [
       {
         "tableName": "Inspections_Table",
@@ -375,7 +375,7 @@
       },
       {
         "tableName": "Depots_Model_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `inspectionId` INTEGER NOT NULL, `idLocation` INTEGER NOT NULL, `address1` TEXT NOT NULL, `address2` TEXT, `address3` TEXT, `address4` TEXT NOT NULL, `postCode` TEXT NOT NULL, `suburb` TEXT NOT NULL, `state` TEXT NOT NULL, `country` TEXT NOT NULL, `latitude` REAL, `longitude` REAL, PRIMARY KEY(`id`), FOREIGN KEY(`inspectionId`) REFERENCES `Inspections_Table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `companyName` TEXT NOT NULL, `idLocation` INTEGER NOT NULL, `address1` TEXT, `address2` TEXT, `address3` TEXT, `address4` TEXT, `postCode` TEXT, `suburb` TEXT, `state` TEXT, `country` TEXT, `latitude` REAL, `longitude` REAL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -384,79 +384,73 @@
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "companyName",
+            "columnName": "companyName",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "inspectionId",
-            "columnName": "inspectionId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "locationDepot.idLocation",
+            "fieldPath": "location.idLocation",
             "columnName": "idLocation",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "locationDepot.address1",
+            "fieldPath": "location.address1",
             "columnName": "address1",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.address2",
+            "fieldPath": "location.address2",
             "columnName": "address2",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "locationDepot.address3",
+            "fieldPath": "location.address3",
             "columnName": "address3",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "locationDepot.address4",
+            "fieldPath": "location.address4",
             "columnName": "address4",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.postCode",
+            "fieldPath": "location.postCode",
             "columnName": "postCode",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.suburb",
+            "fieldPath": "location.suburb",
             "columnName": "suburb",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.state",
+            "fieldPath": "location.state",
             "columnName": "state",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.country",
+            "fieldPath": "location.country",
             "columnName": "country",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
-            "fieldPath": "locationDepot.latitude",
+            "fieldPath": "location.latitude",
             "columnName": "latitude",
             "affinity": "REAL",
             "notNull": false
           },
           {
-            "fieldPath": "locationDepot.longitude",
+            "fieldPath": "location.longitude",
             "columnName": "longitude",
             "affinity": "REAL",
             "notNull": false
@@ -470,35 +464,15 @@
         },
         "indices": [
           {
-            "name": "index_Depots_Model_Table_inspectionId",
-            "unique": true,
-            "columnNames": [
-              "inspectionId"
-            ],
-            "createSql": "CREATE UNIQUE INDEX `index_Depots_Model_Table_inspectionId` ON `${TABLE_NAME}` (`inspectionId`)"
-          },
-          {
-            "name": "index_Depots_Model_Table_name",
+            "name": "index_Depots_Model_Table_id",
             "unique": false,
             "columnNames": [
-              "name"
+              "id"
             ],
-            "createSql": "CREATE  INDEX `index_Depots_Model_Table_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE  INDEX `index_Depots_Model_Table_id` ON `${TABLE_NAME}` (`id`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "Inspections_Table",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "inspectionId"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "Photos_Model_Table",
@@ -836,11 +810,61 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "LOOKUPS",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tyreBrands` TEXT NOT NULL, `spareTyreBrands` TEXT NOT NULL, `serviceHistories` TEXT NOT NULL, `inspectionConditions` TEXT NOT NULL, `vehicleConditions` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tyreBrands",
+            "columnName": "tyreBrands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "spareTyreBrands",
+            "columnName": "spareTyreBrands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serviceHistories",
+            "columnName": "serviceHistories",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inspectionConditions",
+            "columnName": "inspectionConditions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicleConditions",
+            "columnName": "vehicleConditions",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"82132add08cf360d6a9c0e90365fdbb0\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"66ba1bbb5b6a1e24bb3ed93872c85f67\")"
     ]
   }
 }

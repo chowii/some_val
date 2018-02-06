@@ -29,7 +29,7 @@ class SearchFragment : BaseFragment() {
 
     override fun initViewModel() {
         searchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        searchViewModel.let { lifecycle.addObserver(it) }
+        lifecycle.addObserver(searchViewModel)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

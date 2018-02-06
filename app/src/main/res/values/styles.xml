@@ -15,6 +15,10 @@
         <!--<item name="actionBarWidgetTheme">@style/WidgetStyle</item>-->
         <item name="colorControlNormal">@color/white</item>
     </style>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
 
     <style name="WidgetStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorControlNormal">@color/white</item>

@@ -69,18 +69,6 @@ data class Inspection(
 //)
 }
 
-@Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT, foreignKeys = [
-    ForeignKey(entity = Inspection::class, parentColumns = ["id"], childColumns = ["inspectionId"])],
-        indices = [(Index(value = ["inspectionId"], unique = true)),
-            (Index(value = ["name"]))])
-data class Depot(
-        @PrimaryKey
-        @SerializedName("id") val id: Long,
-        @SerializedName("name") val name: String,
-        @SerializedName("inspection_id") val inspectionId: Long,
-        @Embedded
-        val locationDepot: LocationDepot)
-
 @Entity(tableName = RoomContract.TABLE_PHOTOS,
         indices = [(Index(value = ["id"], unique = true))])
 data class Image(
@@ -141,19 +129,6 @@ data class Accessory(
         @SerializedName("name") var name: String,
         @SerializedName("value") var isChecked: Boolean)
 
-data class LocationDepot(
-        @SerializedName("id") val idLocation: Long,
-        @SerializedName("address_1") val address1: String,
-        @SerializedName("address_2") val address2: String?,
-        @SerializedName("address_3") val address3: String?,
-        @SerializedName("address_4") val address4: String,
-        @SerializedName("postcode") val postCode: String,
-        @SerializedName("suburb") val suburb: String,
-        @SerializedName("state") val state: String,
-        @SerializedName("country") val country: String,
-        @SerializedName("lat") val latitude: Float?,
-        @SerializedName("long") val longitude: Float?)
-
 @SuppressWarnings(RoomWarnings.MISSING_INDEX_ON_FOREIGN_KEY_CHILD)
 @Entity(tableName = RoomContract.TABLE_INSPECTION_PHOTOS, primaryKeys = [
     "inspectionId", "imageId"], foreignKeys = [
@@ -177,4 +152,52 @@ data class UploadStatus(
         UPLOADING,
         FAILED
     }
+}
+
+@Entity(tableName = RoomContract.TABLE_LOOKUPS)
+data class Lookups(
+        @PrimaryKey(autoGenerate = true)
+        val id: Int,
+        @SerializedName("tyre_brand")
+        val tyreBrands: List<LookupItem>,
+        @SerializedName("spare_tyre")
+        val spareTyreBrands: List<LookupItem>,
+        @SerializedName("service_history")
+        val serviceHistories: List<LookupItem>,
+        @SerializedName("inspection_condition")
+        val inspectionConditions: List<LookupItem>,
+        @SerializedName("vehicle_condition")
+        val vehicleConditions: List<LookupItem>)
+
+data class LookupItem(val name: String)
+
+@Entity(tableName = RoomContract.TABLE_INSPECTION_DEPOT,
+        indices = [(Index(value = ["id"]))])
+data class Depot(
+        @PrimaryKey()
+        val id: Int,
+        @SerializedName("company_name")
+        val companyName: String,
+        @Embedded
+        @SerializedName("location")
+        val location: LocationDepot)
+
+data class LocationDepot(
+        @SerializedName("id") val idLocation: Long,
+        @SerializedName("address_1") val address1: String?,
+        @SerializedName("address_2") val address2: String?,
+        @SerializedName("address_3") val address3: String?,
+        @SerializedName("address_4") val address4: String?,
+        @SerializedName("postcode") val postCode: String?,
+        @SerializedName("suburb") val suburb: String?,
+        @SerializedName("state") val state: String?,
+        @SerializedName("country") val country: String?,
+        @SerializedName("lat") val latitude: Double?,
+        @SerializedName("long") val longitude: Double?) {
+
+
+    val fullAddress: String
+        @Ignore
+        get() = "${address1.orEmpty()} ${address2.orEmpty()} ${address3.orEmpty()} ${address4.orEmpty()}".trim()
+
 }

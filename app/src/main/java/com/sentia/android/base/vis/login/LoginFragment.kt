@@ -16,9 +16,8 @@ import com.sentia.android.base.vis.search.SearchActivity
 import com.sentia.android.base.vis.util.*
 import com.sentia.android.base.vis.util.Resource.Status.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.*
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.newTask
 
 
 /**
@@ -76,7 +75,7 @@ class LoginFragment : BaseFragment() {
                         when (it!!.status) {
                             SUCCESS -> {
                                 authManager.login(it.data)
-                                startActivity(intentFor<SearchActivity>().clearTask().newTask())
+                                loadInitialValues()
                             }
                             ERROR -> {
                                 pb_loading.gone()
@@ -90,6 +89,30 @@ class LoginFragment : BaseFragment() {
                         }
                     })
         }
+    }
+
+    private fun loadInitialValues() {
+        loginViewModel.loadInitValues().observe(this, Observer {
+            when (it?.status) {
+                SUCCESS -> {
+                    startActivity(intentFor<SearchActivity>().clearTask().newTask())
+                }
+                ERROR -> {
+                    activity?.alert {
+                        title = getString(R.string.alert_attention)
+                        message = getString(R.string.alert_need_initial_values_needed)
+                        yesButton {
+                            title = getString(R.string.alert_retry)
+                            loadInitialValues()
+                        }
+                    }?.show()
+                    error { it.exception }
+                }
+                LOADING -> {/*do nothing*/
+                }
+            }
+        })
+
     }
 
     private fun validate(email: String, password: String): Boolean {

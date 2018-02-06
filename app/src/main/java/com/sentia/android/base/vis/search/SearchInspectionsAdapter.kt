@@ -38,6 +38,7 @@ class SearchInspectionsAdapter(private val inspections: MutableList<Inspection> 
         holder.itemView.clicks().map { inspection.id }.subscribe { itemClicksPublisher.onNext(it) }
         holder.itemView.ic_upload.clicks().map { inspection }.subscribe { uploadClicksPublisher.onNext(it) }
         holder.bind(inspectionItemView)
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount() = inspections.size

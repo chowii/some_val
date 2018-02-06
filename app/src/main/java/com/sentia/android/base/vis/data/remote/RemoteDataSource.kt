@@ -22,4 +22,8 @@ class RemoteDataSource {
             Keys.User.PASSWORD to password))
 
     fun uploadInspection(inspection: Inspection) = restAdapter.projectApi.uploadInspection(inspection.id, mapOf("inspection" to inspection))
+
+//    Initial values
+    fun getLookUps() = restAdapter.projectApi.getLookUps()
+    fun getDepots() = restAdapter.projectApi.getDepots()
 }

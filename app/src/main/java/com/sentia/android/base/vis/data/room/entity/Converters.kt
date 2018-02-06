@@ -35,3 +35,18 @@ class AccessoryTypeConverter {
     }
 
 }
+
+class LookupsTypeConverter {
+
+    @TypeConverter
+    fun lookupsListToString(lookups: List<LookupItem>): String {
+        return Gson().toJson(lookups)
+    }
+
+    @TypeConverter
+    fun lookupsJsonStringToList(jsonString: String): List<LookupItem> {
+        val listType = object : TypeToken<List<LookupItem>>() {}.type
+        return Gson().fromJson(jsonString, listType)
+    }
+
+}

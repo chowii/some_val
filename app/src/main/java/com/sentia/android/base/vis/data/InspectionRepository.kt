@@ -9,10 +9,7 @@ import com.sentia.android.base.vis.data.remote.RemoteDataSource
 import com.sentia.android.base.vis.data.repository.BaseRepository
 import com.sentia.android.base.vis.data.room.RoomInspectionDao
 import com.sentia.android.base.vis.data.room.RoomInspectionDataSource
-import com.sentia.android.base.vis.data.room.entity.Image
-import com.sentia.android.base.vis.data.room.entity.Inspection
-import com.sentia.android.base.vis.data.room.entity.InspectionImage
-import com.sentia.android.base.vis.data.room.entity.UploadStatus
+import com.sentia.android.base.vis.data.room.entity.*
 import com.sentia.android.base.vis.data.room.entity.UploadStatus.Status.*
 import com.sentia.android.base.vis.util.Resource
 import com.sentia.android.base.vis.util.Resource.Status.*
@@ -92,6 +89,31 @@ class InspectionRepository : BaseRepository() {
                 .map { Resource(SUCCESS, it) }
                 .toFlowable(BackpressureStrategy.ERROR)
 
+    }
+
+    fun getInitValues(): LiveData<Resource<Nothing>> {
+        val result = MutableLiveData<Resource<Nothing>>()
+        remoteDataSource.getLookUps()
+                .zipWith(remoteDataSource.getDepots(),
+                        BiFunction { lookUps: Lookups, depots: List<Depot> ->
+                            Pair(lookUps, depots)
+                        })
+                .retry(5)
+                .flatMap { (lookups, depots) ->
+                    Single.fromCallable {
+                        Pair(roomVehicleDataSource.inspectionDao().insertLookups(lookups),
+                                roomVehicleDataSource.inspectionDao().insertAllDepots(depots))
+                    }
+                }
+                .forUi()
+                .subscribeBy(
+                        onSuccess = {
+                            result.value = Resource(SUCCESS)
+                        },
+                        onError = {
+                            result.value = Resource(ERROR, exception = AppException(it))
+                        })
+        return result
     }
 
     override fun getInspections(): LiveData<Resource<List<Inspection>>> {
@@ -208,6 +230,7 @@ class InspectionRepository : BaseRepository() {
             it
         }
     }
+
 }
 
 

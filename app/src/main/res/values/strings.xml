@@ -9,6 +9,7 @@
     <string name="tab_evaluation_photos">Photos</string>
     <string name="tab_evaluation_damages">Damages</string>
     <string name="alert_warning_closing">By closing this screen you will loose all not committed changes</string>
+    <string name="alert_need_initial_values_needed">We need the initial values</string>
 
     <!--SEARCH-->
     <!--Search Screen-->
@@ -70,6 +71,9 @@
     <string name="btn_label_cancel">Cancel</string>
     <string name="btn_label_save">Save</string>
     <string name="damage_check_switch_text">I have inspected the interior of the inspectionLiveData and \n recorded any damage present</string>
+
+    <!--Splash-->
+    <string name="alert_retry">Retry</string>
 
     <!--Login-->
     <string name="btn_label_login">Log in</string>

@@ -15,8 +15,8 @@ import java.util.*
  */
 
 @BindingAdapter("android:visibility")
-fun setVisibility(view: View, value: Boolean) {
-    view.visibility = if (value) View.VISIBLE else View.GONE
+fun setVisibility(view: View, value: Boolean?) {
+    view.visibility = if (value.orFalse()) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("year")
