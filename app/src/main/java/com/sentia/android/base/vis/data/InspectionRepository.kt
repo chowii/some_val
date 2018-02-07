@@ -78,13 +78,11 @@ class InspectionRepository : BaseRepository() {
     override fun findCompleteInspection(inspectionId: Long): Flowable<Resource<Inspection>> {
         val dao = roomVehicleDataSource.inspectionDao()
 
-        return Observable.combineLatest(
+        return Observable.zip(
                 dao.findInspectionById(inspectionId).toObservable(),
                 dao.getInspectionPhotos(inspectionId).toObservable(),
 
                 BiFunction<Inspection?, List<Image>?, Inspection> { inspection: Inspection, photos: List<Image> ->
-                    //todo: ignored fields from database are not empty
-                    inspection.images.clear()
                     inspection.images.addAll(photos)
                     inspection
                 })
