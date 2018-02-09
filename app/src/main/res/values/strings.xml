@@ -112,4 +112,5 @@
     <string name="vehicle_gears">Gears</string>
     <string name="vehicle_factory_options">Factory Options</string>
     <string name="vehicle_close">Close</string>
+    <string name="inspection_tyre_edit_text_depth_hint">Depth</string>
 </resources>

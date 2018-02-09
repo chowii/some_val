@@ -45,9 +45,10 @@
             app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsf">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/lsf_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Depth" />
+                android:hint="@string/inspection_tyre_edit_text_depth_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
@@ -86,9 +87,10 @@
             app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsf">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/rsf_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Depth" />
+                android:hint="@string/inspection_tyre_edit_text_depth_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
@@ -127,9 +129,10 @@
             app:layout_constraintTop_toTopOf="@+id/tv_tyre_rsr">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/rsr_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Depth" />
+                android:hint="@string/inspection_tyre_edit_text_depth_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
@@ -169,9 +172,10 @@
             app:layout_constraintTop_toTopOf="@+id/tv_tyre_lsr">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/lsr_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Depth" />
+                android:hint="@string/inspection_tyre_edit_text_depth_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
@@ -211,9 +215,10 @@
             app:layout_constraintTop_toTopOf="@+id/tv_tyre_spare">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/spare_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Depth" />
+                android:hint="@string/inspection_tyre_edit_text_depth_hint" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
