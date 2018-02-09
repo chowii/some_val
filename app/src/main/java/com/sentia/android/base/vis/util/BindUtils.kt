@@ -5,9 +5,12 @@ import android.graphics.drawable.Drawable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Base64
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.sentia.android.base.vis.data.room.entity.LookupItem
 import java.util.*
 
 /**
@@ -26,6 +29,16 @@ fun setYear(textView: TextView, date: String?) {
         calendar.timeInMillis = DateUtils.toTimeInMillis(date)
         textView.text = calendar.get(Calendar.YEAR).toString()
     }
+}
+
+@BindingAdapter(value = ["android:entries"], requireAll = false)
+fun setTyreBrand(spinner: Spinner, date: List<LookupItem>?) {
+    date?.let { spinner.adapter = TyreSpinnerAdapter(spinner.context, it) }
+}
+
+@BindingAdapter("android:onItemSelected")
+fun setOnItemSelected(spinner: Spinner, selectedListener: AdapterView.OnItemSelectedListener?) {
+    spinner.onItemSelectedListener = selectedListener
 }
 
 @BindingAdapter("app:isRefreshing")

@@ -118,6 +118,34 @@ class InspectionRepository : BaseRepository() {
         return result
     }
 
+    fun getLookups(): LiveData<Resource<Lookups>> = MediatorLiveData<Resource<Lookups>>().apply {
+        val dao = roomVehicleDataSource.inspectionDao()
+        val remoteResult = MutableLiveData<Resource<Lookups>>().apply { value = Resource(LOADING) }
+
+        addSource(dao.getAllLookups().toLiveData(), { lookups: Lookups? ->
+            value = Resource(SUCCESS, lookups)
+        })
+
+        addSource(remoteResult, { lookups: Resource<Lookups>? ->
+            value = lookups
+        })
+
+        compositeDisposable += Observable.zip(
+                dao.getAllLookups().toObservable(),
+                remoteDataSource.getLookUps().toObservable(),
+                BiFunction { lookup: Lookups, remoteLookup: Lookups ->
+                    if (lookup == remoteLookup)
+                        lookup
+                    else
+                        remoteLookup
+                })
+                .forUi()
+                .subscribeBy(
+                        onNext = { remoteResult.value = Resource(SUCCESS, it) },
+                        onError = { remoteResult.value = Resource(ERROR, null, AppException(it)) })
+    }
+
+
     override fun getInspections(): LiveData<Resource<List<Inspection>>> {
         val result = MediatorLiveData<Resource<List<Inspection>>>()
         val remoteResult = MutableLiveData<Resource<List<Inspection>>>()
@@ -204,7 +232,6 @@ class InspectionRepository : BaseRepository() {
                             error { it }
                         })
     }
-
 
     private fun updateInspectionUploadStatus(inspection: Inspection, uploadStatus: UploadStatus.Status): Observable<Inspection>? {
         val dao = roomVehicleDataSource.inspectionDao()
