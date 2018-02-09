@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Base64
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -34,11 +33,6 @@ fun setYear(textView: TextView, date: String?) {
 @BindingAdapter(value = ["android:entries"], requireAll = false)
 fun setTyreBrand(spinner: Spinner, date: List<LookupItem>?) {
     date?.let { spinner.adapter = TyreSpinnerAdapter(spinner.context, it) }
-}
-
-@BindingAdapter("android:onItemSelected")
-fun setOnItemSelected(spinner: Spinner, selectedListener: AdapterView.OnItemSelectedListener?) {
-    spinner.onItemSelectedListener = selectedListener
 }
 
 @BindingAdapter("app:isRefreshing")

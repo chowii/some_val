@@ -10,6 +10,7 @@ import com.github.salomonbrys.kodein.instance
 import com.sentia.android.base.vis.base.BaseViewModel
 import com.sentia.android.base.vis.data.InspectionRepository
 import com.sentia.android.base.vis.data.room.entity.Inspection
+import com.sentia.android.base.vis.data.room.entity.Lookups
 import com.sentia.android.base.vis.sentialibrary.ImageCompressor
 import com.sentia.android.base.vis.util.DateUtils
 import com.sentia.android.base.vis.util.Resource
@@ -68,4 +69,6 @@ class EvaluationViewModel : BaseViewModel() {
                 }
                 .doOnError { imageSubject.onNext(Resource(Resource.Status.ERROR)) }
     }
+
+    fun loadLookUps(): LiveData<Resource<Lookups>> = repository.getLookups()
 }
