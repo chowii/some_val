@@ -20,6 +20,7 @@ import org.jetbrains.anko.intentFor
 abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     val kodein: LazyKodein = LazyKodein { App.context!!.kodein }
     protected val authManager: AuthManager by kodein.instance()
+    protected open val handleExitScreenEvent = true
     private val rxBus: RxBus by kodein.instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +28,12 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         rxBus.observe(AuthPass::class.java).subscribe {
             when (it) {
                 is NotAuthorised -> {
-                    finishAffinity()
-                    startActivity(intentFor<LoginActivity>().clearTask())
+                    if (handleExitScreenEvent) {
+                        finishAffinity()
+                        startActivity(intentFor<LoginActivity>().clearTask())
+                    }
                 }
             }
         }
     }
-
 }

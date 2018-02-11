@@ -18,6 +18,9 @@ import org.jetbrains.anko.*
 
 class SplashActivity : BaseActivity() {
 
+    override val handleExitScreenEvent: Boolean
+        get() = false
+
     private lateinit var splashViewModel: SplashActivityViewModel
 
     private val networkManager: NetworkStatusManager by kodein.instance()
@@ -48,7 +51,7 @@ class SplashActivity : BaseActivity() {
                         title = getString(R.string.alert_attention)
                         message = getString(R.string.alert_need_initial_values_needed)
 
-                        yesButton { loadValues()}
+                        yesButton { loadValues() }
                     }.show()
                     error { it.exception }
                 }

@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.sentia.android.base.vis.R
 import com.sentia.android.base.vis.base.BaseFragment
@@ -58,7 +59,13 @@ class SearchFragment : BaseFragment() {
         //Search
         et_search.textChanges().filter { it.isNotBlank() }
                 .subscribe { searchViewModel.search(it.toRoomSearchString()) }
-
+        et_search.setOnEditorActionListener({ v, actionId, _ ->
+            if (EditorInfo.IME_ACTION_SEARCH == actionId) {
+                searchViewModel.search(v.text.toRoomSearchString())
+                return@setOnEditorActionListener true
+            }
+            false
+        })
         //Swipe to refresh
         srl_inspections.setOnRefreshListener { searchViewModel.search(et_search.text.toRoomSearchString()) }
 
