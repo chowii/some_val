@@ -24,4 +24,6 @@ interface Repository {
     fun findCompleteInspection(inspectionId: Long): Flowable<Resource<Inspection>>
 
     fun getTotalInspections(): Flowable<Int>
+    fun getTotalLookups(): Flowable<Int>
+    fun getTotalDepots(): Flowable<Int>
 }

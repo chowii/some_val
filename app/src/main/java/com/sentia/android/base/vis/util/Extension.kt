@@ -24,7 +24,6 @@ import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.internals.AnkoInternals
 
 
-
 /**
  * Created by mariolopez on 8/1/18.
  */

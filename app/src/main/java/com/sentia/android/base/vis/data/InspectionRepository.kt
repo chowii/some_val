@@ -93,6 +93,7 @@ class InspectionRepository : BaseRepository() {
 
     fun getInitValues(): LiveData<Resource<Nothing>> {
         val result = MutableLiveData<Resource<Nothing>>()
+        info { "loading initial values" }
         remoteDataSource.getLookUps()
                 .zipWith(remoteDataSource.getDepots(),
                         BiFunction { lookUps: Lookups, depots: List<Depot> ->
@@ -108,6 +109,7 @@ class InspectionRepository : BaseRepository() {
                 .forUi()
                 .subscribeBy(
                         onSuccess = {
+                            info { "initial values loaded" }
                             result.value = Resource(SUCCESS)
                         },
                         onError = {
@@ -155,6 +157,8 @@ class InspectionRepository : BaseRepository() {
     }
 
     override fun getTotalInspections() = roomVehicleDataSource.inspectionDao().getTotalInspections()
+    override fun getTotalLookups() = roomVehicleDataSource.inspectionDao().getTotalLookups()
+    override fun getTotalDepots() = roomVehicleDataSource.inspectionDao().getTotalDepots()
 
 
     fun login(email: String, password: String): LiveData<Resource<LoginResult>> {

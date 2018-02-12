@@ -10,6 +10,7 @@ import com.sentia.android.base.vis.api.auth.AuthPass
 import com.sentia.android.base.vis.api.auth.NotAuthorised
 import com.sentia.android.base.vis.login.LoginActivity
 import com.sentia.android.base.vis.util.RxBus
+import io.reactivex.disposables.CompositeDisposable
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.intentFor
@@ -22,6 +23,7 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
     protected val authManager: AuthManager by kodein.instance()
     protected open val handleExitScreenEvent = true
     private val rxBus: RxBus by kodein.instance()
+    protected val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,5 +37,10 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 }

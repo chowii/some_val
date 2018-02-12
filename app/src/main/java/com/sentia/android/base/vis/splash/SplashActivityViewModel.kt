@@ -11,4 +11,6 @@ class SplashActivityViewModel : BaseViewModel() {
     override val repository by kodein.instance<InspectionRepository>()
 
     fun loadInitValues() = repository.getInitValues()
+    fun getLookupCount() = repository.getTotalLookups()
+    fun getDepotsCount() = repository.getTotalDepots()
 }
